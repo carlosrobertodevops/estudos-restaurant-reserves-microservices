@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantReserves.Restaurant.Core\RestaurantReserves.Restaurant.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReserves.Restaurant.Infrastructure\RestaurantReserves.Restaurant.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
