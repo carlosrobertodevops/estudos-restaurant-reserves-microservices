@@ -1,6 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.Exceptions;
-
-namespace RestaurantReserves.Restaurant.Core.ValueObjects
+﻿namespace RestaurantReserves.Restaurant.Core.ValueObjects
 {
     public class Phone
     {

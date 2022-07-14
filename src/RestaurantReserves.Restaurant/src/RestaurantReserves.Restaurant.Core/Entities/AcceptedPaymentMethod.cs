@@ -1,7 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.DomainObjects;
-using RestaurantReserves.Restaurant.Core.Exceptions;
-
-namespace RestaurantReserves.Restaurant.Core.Entities
+﻿namespace RestaurantReserves.Restaurant.Core.Entities
 {
     public class AcceptedPaymentMethod
     {

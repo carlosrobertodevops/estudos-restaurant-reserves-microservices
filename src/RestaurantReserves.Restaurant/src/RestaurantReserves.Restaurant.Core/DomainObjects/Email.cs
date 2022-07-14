@@ -1,7 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.Exceptions;
-using System.Text.RegularExpressions;
-
-namespace RestaurantReserves.Restaurant.Core.DomainObjects
+﻿namespace RestaurantReserves.Restaurant.Core.DomainObjects
 {
     public class Email
     {

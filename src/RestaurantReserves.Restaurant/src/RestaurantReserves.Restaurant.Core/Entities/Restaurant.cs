@@ -1,8 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.DomainObjects;
-using RestaurantReserves.Restaurant.Core.Exceptions;
-using RestaurantReserves.Restaurant.Core.ValueObjects;
-
-namespace RestaurantReserves.Restaurant.Core.Entities
+﻿namespace RestaurantReserves.Restaurant.Core.Entities
 {
     public class Restaurant
     {

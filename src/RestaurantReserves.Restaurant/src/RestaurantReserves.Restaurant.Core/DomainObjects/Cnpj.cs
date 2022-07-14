@@ -1,6 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.Exceptions;
-
-namespace RestaurantReserves.Restaurant.Core.DomainObjects
+﻿namespace RestaurantReserves.Restaurant.Core.DomainObjects
 {
     public class Cnpj
     {

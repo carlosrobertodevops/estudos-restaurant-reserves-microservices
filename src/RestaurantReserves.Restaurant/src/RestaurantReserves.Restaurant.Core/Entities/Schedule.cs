@@ -1,8 +1,4 @@
-﻿using RestaurantReserves.Restaurant.Core.DomainObjects;
-using RestaurantReserves.Restaurant.Core.Exceptions;
-using System.Text.RegularExpressions;
-
-namespace RestaurantReserves.Restaurant.Core.Entities
+﻿namespace RestaurantReserves.Restaurant.Core.Entities
 {
     public class Schedule
     {
