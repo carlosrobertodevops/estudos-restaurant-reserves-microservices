@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -16,27 +17,41 @@ namespace RestaurantReserves.Restaurant.API.Configuration.Definitions
 
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = builder.Configuration["Swagger:Title"],
-                    Description = builder.Configuration["Swagger:Description"],
-                    TermsOfService = new Uri(builder.Configuration["Swagger:TermsOfService"]),
-                    Contact = new OpenApiContact
-                    {
-                        Name = builder.Configuration["Swagger:Contact:Name"],
-                        Url = new Uri(builder.Configuration["Swagger:Contact:Url"])
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = builder.Configuration["Swagger:License:Name"],
-                        Url = new Uri(builder.Configuration["Swagger:License:Url"])
-                    }
-                });
+                //foreach (var description in _provider.ApiVersionDescriptions)
+                //{
+                //    options.SwaggerDoc
+                //        (
+                //            description.GroupName,
+                //            CreateInfoForApiVersion(builder, description)
+                //        );
+
+                //    options.OrderActionsBy(selector => $"{selector.HttpMethod}_{selector.GroupName}_{selector.ActionDescriptor.RouteValues["action"]}");
+                //}
+
+                options.SwaggerDoc
+                        (
+                            "v1",
+                            CreateInfoForApiVersion(builder, null)
+                        );
 
                 options.DescribeAllParametersInCamelCase();
 
+                options.OperationFilter<SwaggerDefaultValues>();
+
                 options.SchemaFilter<EnumSchemaFilter>();
+            });
+
+            builder.Services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
+            builder.Services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
             });
         }
 
@@ -45,6 +60,56 @@ namespace RestaurantReserves.Restaurant.API.Configuration.Definitions
             app.UseSwagger();
 
             app.UseSwaggerUI();
+        }
+
+        private static OpenApiInfo CreateInfoForApiVersion(WebApplicationBuilder builder, ApiVersionDescription description = null)
+        {
+            var info = new OpenApiInfo
+            {
+                Title = builder.Configuration["Swagger:Title"],
+                Description = builder.Configuration["Swagger:Description"],
+                TermsOfService = new Uri(builder.Configuration["Swagger:TermsOfService"]),
+                Contact = new OpenApiContact
+                {
+                    Name = builder.Configuration["Swagger:Contact:Name"],
+                    Url = new Uri(builder.Configuration["Swagger:Contact:Url"])
+                },
+                License = new OpenApiLicense
+                {
+                    Name = builder.Configuration["Swagger:License:Name"],
+                    Url = new Uri(builder.Configuration["Swagger:License:Url"])
+                }
+            };
+
+            if (description is not null && description.IsDeprecated)
+                info.Description += " This Api version has been deprecated";
+
+            return info;
+        }
+    }
+
+    internal class SwaggerDefaultValues : IOperationFilter
+    {
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
+        {
+            var apiDescription = context.ApiDescription;
+
+            operation.Deprecated |= apiDescription.IsDeprecated();
+
+            if (operation.Parameters == null) return;
+
+            foreach (var parameter in operation.Parameters)
+            {
+                var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
+
+                if (parameter.Description == null)
+                    parameter.Description = description.ModelMetadata?.Description;
+
+                if (parameter.Schema.Default == null && description.DefaultValue != null)
+                    parameter.Schema.Default = new OpenApiString(description.DefaultValue.ToString());
+
+                parameter.Required |= description.IsRequired;
+            }
         }
     }
 
