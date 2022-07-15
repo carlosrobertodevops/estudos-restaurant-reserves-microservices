@@ -1,6 +1,4 @@
-﻿using RestaurantReserves.Restaurant.API.Configuration;
-
-namespace RestaurantReserves.Restaurant.API.Extensions
+﻿namespace RestaurantReserves.Restaurant.API.Extensions
 {
     public static class ApplicationConfigurationExtensions
     {

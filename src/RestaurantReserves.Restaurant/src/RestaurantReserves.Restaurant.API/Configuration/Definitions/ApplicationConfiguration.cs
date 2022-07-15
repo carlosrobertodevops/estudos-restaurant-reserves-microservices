@@ -2,7 +2,7 @@
 {
     public class ApplicationConfiguration : IConfigurationDefinition
     {
-        public int ConfigurationOrder => 0;
+        public int ConfigurationOrder => (int)ConfigurationsOrder.APPLICATION;
 
         public void AddConfigurations(WebApplicationBuilder builder)
         {

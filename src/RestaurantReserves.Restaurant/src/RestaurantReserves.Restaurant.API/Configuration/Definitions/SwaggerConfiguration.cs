@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Runtime.Serialization;
-
-namespace RestaurantReserves.Restaurant.API.Configuration.Definitions
+﻿namespace RestaurantReserves.Restaurant.API.Configuration.Definitions
 {
     public class SwaggerConfiguration : IConfigurationDefinition
     {
-        public int ConfigurationOrder => 1;
+        public int ConfigurationOrder => (int)ConfigurationsOrder.SWAGGER;
 
         public void AddConfigurations(WebApplicationBuilder builder)
         {
