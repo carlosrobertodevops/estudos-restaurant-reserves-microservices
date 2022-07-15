@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace RestaurantReserves.Restaurant.API.Features.V1.Controllers
+﻿namespace RestaurantReserves.Restaurant.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1")]

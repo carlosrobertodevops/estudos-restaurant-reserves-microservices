@@ -12,6 +12,17 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Using Include="RestaurantReserves.Restaurant.API.Configuration" />
+
+		<Using Include="Microsoft.AspNetCore.Mvc" />
+		<Using Include="Microsoft.AspNetCore.Mvc.ApiExplorer" />
+		<Using Include="Microsoft.OpenApi.Any" />
+		<Using Include="Microsoft.OpenApi.Models" />
+		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
+		<Using Include="System.Runtime.Serialization" />
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\RestaurantReserves.Restaurant.Application\RestaurantReserves.Restaurant.Application.csproj" />
   </ItemGroup>
