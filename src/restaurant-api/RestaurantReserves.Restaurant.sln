@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{31DCD34E-ED4C-4573-857C-5840F4C4852E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{082FABEC-5FC8-4421-8931-E660C54DEE55}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{57C29276-DCBE-43DF-A528-F0C7A55FE949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.API", "Restaurant.API\Restaurant.API.csproj", "{40160332-3C80-4EC9-882D-22E78C58104A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Application", "Restaurant.Application\Restaurant.Application.csproj", "{6E9B0D40-C20D-4966-909D-8892D1348762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Core", "Restaurant.Core\Restaurant.Core.csproj", "{FD28A258-CC68-4E3E-824F-53AC8A4345B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Infrastructure", "Restaurant.Infrastructure\Restaurant.Infrastructure.csproj", "{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.UnitTests", "Restaurant.UnitTests\Restaurant.UnitTests.csproj", "{8CB69648-8203-494C-84D0-3037A98F0188}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40160332-3C80-4EC9-882D-22E78C58104A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40160332-3C80-4EC9-882D-22E78C58104A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40160332-3C80-4EC9-882D-22E78C58104A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40160332-3C80-4EC9-882D-22E78C58104A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E9B0D40-C20D-4966-909D-8892D1348762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E9B0D40-C20D-4966-909D-8892D1348762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E9B0D40-C20D-4966-909D-8892D1348762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E9B0D40-C20D-4966-909D-8892D1348762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD28A258-CC68-4E3E-824F-53AC8A4345B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD28A258-CC68-4E3E-824F-53AC8A4345B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD28A258-CC68-4E3E-824F-53AC8A4345B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD28A258-CC68-4E3E-824F-53AC8A4345B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB69648-8203-494C-84D0-3037A98F0188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB69648-8203-494C-84D0-3037A98F0188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB69648-8203-494C-84D0-3037A98F0188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB69648-8203-494C-84D0-3037A98F0188}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40160332-3C80-4EC9-882D-22E78C58104A} = {31DCD34E-ED4C-4573-857C-5840F4C4852E}
+		{6E9B0D40-C20D-4966-909D-8892D1348762} = {31DCD34E-ED4C-4573-857C-5840F4C4852E}
+		{FD28A258-CC68-4E3E-824F-53AC8A4345B7} = {31DCD34E-ED4C-4573-857C-5840F4C4852E}
+		{E8692AC4-774F-4A05-AE1E-64F4DDBE33A1} = {31DCD34E-ED4C-4573-857C-5840F4C4852E}
+		{8CB69648-8203-494C-84D0-3037A98F0188} = {57C29276-DCBE-43DF-A528-F0C7A55FE949}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA2A480C-6C20-4506-89EC-26953F822230}
+	EndGlobalSection
+EndGlobal
