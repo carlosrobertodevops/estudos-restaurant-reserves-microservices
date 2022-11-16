@@ -27,22 +27,6 @@ namespace Restaurant.Infrastructure.Persistence.Context
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
             }
 
-            foreach (var entry in ChangeTracker.Entries()
-                           .Where(entry => entry.Entity.GetType().GetProperty("CreatedAt") != null || entry.Entity.GetType().GetProperty("UpdatedAt") != null))
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property("CreatedAt").CurrentValue = _dateTime.Now;
-                    entry.Property("UpdatedAt").CurrentValue = _dateTime.Now;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property("CreatedAt").IsModified = false;
-                    entry.Property("UpdatedAt").CurrentValue = _dateTime.Now;
-                }
-            }
-
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,5 +1,4 @@
 ﻿using EntityRestaurant = Restaurant.Core.Entities.Restaurant;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Restaurant.Infrastructure.Persistence.Mappings
 {
@@ -10,6 +9,12 @@ namespace Restaurant.Infrastructure.Persistence.Mappings
             builder.HasKey(r => r.Id);
 
             builder.Property(p => p.Id).IsRequired();
+            
+            builder.Property(p => p.CreatedAt).IsRequired();
+
+            builder.Property(p => p.UpdatedAt).IsRequired();
+
+            builder.Property(p => p.Name).IsRequired();
 
             builder.HasMany(p => p.DaysOfWork)
                    .WithOne(d => d.Restaurant);
