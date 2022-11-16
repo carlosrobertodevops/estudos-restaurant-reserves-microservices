@@ -7,8 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	</ItemGroup>
 
@@ -28,11 +34,21 @@
 		<Using Include="Microsoft.OpenApi.Models" />
 		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
 		<Using Include="System.Text.Json.Serialization" />
+		<Using Include="FluentValidation.AspNetCore" />
+		<Using Include="FluentValidation" />
 		
 		<Using Include="Restaurant.API.Middlewares" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Application.ViewModels" />
+		<Using Include="Restaurant.Core.Validator" />
+		<Using Include="Restaurant.Core.Providers" />
 		<Using Include="Restaurant.API.Configurations" />
+		<Using Include="Restaurant.Core.DomainObjects" />
+		<Using Include="Restaurant.Infrastructure.Persistence" />
+		<Using Include="Restaurant.Infrastructure.Persistence.Repositories" />
+		<Using Include="Restaurant.Core.Repositories" />
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Restaurant.Infrastructure.Persistence.Context" />
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://blockprotocol.org/schemas/block-metadata.json" /></VisualStudio></ProjectExtensions>

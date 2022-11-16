@@ -1,9 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="11.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Restaurant.Core.ValueObjects" />
+		<Using Include="Restaurant.Core.Repositories" />
+		<Using Include="Restaurant.Core.Exceptions" />
+		<Using Include="Restaurant.Core.DomainObjects" />
+		
+		<Using Include="FluentValidation" />
+	</ItemGroup>
 </Project>
