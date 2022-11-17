@@ -12,8 +12,8 @@ using Restaurant.Infrastructure.Persistence.Context;
 namespace Restaurant.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20221116123647_Initial")]
-    partial class Initial
+    [Migration("20221117192718_InitialDatabase")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,7 +121,6 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.HasOne("Restaurant.Core.Entities.Restaurant", "Restaurant")
                         .WithMany("Contacts")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Restaurant");
@@ -132,7 +131,6 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.HasOne("Restaurant.Core.Entities.Restaurant", "Restaurant")
                         .WithMany("DaysOfWork")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Restaurant");
@@ -153,6 +151,10 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("AddressFullAddress");
 
+                            b1.Property<string>("Neighborhood")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("AddressNeighborhood");
+
                             b1.Property<int>("Number")
                                 .HasColumnType("int")
                                 .HasColumnName("AddressNumber");
@@ -168,6 +170,10 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                             b1.Property<string>("Street")
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("AddressStreet");
+
+                            b1.Property<string>("Zone")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("AddressZone");
 
                             b1.HasKey("RestaurantId");
 

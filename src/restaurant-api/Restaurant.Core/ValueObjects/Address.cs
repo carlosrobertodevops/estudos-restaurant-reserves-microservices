@@ -8,13 +8,17 @@
         public string State { get; private set; }
         public string Street { get; private set; }
         public string Country { get; private set; }
+        public string Neighborhood { get; private set; }
+        public string Zone { get; private set; }
 
         public Address(string fullAddress, 
-                       string postalCode, 
-                       int number, 
-                       string state, 
-                       string street, 
-                       string country)
+                       string postalCode,
+                       int number,
+                       string state,
+                       string street,
+                       string country,
+                       string neighborhood,
+                       string zone)
         {
             FullAddress = fullAddress;
             PostalCode = postalCode;
@@ -22,6 +26,8 @@
             State = state;
             Street = street;
             Country = country;
+            Neighborhood = neighborhood;
+            Zone = zone;
         }
     }
 }

@@ -15,7 +15,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Newtonsoft.Json"/>
-		<Using Include="Restaurant.Core.Exceptions"/>
+		<Using Include="Newtonsoft.Json" />
+		
+		<Using Include="Restaurant.Core.Exceptions" />
+		<Using Include="Restaurant.Core.ValueObjects" />
 	</ItemGroup>
 </Project>

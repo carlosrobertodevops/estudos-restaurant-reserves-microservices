@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Restaurant.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     AddressState = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddressStreet = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddressCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddressNeighborhood = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddressZone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalTables = table.Column<int>(type: "int", nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -52,8 +54,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         name: "FK_Contacts_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -75,8 +76,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         name: "FK_DaysOfWork_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

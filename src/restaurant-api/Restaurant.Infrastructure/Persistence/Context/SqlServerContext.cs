@@ -37,6 +37,23 @@ namespace Restaurant.Infrastructure.Persistence.Context
 
         public async Task<bool> SaveChangesAsync()
         {
+            foreach (var entry in ChangeTracker.Entries()
+                            .Where(entry => entry.Entity.GetType().GetProperty("CreatedAt") != null ||
+                                            entry.Entity.GetType().GetProperty("UpdatedAt") != null))
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property("UpdatedAt").CurrentValue = _dateTime.Now;
+                    entry.Property("CreatedAt").CurrentValue = _dateTime.Now;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property("UpdatedAt").CurrentValue = _dateTime.Now;
+                    entry.Property("CreatedAt").IsModified = false;
+                }
+            }
+
             return await base.SaveChangesAsync() > 0;
         }
 

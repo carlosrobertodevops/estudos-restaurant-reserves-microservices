@@ -31,4 +31,8 @@
 		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
 		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Persistence\Migrations\" />
+	</ItemGroup>
 </Project>
