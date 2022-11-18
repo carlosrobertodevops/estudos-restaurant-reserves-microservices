@@ -29,5 +29,17 @@
             Neighborhood = neighborhood;
             Zone = zone;
         }
+
+        public Address()
+        {
+            FullAddress = string.Empty;
+            PostalCode = string.Empty;
+            Number = 0;
+            State = string.Empty;
+            Street = string.Empty;
+            Country = string.Empty;
+            Neighborhood = string.Empty;
+            Zone = string.Empty;
+        }
     }
 }

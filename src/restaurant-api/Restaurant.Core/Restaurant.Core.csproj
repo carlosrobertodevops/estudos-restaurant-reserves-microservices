@@ -17,5 +17,6 @@
 		<Using Include="Restaurant.Core.DomainObjects" />
 		
 		<Using Include="FluentValidation" />
+		<Using Include="FluentValidation.Validators" />
 	</ItemGroup>
 </Project>
