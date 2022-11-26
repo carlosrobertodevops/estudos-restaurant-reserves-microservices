@@ -28,4 +28,9 @@
     <ProjectReference Include="..\Restaurant.Infrastructure\Restaurant.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="API\" />
+    <Folder Include="Fixtures\API\" />
+  </ItemGroup>
+
 </Project>
