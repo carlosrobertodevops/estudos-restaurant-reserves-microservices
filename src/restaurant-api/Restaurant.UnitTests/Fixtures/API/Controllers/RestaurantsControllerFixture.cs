@@ -18,7 +18,7 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
             return new RestaurantsController(mediator);
         }
 
-        public RestaurantsController GenerateInvalid(bool invalidRestaurant = false)
+        public RestaurantsController GenerateInvalid(bool invalidRequest = false)
         {
             var mediator = Substitute.For<IMediator>();
 
@@ -28,9 +28,17 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
 
             mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
 
-            if (invalidRestaurant)
+            mediator.Send(Arg.Any<CreateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid restaurant"));
+
+            if (invalidRequest)
             {
-                mediator.Send(Arg.Any<CreateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid restaurant"));
+                mediator.Send(Arg.Any<GetRestaurantByIdQuery>()).ThrowsAsync(new BusinessException("Invalid request"));
+
+                mediator.Send(Arg.Any<GetRestaurantsQuery>()).ThrowsAsync(new BusinessException("Invalid request"));
+
+                mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).ThrowsAsync(new BusinessException("Invalid request"));
+
+                mediator.Send(Arg.Any<CreateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid request"));
             }
 
             return new RestaurantsController(mediator);

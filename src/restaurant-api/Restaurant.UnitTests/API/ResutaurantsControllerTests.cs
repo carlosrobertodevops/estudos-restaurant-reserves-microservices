@@ -50,6 +50,21 @@
         }
 
         [Fact]
+        public void Get_InvalidRequest_ShouldThrow()
+        {
+            //Arrange
+            var page = 0;
+            var rows = 0;
+            var sut = _fixture.RestaurantsController.GenerateInvalid(true);
+
+            //Act
+            var act = async () => { await sut.Get(page, rows, CancellationToken.None); };
+
+            //Assert
+            act.Should().ThrowExactlyAsync<BusinessException>();
+        }
+
+        [Fact]
         public async Task GetById_ExistingRestaurant_ShouldReturnRouteViewModel()
         {
             //Arrange
@@ -72,13 +87,26 @@
         public void GetById_UnexistingRestaurant_ShouldThrow()
         {
             //Arrange
-            var sut = _fixture.RestaurantsController.GenerateInvalid(false);
+            var sut = _fixture.RestaurantsController.GenerateInvalid();
 
             //Act
             var act = async () => { await sut.GetById(Guid.NewGuid(), CancellationToken.None); };
 
             //Assert
             act.Should().ThrowExactlyAsync<NotFoundException>();
+        }
+
+        [Fact]
+        public void GetById_InvalidRequest_ShouldThrow()
+        {
+            //Arrange
+            var sut = _fixture.RestaurantsController.GenerateInvalid(true);
+
+            //Act
+            var act = async () => { await sut.GetById(Guid.NewGuid(), CancellationToken.None); };
+
+            //Assert
+            act.Should().ThrowExactlyAsync<BusinessException>();
         }
 
         [Fact]
@@ -122,6 +150,22 @@
             response.Should().BeAssignableTo<OkObjectResult>();
             response.Value.Should().BeAssignableTo<IEnumerable<RestaurantViewModel>>();
             response.Value.Should().Be(Enumerable.Empty<RestaurantViewModel>());
+        }
+
+        [Fact]
+        public void GetByName_InvalidRequest_ShouldThrow()
+        {
+            //Arrange
+            var page = 0;
+            var rows = 0;
+            string name = null;
+            var sut = _fixture.RestaurantsController.GenerateInvalid(true);
+
+            //Act
+            var act = async () => { await sut.GetByName(page, rows, name, CancellationToken.None); };
+
+            //Assert
+            act.Should().ThrowExactlyAsync<BusinessException>();
         }
     }
 }
