@@ -1,21 +1,27 @@
-﻿namespace Restaurant.UnitTests.Fixtures.API.Controllers
+﻿using Restaurant.Application.Queries.GetRestaurants;
+
+namespace Restaurant.UnitTests.Fixtures.API.Controllers
 {
     public class RestaurantsControllerFixture
     {
-        public RestaurantsController GenerateValid(RestaurantViewModel restaurant)
+        public RestaurantsController GenerateValid(RestaurantViewModel restaurant = null, IEnumerable<RestaurantViewModel> restaurants = null)
         {
             var mediator = Substitute.For<IMediator>();
 
             mediator.Send(Arg.Any<GetRestaurantByIdQuery>()).Returns(restaurant);
 
+            mediator.Send(Arg.Any<GetRestaurantsQuery>()).Returns(restaurants);
+
             return new RestaurantsController(mediator);
         }
 
-        public RestaurantsController GenerateInvalid(bool invalidRestaurant)
+        public RestaurantsController GenerateInvalid(bool invalidRestaurant = false)
         {
             var mediator = Substitute.For<IMediator>();
 
             mediator.Send(Arg.Any<GetRestaurantByIdQuery>()).ThrowsAsync(new NotFoundException());
+
+            mediator.Send(Arg.Any<GetRestaurantsQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
 
             if (invalidRestaurant)
             {

@@ -11,6 +11,45 @@
         }
 
         [Fact]
+        public async Task Get_ExistingRestaurant_ShouldReturnList()
+        {
+            //Arrange
+            var page = 1;
+            var rows = 10;
+            var restaurantViewModels = _fixture.RestaurantViewModel.GenerateValidCollection(5);
+            var sut = _fixture.RestaurantsController.GenerateValid(restaurants: restaurantViewModels);
+
+            //Act
+            var response = await sut.Get(page, rows, CancellationToken.None) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<RestaurantViewModel>>();
+            response.Value.Should().Be(restaurantViewModels);
+        }
+
+        [Fact]
+        public async Task Get_UnexistingRestaurant_ShouldReturnEmptyList()
+        {
+            //Arrange
+            var page = 1;
+            var rows = 10;
+            var sut = _fixture.RestaurantsController.GenerateInvalid();
+
+            //Act
+            var response = await sut.Get(page, rows, CancellationToken.None) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<RestaurantViewModel>>();
+            response.Value.Should().Be(Enumerable.Empty<RestaurantViewModel>());
+        }
+
+        [Fact]
         public async Task GetById_ExistingRestaurant_ShouldReturnRouteViewModel()
         {
             //Arrange
