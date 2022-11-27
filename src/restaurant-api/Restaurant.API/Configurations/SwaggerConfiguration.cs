@@ -8,6 +8,9 @@
             {
                 c.OperationFilter<SwaggerDefaultValues>();
                 c.CustomSchemaIds(SchemaIdStrategy);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();

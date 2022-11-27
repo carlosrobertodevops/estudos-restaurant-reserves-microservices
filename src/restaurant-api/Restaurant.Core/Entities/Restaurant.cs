@@ -3,6 +3,7 @@
     public sealed class Restaurant : BaseEntity
     {
         public string Name { get; private set; }
+        public string Document { get; private set; }
         public string Description { get; private set; }
         public Address Address { get; private set; }
         public int TotalTables { get; private set; }
@@ -10,20 +11,37 @@
         public ICollection<DayOfWork> DaysOfWork { get; private set; }
         public ICollection<Contact> Contacts { get; private set; }
 
-        public Restaurant(string name, string description, Address address, int? totalTables)
+        public Restaurant(string name, 
+                          string document,
+                          string description, 
+                          Address address, 
+                          int? totalTables, 
+                          ICollection<DayOfWork> daysOfWork, 
+                          ICollection<Contact> contacts,
+                          IValidator<Restaurant> validator)
         {
             Name = name;
-            Description = description;
-            Address = address;
+            Document = document is not null ? document.ParseCorrectFormat() : string.Empty;
+            Description = description ?? string.Empty;
+            Address = address ?? new Address();
             TotalTables = totalTables ?? 0;
             Enabled = true;
+            DaysOfWork = daysOfWork;
+            Contacts = contacts;
 
-            Validate();
+            Validate(validator);
         }
 
-        private void Validate()
+        private void Validate(IValidator<Restaurant> validator)
         {
+            var validationResult = validator.Validate(this);
 
+            if (validationResult.IsValid)
+            {
+                return;
+            }
+
+            throw new BusinessException(validationResult.ToDictionary(), "Invalid restaurant");
         }
 
         public Restaurant()
@@ -37,13 +55,17 @@
         }
 
         public void Update(string name,
+                           string document,
                            string description,
                            Address address,
                            int? totalTable,
                            bool? enable,
-                           ICollection<DayOfWork> daysOfWork)
+                           ICollection<DayOfWork> daysOfWork,
+                           ICollection<Contact> contacts)
         {
             UpdateName(name);
+
+            UpdateDocument(document);
 
             UpdateDescription(description);
 
@@ -54,6 +76,8 @@
             UpdateEnabled(enable);
 
             UpdateDaysOfWork(daysOfWork);
+
+            UpdateContacts(contacts);
         }
 
         private void UpdateName(string name)
@@ -69,6 +93,21 @@
             }
 
             Name = name;
+        }
+
+        private void UpdateDocument(string document)
+        {
+            if (document is null || document == Document)
+            {
+                return;
+            }
+
+            if(!DocumentValidatorHelper.IsValid(document))
+            {
+                throw new BusinessException("Invalid document");
+            }
+
+            Document = document.ParseCorrectFormat();
         }
 
         private void UpdateDescription(string description)

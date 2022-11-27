@@ -4,15 +4,30 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -25,31 +40,48 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Newtonsoft.Json" />
-		<Using Include="System.Net" />
-		<Using Include="System.Security.Claims" />
+		<Using Include="FluentValidation" />
+		<Using Include="FluentValidation.AspNetCore" />
+		<Using Include="MediatR" />
 		<Using Include="Microsoft.AspNetCore.Mvc" />
 		<Using Include="Microsoft.AspNetCore.Mvc.ApiExplorer" />
 		<Using Include="Microsoft.Extensions.Options" />
-		<Using Include="Microsoft.OpenApi.Models" />
-		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
-		<Using Include="System.Text.Json.Serialization" />
-		<Using Include="FluentValidation.AspNetCore" />
-		<Using Include="FluentValidation" />
-		
-		<Using Include="Restaurant.API.Middlewares" />
-		<Using Include="Restaurant.Core.Exceptions" />
-		<Using Include="Restaurant.Application.ViewModels" />
-		<Using Include="Restaurant.Core.Validator" />
-		<Using Include="Restaurant.Core.Providers" />
-		<Using Include="Restaurant.API.Configurations" />
-		<Using Include="Restaurant.Core.DomainObjects" />
-		<Using Include="Restaurant.Infrastructure.Persistence" />
-		<Using Include="Restaurant.Infrastructure.Persistence.Repositories" />
-		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Microsoft.OpenApi.Models" />
+		<Using Include="Newtonsoft.Json" />
+		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
+		<Using Include="System.Net" />
+		<Using Include="System.Text.Json.Serialization" />
+		<Using Include="System.Reflection" />
+		<Using Include="System.Security.Claims" />
+
+		<Using Include="Restaurant.API.Configurations" />
+		<Using Include="Restaurant.API.Middlewares" />
+
+		<Using Include="Restaurant.Application.Commands.CreateRestaurant" />
+		<Using Include="Restaurant.Application.Commands.DeleteRestaurant" />
+		<Using Include="Restaurant.Application.Commands.UpdateRestaurant" />
+		<Using Include="Restaurant.Application.Mapper" />
+		<Using Include="Restaurant.Application.Queries.GetRestaurants" />		
+		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />		
+		<Using Include="Restaurant.Application.Queries.GetRestaurantById" />		
+		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />		
+		<Using Include="Restaurant.Application.ViewModels" />
+
+		<Using Include="Restaurant.Core.DomainObjects" />
+		<Using Include="Restaurant.Core.Exceptions" />
+		<Using Include="Restaurant.Core.Providers" />
+		<Using Include="Restaurant.Core.Repositories" />
+		<Using Include="Restaurant.Core.Validator" />
+
+		<Using Include="Restaurant.Infrastructure.Persistence" />
 		<Using Include="Restaurant.Infrastructure.Persistence.Context" />
+		<Using Include="Restaurant.Infrastructure.Persistence.Repositories" />
 	</ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://blockprotocol.org/schemas/block-metadata.json" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties appsettings_1development_1json__JsonSchema="https://blockprotocol.org/schemas/block-metadata.json" />
+		</VisualStudio>
+	</ProjectExtensions>
 </Project>
