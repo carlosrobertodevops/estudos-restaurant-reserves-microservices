@@ -23,7 +23,13 @@
 		<Using Include="Newtonsoft.Json" />
 
 		<Using Include="Restaurant.Application.ViewModels" />
+		<Using Include="Restaurant.Application.Commands.CreateRestaurant" />
+		<Using Include="Restaurant.Application.Commands.DeleteRestaurant" />
+		<Using Include="Restaurant.Application.Commands.UpdateRestaurant" />
+		<Using Include="Restaurant.Application.Queries.GetRestaurantById" />
 		<Using Include="Restaurant.Application.Queries.GetRestaurants" />
+		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />
+		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />
 
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.ValueObjects" />

@@ -1,12 +1,14 @@
 ﻿namespace Restaurant.Application.RequestValidators
 {
-    public class GetRestaurantsQueryValidator : AbstractValidator<GetRestaurantsQuery>
+    public class GetRestaurantsByNameQueryValidator : AbstractValidator<GetRestaurantsByNameQuery>
     {
-        public GetRestaurantsQueryValidator()
+        public GetRestaurantsByNameQueryValidator()
         {
             RuleFor(r => r.Page).NotNull().GreaterThan(0);
 
             RuleFor(r => r.Rows).NotNull().GreaterThan(0);
+
+            RuleFor(r => r.Name).NotNull().NotEmpty();
         }
     }
 }
