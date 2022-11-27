@@ -1,6 +1,4 @@
-﻿using Restaurant.Core.Validator;
-
-namespace Restaurant.Core.Entities
+﻿namespace Restaurant.Core.Entities
 {
     public sealed class Restaurant : BaseEntity
     {

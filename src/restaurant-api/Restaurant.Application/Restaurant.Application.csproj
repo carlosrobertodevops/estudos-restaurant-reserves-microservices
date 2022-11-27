@@ -17,11 +17,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Newtonsoft.Json" />
+		<Using Include="AutoMapper" />
 		<Using Include="MediatR" />
-		
+		<Using Include="Newtonsoft.Json" />
+
+		<Using Include="Restaurant.Application.ViewModels" />
+
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.ValueObjects" />
-		<Using Include="Restaurant.Application.ViewModels" />
 	</ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Restaurant.Application.Mapper
+﻿namespace Restaurant.Application.Mapper
 {
     public class RestaurantProfile : Profile
     {

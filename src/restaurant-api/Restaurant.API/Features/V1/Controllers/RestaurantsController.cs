@@ -1,11 +1,4 @@
-﻿using Restaurant.Application.Commands.DeleteRestaurant;
-using Restaurant.Application.Commands.UpdateRestaurant;
-using Restaurant.Application.Queries.GetRestaurantById;
-using Restaurant.Application.Queries.GetRestaurants;
-using Restaurant.Application.Queries.GetRestaurantsByAddress;
-using Restaurant.Application.Queries.GetRestaurantsByName;
-
-namespace Restaurant.API.Features.V1.Controllers
+﻿namespace Restaurant.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]

@@ -20,16 +20,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
+
 		<Using Include="Restaurant.Core.DomainObjects" />
-		<Using Include="Restaurant.Core.Repositories" />
+		<Using Include="Restaurant.Core.Entities" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Providers" />
-		<Using Include="Restaurant.Core.Entities" />
-		<Using Include="Restaurant.Infrastructure.Persistence.Context" />
+		<Using Include="Restaurant.Core.Repositories" />
 
-		<Using Include="Microsoft.EntityFrameworkCore" />
-		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
-		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+		<Using Include="Restaurant.Infrastructure.Persistence.Context" />
 	</ItemGroup>
 
 	<ItemGroup>

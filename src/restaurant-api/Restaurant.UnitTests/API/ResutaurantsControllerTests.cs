@@ -1,10 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Restaurant.Core.Exceptions;
-using Restaurant.UnitTests.Fixtures.API;
-
-namespace Restaurant.UnitTests.API
+﻿namespace Restaurant.UnitTests.API
 {
     [Collection(nameof(ApiFixtureCollection))]
     public class ResutaurantsControllerTests
