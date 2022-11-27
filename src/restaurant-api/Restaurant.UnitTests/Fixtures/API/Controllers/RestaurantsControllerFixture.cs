@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Queries.GetRestaurants;
+using Restaurant.Application.Queries.GetRestaurantsByName;
 
 namespace Restaurant.UnitTests.Fixtures.API.Controllers
 {
@@ -12,6 +13,8 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
 
             mediator.Send(Arg.Any<GetRestaurantsQuery>()).Returns(restaurants);
 
+            mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).Returns(restaurants);
+
             return new RestaurantsController(mediator);
         }
 
@@ -22,6 +25,8 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
             mediator.Send(Arg.Any<GetRestaurantByIdQuery>()).ThrowsAsync(new NotFoundException());
 
             mediator.Send(Arg.Any<GetRestaurantsQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
+
+            mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
 
             if (invalidRestaurant)
             {

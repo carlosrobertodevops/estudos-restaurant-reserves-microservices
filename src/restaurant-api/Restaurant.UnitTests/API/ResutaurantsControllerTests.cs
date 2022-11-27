@@ -80,5 +80,48 @@
             //Assert
             act.Should().ThrowExactlyAsync<NotFoundException>();
         }
+
+        [Fact]
+        public async Task GetByName_ExistingRestaurant_ShouldReturnList()
+        {
+            //Arrange
+            var page = 1;
+            var rows = 10;
+            var restaurantViewModels = _fixture.RestaurantViewModel.GenerateValidCollection(5);
+            var name = restaurantViewModels.First().Name;
+            var expectedRestauranst = restaurantViewModels.Where(r => r.Name == name);
+            var sut = _fixture.RestaurantsController.GenerateValid(restaurants: expectedRestauranst);
+
+            //Act
+            var response = await sut.GetByName(page, rows, name, CancellationToken.None) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<RestaurantViewModel>>();
+            response.Value.Should().NotBe(restaurantViewModels);
+            response.Value.Should().Be(expectedRestauranst);
+        }
+
+        [Fact]
+        public async Task GetByName_UnexistingRestaurant_ShouldReturnEmptyList()
+        {
+            //Arrange
+            var page = 1;
+            var rows = 10;
+            var name = "fake name";
+            var sut = _fixture.RestaurantsController.GenerateInvalid();
+
+            //Act
+            var response = await sut.GetByName(page, rows, name, CancellationToken.None) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<RestaurantViewModel>>();
+            response.Value.Should().Be(Enumerable.Empty<RestaurantViewModel>());
+        }
     }
 }
