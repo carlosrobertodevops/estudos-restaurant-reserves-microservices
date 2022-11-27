@@ -1,12 +1,20 @@
-﻿namespace Restaurant.API.Configurations
+﻿using System.Globalization;
+
+namespace Restaurant.API.Configurations
 {
     public static class ApplicationConfiguration
     {
         public static WebApplicationBuilder AddApplicationConfiguration(this WebApplicationBuilder builder)
         {
+            builder.Services.AddAutoMapper(typeof(RestaurantProfile));
+
             builder.Services.AddMediatR(typeof(CreateRestaurantCommand));
 
-            builder.Services.AddAutoMapper(typeof(RestaurantProfile));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            builder.Services.AddValidatorsFromAssemblyContaining<GetRestaurantsQueryValidator>();
+
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-US");
 
             return builder;
         }

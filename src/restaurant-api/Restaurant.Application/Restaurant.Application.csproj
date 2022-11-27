@@ -18,10 +18,12 @@
 
 	<ItemGroup>
 		<Using Include="AutoMapper" />
+		<Using Include="FluentValidation" />
 		<Using Include="MediatR" />
 		<Using Include="Newtonsoft.Json" />
 
 		<Using Include="Restaurant.Application.ViewModels" />
+		<Using Include="Restaurant.Application.Queries.GetRestaurants" />
 
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.ValueObjects" />
