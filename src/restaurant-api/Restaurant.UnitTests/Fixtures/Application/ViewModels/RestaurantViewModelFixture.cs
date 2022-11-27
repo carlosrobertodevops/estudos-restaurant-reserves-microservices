@@ -2,12 +2,12 @@
 {
     public class RestaurantViewModelFixture
     {
-        public static RestaurantViewModel GenerateValid()
+        public RestaurantViewModel GenerateValid()
         {
             return GenerateValidCollection(1).First();
         }
 
-        public static IEnumerable<RestaurantViewModel> GenerateValidCollection(int quantity)
+        public IEnumerable<RestaurantViewModel> GenerateValidCollection(int quantity)
         {
             return new Faker<RestaurantViewModel>().RuleFor(r => r.Id, Guid.NewGuid())
                                                    .RuleFor(r => r.Name, f => f.Company.CompanyName())
@@ -21,7 +21,7 @@
                                                    .Generate(quantity);
         }
 
-        public static AddressViewModel GenerateValidAddress()
+        public AddressViewModel GenerateValidAddress()
         {
             return new Faker<AddressViewModel>().RuleFor(a => a.FullAddress, f => f.Address.FullAddress())
                                                 .RuleFor(a => a.PostalCode, f => f.Address.ZipCode())
@@ -35,7 +35,7 @@
                                                 .First();
         }
 
-        public static IEnumerable<DayOfWorkViewModel> GenerateValidDaysOfWorkCollection()
+        public IEnumerable<DayOfWorkViewModel> GenerateValidDaysOfWorkCollection()
         {
             var response = new List<DayOfWorkViewModel>(7);
 
@@ -52,15 +52,11 @@
             return response;
         }
 
-        public static IEnumerable<ContactViewModel> GenerateValidContacts(int quantity)
+        public IEnumerable<ContactViewModel> GenerateValidContacts(int quantity)
         {
             return new Faker<ContactViewModel>().RuleFor(r => r.PhoneNumber, f => f.Phone.PhoneNumber())
                                                 .RuleFor(r => r.Email, f => f.Internet.Email())
                                                 .Generate(quantity);           
         }
-
-        //public DateTime CreatedAt { get; set; }
-        //public IEnumerable<DayOfWorkViewModel> DaysOfWork { get; set; }
-        //public IEnumerable<ContactViewModel> Contacts { get; set; }
     }
 }

@@ -6,10 +6,12 @@
     public class ApiFixture : IDisposable
     {
         public RestaurantViewModelFixture RestaurantViewModel { get; private set; }
+        public RestaurantsControllerFixture RestaurantsController { get; private set; }
 
         public ApiFixture()
         {
             RestaurantViewModel = new RestaurantViewModelFixture();
+            RestaurantsController = new RestaurantsControllerFixture();
         }
 
         public void Dispose()
