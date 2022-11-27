@@ -8,7 +8,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+		<PackageReference Include="MediatR" Version="11.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -17,8 +18,10 @@
 
 	<ItemGroup>
 		<Using Include="Newtonsoft.Json" />
+		<Using Include="MediatR" />
 		
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.ValueObjects" />
+		<Using Include="Restaurant.Application.ViewModels" />
 	</ItemGroup>
 </Project>

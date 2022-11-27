@@ -1,4 +1,11 @@
-﻿namespace Restaurant.API.Features.V1.Controllers
+﻿using Restaurant.Application.Commands.DeleteRestaurant;
+using Restaurant.Application.Commands.UpdateRestaurant;
+using Restaurant.Application.Queries.GetRestaurantById;
+using Restaurant.Application.Queries.GetRestaurants;
+using Restaurant.Application.Queries.GetRestaurantsByAddress;
+using Restaurant.Application.Queries.GetRestaurantsByName;
+
+namespace Restaurant.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -6,8 +13,15 @@
     [Produces("application/json")]
     public class RestaurantsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public RestaurantsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         /// <summary>
-        /// endpoint to get all restaurants with no filters 
+        /// get all restaurants with no filters 
         /// </summary>
         /// <param name="page">page number</param>
         /// <param name="rows">number of restaurants per page</param>
@@ -18,7 +32,9 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Get(int page, int rows, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            var response = await _mediator.Send(new GetRestaurantsQuery(page, rows), cancellationToken);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -32,7 +48,9 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            var response = await _mediator.Send(new GetRestaurantByIdQuery(id), cancellationToken);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -46,12 +64,14 @@
         [HttpGet("name")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantViewModel[]))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> GetByName(string name,
-                                                   int page,
+        public async Task<IActionResult> GetByName(int page,
                                                    int rows, 
+                                                   string name,
                                                    CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            var response = await _mediator.Send(new GetRestaurantsByNameQuery(page, rows, name), cancellationToken);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -67,53 +87,69 @@
         [HttpGet("address")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantViewModel[]))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> GetByAddress(string city, 
+        public async Task<IActionResult> GetByAddress(int page,
+                                                      int rows, 
+                                                      string city, 
                                                       string neighborhood, 
-                                                      string zone, 
-                                                      int page,
-                                                      int rows,
+                                                      string zone,                                                       
                                                       CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            var response = await _mediator.Send(new GetRestaurantsByAddressQuery(page, 
+                                                                                 rows,
+                                                                                 city,
+                                                                                 neighborhood, 
+                                                                                 zone), 
+                                                                                 cancellationToken);
+            return Ok(response);
         }
 
         /// <summary>
         /// create a new restaurant
         /// </summary>
+        /// <param name="restaurant">restaurant body</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(RestaurantViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> Post(CancellationToken cancellationToken)
+        public async Task<IActionResult> Post(RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            var response = await _mediator.Send(new CreateRestaurantCommand(restaurant), cancellationToken);
+
+            return CreatedAtAction(nameof(Post), response);
         }
 
         /// <summary>
         /// update restaurants informations
         /// </summary>
+        /// <param name="id">restaurant id</param>
+        /// <param name="restaurant">restaurant body</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> Put(CancellationToken cancellationToken)
+        public async Task<IActionResult> Put(Guid id, RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            await _mediator.Send(new UpdateRestaurantCommand(id, restaurant), cancellationToken);
+
+            return NoContent();
         }
 
         /// <summary>
         /// delete restaurant
         /// </summary>
+        /// <param name="id">restaurant id</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> Delete(CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok(string.Empty));
+            await _mediator.Send(new DeleteRestaurantCommand(id), cancellationToken);
+
+            return NoContent();
         }
     }
 }

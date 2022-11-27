@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Application.Queries.GetRestaurantsByName
+﻿namespace Restaurant.Application.Queries.GetRestaurantsByName
 {
-    public class GetRestaurantsByNameQuery
+    public class GetRestaurantsByNameQuery : IRequest<IEnumerable<RestaurantViewModel>>
     {
+        public int Page { get; private set; }
+        public int Rows { get; set; }
+        public string Name { get; private set; }
 
+        public GetRestaurantsByNameQuery(int page, int rows, string name)
+        {
+            Page = page;
+            Rows = rows;
+            Name = name;
+        }
     }
 }

@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Application.Queries.GetRestaurantsByAddress
+﻿namespace Restaurant.Application.Queries.GetRestaurantsByAddress
 {
-    public class GetRestaurantsByAddressQuery
+    public class GetRestaurantsByAddressQuery : IRequest<IEnumerable<RestaurantViewModel>>
     {
+        public int Page { get; private set; }
+        public int Row { get; private set; }
+        public string City { get; private set; }
+        public string Neighborhood { get; private set; }
+        public string Zone { get; private set; }
 
+        public GetRestaurantsByAddressQuery(int page, int row, string city, string neighborhood, string zone)
+        {
+            Page = page;
+            Row = row;
+            City = city;
+            Neighborhood = neighborhood;
+            Zone = zone;
+        }
     }
 }

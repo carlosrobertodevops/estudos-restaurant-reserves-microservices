@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Application.Commands.DeleteRestaurant
+﻿namespace Restaurant.Application.Commands.DeleteRestaurant
 {
-    public class DeleteRestaurantCommand
+    public class DeleteRestaurantCommand : IRequest
     {
+        public Guid Id { get; private set; }
 
+        public DeleteRestaurantCommand(Guid id)
+        {
+            Id = id;
+        }
     }
 }

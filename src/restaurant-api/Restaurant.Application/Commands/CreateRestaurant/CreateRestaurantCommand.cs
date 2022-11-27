@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Application.Commands.CreateRestaurant
+﻿namespace Restaurant.Application.Commands.CreateRestaurant
 {
-    public class CreateRestaurantCommand
+    public class CreateRestaurantCommand : IRequest<RestaurantViewModel>
     {
+        public RestaurantViewModel Restaurant { get; set; }
 
+        public CreateRestaurantCommand(RestaurantViewModel restaurant)
+        {
+            Restaurant = restaurant;
+        }
     }
 }

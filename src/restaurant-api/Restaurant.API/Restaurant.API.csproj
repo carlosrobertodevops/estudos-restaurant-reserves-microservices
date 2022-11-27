@@ -20,7 +20,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
@@ -48,6 +50,7 @@
 		<Using Include="Microsoft.OpenApi.Models" />
 		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
 		<Using Include="System.Text.Json.Serialization" />
+		<Using Include="MediatR" />
 		<Using Include="FluentValidation.AspNetCore" />
 		<Using Include="FluentValidation" />
 		
@@ -56,6 +59,8 @@
 		<Using Include="Restaurant.Application.ViewModels" />
 		<Using Include="Restaurant.Core.Validator" />
 		<Using Include="Restaurant.Core.Providers" />
+		<Using Include="Restaurant.Application.Commands.CreateRestaurant" />
+		<Using Include="Restaurant.Application.Mapper" />
 		<Using Include="Restaurant.API.Configurations" />
 		<Using Include="Restaurant.Core.DomainObjects" />
 		<Using Include="Restaurant.Infrastructure.Persistence" />

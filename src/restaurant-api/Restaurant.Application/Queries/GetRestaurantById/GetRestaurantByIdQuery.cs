@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Application.Queries.GetRestaurantById
+﻿namespace Restaurant.Application.Queries.GetRestaurantById
 {
-    public class GetRestaurantByIdQuery
+    public class GetRestaurantByIdQuery : IRequest<RestaurantViewModel>
     {
+        public Guid Id { get; private set; }
 
+        public GetRestaurantByIdQuery(Guid id)
+        {
+            Id = id;
+        }
     }
 }
