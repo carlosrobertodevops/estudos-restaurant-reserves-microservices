@@ -62,6 +62,7 @@
 		<Using Include="Restaurant.Application.Commands.DeleteRestaurant" />
 		<Using Include="Restaurant.Application.Commands.UpdateRestaurant" />
 		<Using Include="Restaurant.Application.Mapper" />
+		<Using Include="Restaurant.Application.RequestValidators" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurants" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurantById" />		

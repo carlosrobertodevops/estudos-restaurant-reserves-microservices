@@ -59,9 +59,16 @@ namespace Restaurant.Infrastructure.Persistence.Context
 
         public async Task<bool> AnyPendingMigrationsAsync()
         {
-            var migrations = await Database.GetPendingMigrationsAsync();
+            try
+            {
+                var migrations = await Database.GetPendingMigrationsAsync();
 
-            return migrations.Any();
+                return migrations.Any();
+            }
+            catch 
+            {
+                return false;
+            }   
         }
 
         public async Task MigrateAsync()
