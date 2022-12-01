@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Queries.GetRestaurantById
 {
-    public class GetRestaurantByIdQuery : IRequest<RestaurantViewModel>
+    public class GetRestaurantByIdQuery : IGetRestaurantByIdQuery<RestaurantViewModel>
     {
         public Guid Id { get; private set; }
 

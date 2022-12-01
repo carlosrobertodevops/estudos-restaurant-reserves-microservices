@@ -32,6 +32,7 @@
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />
 
 		<Using Include="Restaurant.Core.Exceptions" />
+		<Using Include="Restaurant.Core.UseCases" />
 		<Using Include="Restaurant.Core.ValueObjects" />
 	</ItemGroup>
 </Project>

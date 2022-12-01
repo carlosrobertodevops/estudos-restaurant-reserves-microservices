@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Application.RequestValidators
+﻿namespace Restaurant.Application.Commands.DeleteRestaurant
 {
     public class DeleteRestaurantCommandValidator : AbstractValidator<DeleteRestaurantCommand>
     {
