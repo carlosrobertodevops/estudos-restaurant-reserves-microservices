@@ -69,7 +69,6 @@
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />		
 		<Using Include="Restaurant.Application.ViewModels" />
 
-		<Using Include="Restaurant.Core.DomainObjects" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Providers" />
 		<Using Include="Restaurant.Core.Repositories" />

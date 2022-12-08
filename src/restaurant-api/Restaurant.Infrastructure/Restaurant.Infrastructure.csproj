@@ -24,7 +24,6 @@
 		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
 		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
 
-		<Using Include="Restaurant.Core.DomainObjects" />
 		<Using Include="Restaurant.Core.Entities" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Providers" />

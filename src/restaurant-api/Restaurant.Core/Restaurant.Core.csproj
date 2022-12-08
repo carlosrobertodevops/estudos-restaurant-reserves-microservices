@@ -8,13 +8,14 @@
 
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.3.0" />
+	  <PackageReference Include="MediatR" Version="11.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="FluentValidation" />
 		<Using Include="FluentValidation.Validators" />
+		<Using Include="MediatR" />
 
-		<Using Include="Restaurant.Core.DomainObjects" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Restaurant.Core.Validator" />

@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Application.RequestValidators
+﻿namespace Restaurant.Application.Queries.GetRestaurantsByName
 {
     public class GetRestaurantsByNameQueryValidator : AbstractValidator<GetRestaurantsByNameQuery>
     {

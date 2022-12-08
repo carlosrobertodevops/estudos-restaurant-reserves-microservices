@@ -10,7 +10,7 @@ namespace Restaurant.API.Configurations
 
             builder.Services.AddMediatR(typeof(CreateRestaurantCommand));
 
-            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UseCasesValidationBehavior<,>));
 
             builder.Services.AddValidatorsFromAssemblyContaining<GetRestaurantsQueryValidator>();
 
