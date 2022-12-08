@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.UseCases
 {
-    public interface IUpdateRestaurantCommand : IRequest
+    public interface IUpdateRestaurantCommand : IUseCase
     {
 
     }

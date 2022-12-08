@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Core.DomainObjects
+﻿namespace Restaurant.Core.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {

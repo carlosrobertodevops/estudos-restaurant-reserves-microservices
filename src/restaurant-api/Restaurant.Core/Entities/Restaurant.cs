@@ -89,7 +89,7 @@
 
             if (string.IsNullOrWhiteSpace(name) || name.Length < 5 || name.Length > 200)
             {
-                throw new BusinessException("Invalid name");
+                throw new BusinessException("Invalid name", Id);
             }
 
             Name = name;
@@ -104,7 +104,7 @@
 
             if(!DocumentValidatorHelper.IsValid(document))
             {
-                throw new BusinessException("Invalid document");
+                throw new BusinessException("Invalid document", Id);
             }
 
             Document = document.ParseCorrectFormat();
@@ -161,7 +161,7 @@
         {
             if (Enabled)
             {
-                throw new BusinessException("The restaurant is already enabled");
+                throw new BusinessException("The restaurant is already enabled", Id);
             }
 
             Enabled = true;
@@ -171,7 +171,7 @@
         {
             if (!Enabled)
             {
-                throw new BusinessException("The restaurant is already disabled");
+                throw new BusinessException("The restaurant is already disabled", Id);
             }
 
             Enabled = false;
