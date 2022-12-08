@@ -31,7 +31,7 @@
         }
 
         /// <summary>
-        /// get restaurants by id
+        /// get restaurant by id
         /// </summary>
         /// <param name="id">id of the restaurant</param>
         /// <param name="cancellationToken"></param>

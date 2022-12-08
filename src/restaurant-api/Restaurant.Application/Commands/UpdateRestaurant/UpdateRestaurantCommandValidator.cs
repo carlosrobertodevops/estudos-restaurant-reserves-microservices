@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Application.RequestValidators
+﻿namespace Restaurant.Application.Commands.UpdateRestaurant
 {
     public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
     {

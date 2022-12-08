@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Queries.GetRestaurants
 {
-    public class GetRestaurantsQueryHandler : IRequestHandler<GetRestaurantsQuery, IEnumerable<RestaurantViewModel>>
+    public class GetRestaurantsQueryHandler : IGetRestaurantsQueryHandler<GetRestaurantsQuery, IEnumerable<RestaurantViewModel>>
     {
         public Task<IEnumerable<RestaurantViewModel>> Handle(GetRestaurantsQuery request, CancellationToken cancellationToken)
         {

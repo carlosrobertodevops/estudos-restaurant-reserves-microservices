@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Commands.CreateRestaurant
 {
-    public class CreateRestaurantCommand : IRequest<RestaurantViewModel>
+    public class CreateRestaurantCommand : ICreateRestaurantCommand<RestaurantViewModel>
     {
         public RestaurantViewModel Restaurant { get; set; }
 
