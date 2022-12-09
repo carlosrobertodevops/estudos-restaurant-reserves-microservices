@@ -9,5 +9,6 @@ namespace Restaurant.Core.Repositories
         Task DeleteAsync(RestaurantEntity restaurant);
         Task<RestaurantEntity> GetByIdAsync(Guid id);
         Task UpdateAsync(RestaurantEntity restaurant);
+        Task DeleteRestaurantDependencies(RestaurantEntity restaurant);
     }
 }

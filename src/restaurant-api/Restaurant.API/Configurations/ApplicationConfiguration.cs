@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Restaurant.Application.Services;
+using System.Globalization;
 
 namespace Restaurant.API.Configurations
 {
@@ -6,6 +7,8 @@ namespace Restaurant.API.Configurations
     {
         public static WebApplicationBuilder AddApplicationConfiguration(this WebApplicationBuilder builder)
         {
+            builder.Services.AddTransient<IRestaurantService, RestaurantService>();
+
             builder.Services.AddAutoMapper(typeof(RestaurantProfile));
 
             builder.Services.AddMediatR(typeof(CreateRestaurantCommand));
