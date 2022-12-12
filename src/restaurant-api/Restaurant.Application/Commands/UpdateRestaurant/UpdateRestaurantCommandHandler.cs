@@ -21,10 +21,12 @@
 
             if (!await _uow.SaveChangesAsync())
             {
-                _logger.LogWarning("Unable to create restaurant", request);
+                _logger.LogWarning("Unable to update restaurant", request);
 
-                throw new InfrastructureException("Unable to create restaurant", request.CorrelationId);
+                throw new InfrastructureException("Unable to update restaurant", request.CorrelationId);
             }
+
+            _logger.LogInformation("Restaurant updated", request);
 
             return Unit.Value;
         }

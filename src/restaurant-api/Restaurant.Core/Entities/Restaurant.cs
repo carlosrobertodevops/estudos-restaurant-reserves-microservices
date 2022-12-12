@@ -16,8 +16,6 @@
                           string description, 
                           Address address, 
                           int? totalTables, 
-                          ICollection<DayOfWork> daysOfWork, 
-                          ICollection<Contact> contacts,
                           IValidator<Restaurant> validator)
         {
             Name = name;
@@ -26,8 +24,6 @@
             Address = address ?? new Address();
             TotalTables = totalTables ?? 0;
             Enabled = true;
-            DaysOfWork = daysOfWork;
-            Contacts = contacts;
 
             Validate(validator);
         }
@@ -54,14 +50,14 @@
             return Id != Guid.Empty;
         }
 
-        public void Update(string name,
-                           string document,
-                           string description,
-                           Address address,
-                           int? totalTable,
-                           bool? enable,
-                           ICollection<DayOfWork> daysOfWork,
-                           ICollection<Contact> contacts)
+        public void Update(string name = null,
+                           string document = null,
+                           string description = null,
+                           Address address = null,
+                           int? totalTable = null,
+                           bool? enable = null,
+                           ICollection<DayOfWork> daysOfWork = null,
+                           ICollection<Contact> contacts = null)
         {
             UpdateName(name);
 

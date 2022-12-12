@@ -8,5 +8,19 @@
 
         public Guid RestaurantId { get; private set; }
         public Restaurant Restaurant { get; private set; }
+
+        public DayOfWork(DayOfWeek dayOfWeek, int opensAt, int closesAt, Restaurant restaurant)
+        {
+            DayOfWeek = dayOfWeek;
+            OpensAt = opensAt;
+            ClosesAt = closesAt;
+            RestaurantId = restaurant.Id;
+            Restaurant = restaurant;
+        }
+
+        protected DayOfWork()
+        {
+
+        }
     }
 }
