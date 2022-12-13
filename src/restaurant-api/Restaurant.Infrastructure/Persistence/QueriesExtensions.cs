@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Infrastructure.Persistence
+﻿using Restaurant.Core.Entities;
+
+namespace Restaurant.Infrastructure.Persistence
 {
     public static class QueriesExtensions
     {
@@ -26,6 +28,7 @@
 																		 R.AddressState AS State,
 																		 R.AddressStreet AS Street,
 																		 R.AddressZone AS Zone,
+																		 R.AddressCity AS City,
 																	     C.RestaurantId,
 															   		     C.Id,
 															   		     C.PhoneNumber,
@@ -39,17 +42,21 @@
 															   		     D.ClosesAt,
 															   		     D.CreatedAt,
 															   		     D.UpdatedAt
-																FROM Restaurants (NOLOCK) R
+																FROM (SELECT *
+																	  FROM Restaurants (NOLOCK) R
+																	  ORDER BY R.Name
+																	  OFFSET (@page -1 ) *@rows ROWS 
+																	  FETCH NEXT @rows ROWS ONLY) R
 																INNER 
 																JOIN Contacts (NOLOCK) C
 																ON R.Id = C.RestaurantId
-																LEFT 
+																INNER 
 																JOIN DaysOfWork (NOLOCK) D  
 																ON R.Id = D.RestaurantId
-																WHERE R.AddressZone = @zone OR
-																      R.AddressCity = @city OR
-																      R.AddressNeighborhood = @neighborhood
-																OFFSET (@page -1 ) * @rows ROWS FETCH NEXT @rows ROWS ONLY";
+																WHERE LOWER(R.AddressZone) = LOWER(@zone) OR
+																      LOWER(R.AddressCity) = LOWER(@city) OR
+																      LOWER(R.AddressNeighborhood) = LOWER(@neighborhood)
+																ORDER BY R.Name";
 
         public static string GetRestaurantsByNamePaginated => @"SELECT R.Id, 
 															   		  R.Name, 
@@ -67,6 +74,7 @@
 															   		  R.AddressState AS State,
 															   		  R.AddressStreet AS Street,
 															   		  R.AddressZone AS Zone,
+															   		  R.AddressCity AS City,
 																	  C.RestaurantId,
 															   		  C.Id,
 															   		  C.PhoneNumber,
@@ -80,15 +88,19 @@
 															   		  D.ClosesAt,
 															   		  D.CreatedAt,
 															   		  D.UpdatedAt
-															   FROM Restaurants (NOLOCK) R
+															   FROM (SELECT *
+																	 FROM Restaurants (NOLOCK) R
+																	 ORDER BY R.Name
+																	 OFFSET (@page -1 ) *@rows ROWS 
+																	 FETCH NEXT @rows ROWS ONLY) R
 															   INNER 
 															   JOIN Contacts (NOLOCK) C
 															   ON R.Id = C.RestaurantId
-															   LEFT 
+															   INNER 
 															   JOIN DaysOfWork (NOLOCK) D  
 															   ON R.Id = D.RestaurantId
-															   WHERE R.Name LIKE '%' + @name +'%'
-															   OFFSET (@page -1 ) * @rows ROWS FETCH NEXT @rows ROWS ONLY";
+															   WHERE LOWER(R.Name) LIKE '%' + LOWER(@name) + '%'
+															   ORDER BY R.Name";
 
         public static string GetRestaurantsPaginated => @"SELECT R.Id, 
 														 		R.Name, 
@@ -106,26 +118,33 @@
 														 		R.AddressState AS State,
 														 		R.AddressStreet AS Street,
 														 		R.AddressZone AS Zone,
-																C.RestaurantId,
+														 		R.AddressCity AS City,
 															   	C.Id,
+																C.RestaurantId,
 															   	C.PhoneNumber,
 															   	C.Email,
 															   	C.CreatedAt,
 															   	C.UpdatedAt,
-																D.RestaurantId,
 															   	D.Id,
+																D.RestaurantId,
 															   	D.DayOfWeek,
 															   	D.OpensAt,
 															   	D.ClosesAt,
 															   	D.CreatedAt,
 															   	D.UpdatedAt
-														 FROM Restaurants (NOLOCK) R
+														 FROM  (SELECT *
+																FROM Restaurants (NOLOCK) R
+																ORDER BY R.Name
+																OFFSET (@page -1 ) *@rows ROWS 
+																FETCH NEXT @rows ROWS ONLY) R
 														 INNER 
 														 JOIN Contacts (NOLOCK) C
 														 ON R.Id = C.RestaurantId
-														 LEFT 
+														 INNER 
 														 JOIN DaysOfWork (NOLOCK) D  
 														 ON R.Id = D.RestaurantId
-														 OFFSET (@page -1 ) * @rows ROWS FETCH NEXT @rows ROWS ONLY";
-    }
+														 ORDER BY R.Name"
+        ;
+	}
 }
+

@@ -13,7 +13,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
         private readonly IDatabaseContext _context;
         private readonly SqlConnection _queryDatabaseConnection;
 
-        public RestaurantRepository(IDatabaseContext context, 
+        public RestaurantRepository(IDatabaseContext context,
                                     SqlConnection queryDatabaseConnection)
         {
             _context = context;
@@ -53,15 +53,15 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
 
         public async Task<bool> ExistsAsync(RestaurantEntity restaurant)
         {
-            return await _context.Restaurants.AsNoTracking().AnyAsync(r => r.Id == restaurant.Id || 
+            return await _context.Restaurants.AsNoTracking().AnyAsync(r => r.Id == restaurant.Id ||
                                                                            r.Document == restaurant.Document ||
-                                                                           r.Name== restaurant.Name);
+                                                                           r.Name == restaurant.Name);
         }
 
         public async Task<RestaurantEntity> GetByIdAsync(Guid id)
         {
-            var restaurant =  await _context.Restaurants.AsNoTracking()
-                                                        .Where(r => r.Id == id)     
+            var restaurant = await _context.Restaurants.AsNoTracking()
+                                                        .Where(r => r.Id == id)
                                                         .Include(r => r.Address)
                                                         .Include(r => r.DaysOfWork)
                                                         .Include(r => r.Contacts)
@@ -74,45 +74,79 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
         {
             await _queryDatabaseConnection.OpenAsync();
 
-            var restaurants = (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, DayOfWork, Contact, RestaurantEntity>
+            var restaurants = new List<RestaurantEntity>();
+
+            (await _queryDatabaseConnection.QueryAsync
                                     (
                                         QueriesExtensions.GetRestaurantsPaginated,
-                                        (restaurant, address, dayOfWork, contact) => GenerateRestaurantByResults(restaurant, address, dayOfWork, contact),
-                                        splitOn: "RestaurantId",
-                                        param: new 
-                                        { 
+                                        (Func<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>)((restaurant, address, contact, dayOfWork) =>
+                                        {
+                                            var restaurantAdded = restaurants.FirstOrDefault(r => r.Id == restaurant.Id);
+
+                                            if (restaurantAdded is not null)
+                                            {
+                                                AddPropertiesToRestaurant(address, contact, dayOfWork, restaurantAdded);
+
+                                                return restaurant;
+                                            }
+
+                                            BuildRestaurant(restaurant, address, contact, dayOfWork);
+
+                                            restaurants.Add(restaurant);
+
+                                            return restaurant;
+                                        }),
+                                        splitOn: "Id,FullAddress,Id,Id",
+                                        param: new
+                                        {
                                             page,
                                             rows
-                                        })
-                                    ).ToList();
+                                        })).AsList();
 
             await _queryDatabaseConnection.CloseAsync();
 
             return restaurants ?? Enumerable.Empty<RestaurantEntity>();
         }
 
-        public async Task<IEnumerable<RestaurantEntity>> GetRestaurantsByAddress(string zone, 
-                                                                                 string city, 
-                                                                                 string neighborhood, 
-                                                                                 int page, 
+        public async Task<IEnumerable<RestaurantEntity>> GetRestaurantsByAddress(string zone,
+                                                                                 string city,
+                                                                                 string neighborhood,
+                                                                                 int page,
                                                                                  int rows)
         {
             await _queryDatabaseConnection.OpenAsync();
 
-            var restaurants = (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, DayOfWork, Contact, RestaurantEntity>
+            var restaurants = new List<RestaurantEntity>();
+
+            (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
                                     (
                                          QueriesExtensions.GetRestaurantsByAddressPaginated,
-                                         (restaurant, address, dayOfWork, contact) => GenerateRestaurantByResults(restaurant, address, dayOfWork, contact),
-                                         splitOn: "RestaurantId",
-                                         param: new 
+                                         (restaurant, address, contact, dayOfWork) =>
+                                         {
+                                             var restaurantAdded = restaurants.FirstOrDefault(r => r.Id == restaurant.Id);
+
+                                             if (restaurantAdded is not null)
+                                             {
+                                                 AddPropertiesToRestaurant(address, contact, dayOfWork, restaurantAdded);
+
+                                                 return restaurant;
+                                             }
+
+                                             BuildRestaurant(restaurant, address, contact, dayOfWork);
+
+                                             restaurants.Add(restaurant);
+
+                                             return restaurant;
+                                         },
+                                         splitOn: "Id,FullAddress,Id,Id",
+                                         param: new
                                          {
                                              zone,
                                              city,
                                              neighborhood,
                                              page,
                                              rows
-                                     })
-                              ).ToList();
+                                         })).AsList();
 
             await _queryDatabaseConnection.CloseAsync();
 
@@ -123,18 +157,35 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
         {
             await _queryDatabaseConnection.OpenAsync();
 
-            var restaurants = (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, DayOfWork, Contact, RestaurantEntity>
+            var restaurants = new List<RestaurantEntity>();
+
+            (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
                                      (
                                          QueriesExtensions.GetRestaurantsByNamePaginated,
-                                         (restaurant, address, dayOfWork, contact) => GenerateRestaurantByResults(restaurant, address, dayOfWork, contact),
-                                         splitOn: "RestaurantId",
+                                         (restaurant, address, contact, dayOfWork) =>
+                                         {
+                                             var restaurantAdded = restaurants.FirstOrDefault(r => r.Id == restaurant.Id);
+
+                                             if (restaurantAdded is not null)
+                                             {
+                                                 AddPropertiesToRestaurant(address, contact, dayOfWork, restaurantAdded);
+
+                                                 return restaurant;
+                                             }
+
+                                             BuildRestaurant(restaurant, address, contact, dayOfWork);
+
+                                             restaurants.Add(restaurant);
+
+                                             return restaurant;
+                                         },
+                                         splitOn: "Id,FullAddress,Id,Id",
                                          param: new
                                          {
                                              name,
                                              page,
                                              rows
-                                     })
-                              ).ToList();            
+                                         })).AsList();
 
             await _queryDatabaseConnection.CloseAsync();
 
@@ -148,7 +199,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return Task.CompletedTask;
         }
 
-        private static RestaurantEntity GenerateRestaurantByResults(RestaurantEntity restaurant, Address address, DayOfWork dayOfWork, Contact contact)
+        private static void BuildRestaurant(RestaurantEntity restaurant, Address address, Contact contact, DayOfWork dayOfWork)
         {
             if (restaurant.DaysOfWork is null && restaurant.Contacts is null)
             {
@@ -166,8 +217,21 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             {
                 restaurant.Contacts.Add(contact);
             }
+        }
 
-            return restaurant;
+        private static void AddPropertiesToRestaurant(Address address, Contact contact, DayOfWork dayOfWork, RestaurantEntity restaurantAdded)
+        {
+            restaurantAdded.Update(address: address);
+
+            if (dayOfWork is not null && !restaurantAdded.DaysOfWork.Any(d => d.Id == dayOfWork.Id))
+            {
+                restaurantAdded.DaysOfWork.Add(dayOfWork);
+            }
+
+            if (contact is not null && !restaurantAdded.Contacts.Any(d => d.Id == contact.Id))
+            {
+                restaurantAdded.Contacts.Add(contact);
+            }
         }
     }
 }

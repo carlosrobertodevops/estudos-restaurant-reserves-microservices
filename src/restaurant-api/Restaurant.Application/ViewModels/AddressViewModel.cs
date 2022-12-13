@@ -10,5 +10,6 @@
         public string Country { get; set; }
         public string Neighborhood { get; set; }
         public string Zone { get; set; }
+        public string City { get; set; }
     }
 }

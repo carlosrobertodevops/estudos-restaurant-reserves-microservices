@@ -18,7 +18,8 @@ namespace Restaurant.Application.Mapper
                                                                        rvm.Address.Street,
                                                                        rvm.Address.Country,
                                                                        rvm.Address.Neighborhood,
-                                                                       rvm.Address.Zone),
+                                                                       rvm.Address.Zone,
+                                                                       rvm.Address.City),
                                                            rvm.TotalTables,
                                                            new RestaurantValidator())
                 ).AfterMap((rvm, re) => re.Update(daysOfWork: rvm.DaysOfWork.Select(d => new DayOfWork(d.DayOfWeek, d.OpensAt, d.ClosesAt, re)).ToList(),
@@ -37,7 +38,8 @@ namespace Restaurant.Application.Mapper
                                                                   Street = re.Address.Street,
                                                                   Country = re.Address.Country,
                                                                   Neighborhood = re.Address.Neighborhood,
-                                                                  Zone = re.Address.Zone
+                                                                  Zone = re.Address.Zone,
+                                                                  City = re.Address.City
                                                               }))
                                                               .ForMember(rvm => rvm.CreatedAt, m => m.MapFrom(re => re.CreatedAt))
                                                               .ForMember(rvm => rvm.DaysOfWork, m => m.MapFrom(re => re.DaysOfWork.Select(d => new DayOfWorkViewModel
