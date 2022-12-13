@@ -20,19 +20,19 @@
             }
             catch (NotFoundException ex)
             {
-                _logger.LogWarning(ex.Message, ex.CorrelationId);
+                _logger.LogWarning(ex, ex.Message, ex.CorrelationId);
 
                 await HandleExceptionAsync(context, ex);
             }
             catch (BusinessException ex)
             {
-                _logger.LogWarning(ex.Message, ex.CorrelationId);
+                _logger.LogWarning(ex, ex.Message, ex.CorrelationId);
 
                 await HandleExceptionAsync(context, ex);
             }
             catch (InfrastructureException ex)
             {
-                _logger.LogError(ex.Message, ex.InnerException, ex.CorrelationId);
+                _logger.LogError(ex, ex.Message, ex.CorrelationId);
 
                 await HandleExceptionAsync(context, ex, ex.CorrelationId);
             }

@@ -10,6 +10,7 @@
         public string Country { get; private set; }
         public string Neighborhood { get; private set; }
         public string Zone { get; private set; }
+        public string City { get; private set; }
 
         public Address(string fullAddress, 
                        string postalCode,
@@ -18,7 +19,8 @@
                        string street,
                        string country,
                        string neighborhood,
-                       string zone)
+                       string zone,
+                       string city)
         {
             FullAddress = fullAddress;
             PostalCode = postalCode;
@@ -28,6 +30,7 @@
             Country = country;
             Neighborhood = neighborhood;
             Zone = zone;
+            City = city;
         }
 
         public Address()
@@ -40,6 +43,7 @@
             Country = string.Empty;
             Neighborhood = string.Empty;
             Zone = string.Empty;
+            City = string.Empty;
         }
     }
 }

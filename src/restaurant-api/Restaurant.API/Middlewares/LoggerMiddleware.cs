@@ -26,14 +26,14 @@
         {
             if (context.User is null || !context.User.Identity.IsAuthenticated)
             {
-                _logger.LogInformation($"Anonymous request to route {context.Request.Path} at: {_dateTime.Now}.");
+                _logger.LogInformation("Anonymous request to route", new {context, _dateTime.Now});
 
                 return Task.CompletedTask;
             }
 
             var userId = context.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            _logger.LogInformation($"User {userId} requested {context.Request.Path} at: {_dateTime.Now}.");
+            _logger.LogInformation("Authenticated request to route", new { userId, context, _dateTime.Now });
 
             return Task.CompletedTask;
         }

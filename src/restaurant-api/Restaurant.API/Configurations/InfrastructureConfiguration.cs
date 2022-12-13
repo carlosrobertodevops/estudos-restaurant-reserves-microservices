@@ -1,4 +1,6 @@
-﻿namespace Restaurant.API.Configurations
+﻿using System.Data.SqlClient;
+
+namespace Restaurant.API.Configurations
 {
     public static class InfrastructureConfiguration
     {
@@ -7,6 +9,7 @@
             builder.Services.AddScoped<IDatabaseContext, SqlServerContext>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+            builder.Services.AddSingleton(o => new SqlConnection(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
             builder.Services.AddDbContext<SqlServerContext>(options =>
             {
