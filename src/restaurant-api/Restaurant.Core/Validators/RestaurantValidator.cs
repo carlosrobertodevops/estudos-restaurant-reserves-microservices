@@ -14,6 +14,10 @@ namespace Restaurant.Core.Validator
             RuleFor(r => r.Document).NotEmpty()
                                     .NotNull()
                                     .SetValidator(new DocumentValidator<RestaurantEntity, string>());
+
+            RuleFor(r => r.DaysOfWork).NotEmpty()
+                                      .NotNull()
+                                      .SetValidator(new DaysOfWorkValidator<RestaurantEntity, ICollection<DayOfWork>>());
         }
     }
 }

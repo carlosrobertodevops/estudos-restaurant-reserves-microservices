@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Core.Validator
+﻿namespace Restaurant.Core.Validators
 {
     public class DocumentValidator<T, TProperty> : PropertyValidator<T, TProperty>
     {
@@ -8,7 +8,7 @@
         {
             string document = value.ToString().ParseCorrectFormat();
 
-            return DocumentValidatorHelper.IsValid(document);
+            return document.IsValid();
         }
 
         protected override string GetDefaultMessageTemplate(string errorCode)
@@ -30,7 +30,7 @@
                            .Replace("/", "");
         }
 
-        public static bool IsValid(string document)
+        public static bool IsValid(this string document)
         {
             if (document.Length != 14 || !IsNumbersOnly(document))
             {
