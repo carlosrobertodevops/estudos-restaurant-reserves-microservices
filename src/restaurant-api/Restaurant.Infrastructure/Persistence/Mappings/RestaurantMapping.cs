@@ -54,6 +54,10 @@ namespace Restaurant.Infrastructure.Persistence.Mappings
                .Property(a => a.Zone)
                .HasColumnName("AddressZone");
 
+            builder.OwnsOne(p => p.Address)
+              .Property(a => a.City)
+              .HasColumnName("AddressCity");
+
             builder.ToTable("Restaurants");
         }
     }

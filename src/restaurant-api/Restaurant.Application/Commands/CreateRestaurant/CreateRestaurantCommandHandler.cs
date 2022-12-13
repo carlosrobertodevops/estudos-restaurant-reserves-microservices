@@ -1,4 +1,5 @@
-﻿using RestaurantEntity = Restaurant.Core.Entities.Restaurant;
+﻿using Restaurant.Core.Entities;
+using RestaurantEntity = Restaurant.Core.Entities.Restaurant;
 
 namespace Restaurant.Application.Commands.CreateRestaurant
 {
@@ -37,7 +38,7 @@ namespace Restaurant.Application.Commands.CreateRestaurant
                 throw new InfrastructureException("Unable to create restaurant.", request.CorrelationId);
             }
 
-            _logger.LogInformation("Restaurant created", restaurant);
+            _logger.LogInformation("Restaurant created", new { restaurant, request });
 
             return _mapper.Map<RestaurantViewModel>(restaurant);
         }

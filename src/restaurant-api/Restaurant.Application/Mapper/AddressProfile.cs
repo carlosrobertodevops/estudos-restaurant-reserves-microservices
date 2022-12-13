@@ -4,7 +4,7 @@
     {
         public AddressProfile()
         {
+            CreateMap<Address, AddressViewModel>().ReverseMap();
         }
-
     }
 }

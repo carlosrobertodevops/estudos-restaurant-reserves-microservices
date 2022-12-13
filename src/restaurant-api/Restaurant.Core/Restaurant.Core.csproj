@@ -18,7 +18,8 @@
 
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Repositories" />
-		<Using Include="Restaurant.Core.Validator" />
+		<Using Include="Restaurant.Core.Validators" />
+		<Using Include="Restaurant.Core.Entities" />
 		<Using Include="Restaurant.Core.ValueObjects" />
 	</ItemGroup>
 </Project>

@@ -25,7 +25,41 @@
 
         private void Validate()
         {
+            if (!PhoneIsFilled() && !EmailIsFilled())
+            {
+                throw new BusinessException(GenerateValidationErrors(), "Invalid contact");
+            }
 
+            //TODO:
+            //Add email regex validation
+            //Add phone regex validation
+        }
+
+        private IDictionary<string, string[]> GenerateValidationErrors()
+        {
+            var errors = new Dictionary<string, string[]>();
+
+            if(!PhoneIsFilled())
+            {
+                errors.Add("'Phone'", new string[2] { "'Phone' must not be empty", "At least one of both needs to be filled" });
+            }
+
+            if (!EmailIsFilled())
+            {
+                errors.Add("'Email'", new string[2] { "'Email' must not be empty", "At least one of both needs to be filled" });
+            }
+
+            return errors;
+        }
+
+        private bool PhoneIsFilled()
+        {
+            return PhoneNumber is not null && string.IsNullOrWhiteSpace(PhoneNumber);
+        }
+
+        private bool EmailIsFilled()
+        {
+            return Email is not null && string.IsNullOrWhiteSpace(Email);
         }
     }
 }
