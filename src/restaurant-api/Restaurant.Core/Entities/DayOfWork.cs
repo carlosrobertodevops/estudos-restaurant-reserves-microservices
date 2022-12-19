@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Entities
 {
-    public class DayOfWork : BaseEntity
+    public sealed class DayOfWork : BaseEntity
     {
         public DayOfWeek DayOfWeek { get; private set; }
         public int OpensAt { get; private set; }
