@@ -17,32 +17,14 @@
 
         public async Task DeleteRestaurant(DeleteRestaurantCommand request)
         {
-            var restaurant = await _uow.Restaurant.GetByIdAsync(request.Id);
-
-            if (!restaurant.IsValid())
-            {
-                _logger.LogWarning("Restaurant doesn't exists", request.Id);
-
-                throw new NotFoundException(request.CorrelationId);
-            }
-
-            await DeleteRestaurantAndDependencies(restaurant);
-        }
-
-        private async Task DeleteRestaurantAndDependencies(Core.Entities.Restaurant restaurant)
-        {
-            await _uow.BeginTransactionAsync();
-
-            await _uow.Restaurant.DeleteRestaurantDependencies(restaurant);
+            var restaurant = await GetRestaurant(request.Id, request.CorrelationId);
 
             await _uow.Restaurant.DeleteAsync(restaurant);
-
-            await _uow.CommitAsync();
         }
 
         public async Task UpdateRestaurant(UpdateRestaurantCommand request)
         {
-            var restaurant = await GetRestaurant(request);
+            var restaurant = await GetRestaurant(request.Id, request.CorrelationId);
 
             restaurant.Update(request.Restaurant.Name,
                               request.Restaurant.Document,
@@ -53,36 +35,21 @@
                               request.Restaurant.DaysOfWork is not null ? _mapper.Map<ICollection<DayOfWork>>(request.Restaurant.DaysOfWork) : null,
                               request.Restaurant.Contacts is not null ? _mapper.Map<ICollection<Contact>>(request.Restaurant.Contacts) : null);
 
-
-            await UpdateRestaurantAndDependencies(request, restaurant);
+            await _uow.Restaurant.UpdateAsync(restaurant);
         }
 
-        private async Task<Core.Entities.Restaurant> GetRestaurant(UpdateRestaurantCommand request)
+        private async Task<Core.Entities.Restaurant> GetRestaurant(Guid id, Guid correlationId)
         {
-            var restaurant = await _uow.Restaurant.GetByIdAsync(request.Id);
+            var restaurant = await _uow.Restaurant.GetByIdAsync(id);
 
             if (!restaurant.IsValid())
             {
-                _logger.LogWarning("Restaurant doesn't exists", request.Id);
+                _logger.LogWarning("Restaurant doesn't exists", id);
 
-                throw new NotFoundException(request.CorrelationId);
+                throw new NotFoundException(correlationId);
             }
 
             return restaurant;
-        }
-
-        private async Task UpdateRestaurantAndDependencies(UpdateRestaurantCommand request, Core.Entities.Restaurant restaurant)
-        {
-            await _uow.BeginTransactionAsync();
-
-            if (request.Restaurant.DaysOfWork is not null || request.Restaurant.Contacts is not null)
-            {
-                await _uow.Restaurant.DeleteRestaurantDependencies(restaurant);
-            }
-
-            await _uow.Restaurant.UpdateAsync(restaurant);
-
-            await _uow.CommitAsync();
         }
     }
 }

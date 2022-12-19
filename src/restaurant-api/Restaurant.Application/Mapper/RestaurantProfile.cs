@@ -13,7 +13,7 @@ namespace Restaurant.Application.Mapper
                                                            rvm.Description,
                                                            new Address(rvm.Address.FullAddress,
                                                                        rvm.Address.PostalCode,
-                                                                       rvm.Address.Number,
+                                                                       rvm.Address.Number ?? 0,
                                                                        rvm.Address.State,
                                                                        rvm.Address.Street,
                                                                        rvm.Address.Country,
