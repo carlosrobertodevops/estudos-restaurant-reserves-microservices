@@ -6,11 +6,11 @@
         public RestaurantViewModel Restaurant { get; private set; }
         public Guid CorrelationId { get; private set; }
 
-        public UpdateRestaurantCommand(Guid id, RestaurantViewModel restaurant)
+        public UpdateRestaurantCommand(Guid id, RestaurantViewModel restaurant, Guid correlationId)
         {
             Id = id;
             Restaurant = restaurant;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }
