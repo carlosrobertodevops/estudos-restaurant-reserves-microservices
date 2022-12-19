@@ -8,53 +8,57 @@ namespace Restaurant.Infrastructure.Persistence.Mappings
         {
             builder.HasKey(r => r.Id);
 
-            builder.Property(p => p.Id).IsRequired();
+            builder.Property(r => r.Id).IsRequired();
             
-            builder.Property(p => p.CreatedAt).IsRequired();
+            builder.Property(r => r.CreatedAt).IsRequired();
 
-            builder.Property(p => p.UpdatedAt).IsRequired();
+            builder.Property(r => r.UpdatedAt).IsRequired();
 
-            builder.Property(p => p.Name).IsRequired();
+            builder.Property(r => r.Name).IsRequired();
 
-            builder.HasMany(p => p.DaysOfWork)
-                   .WithOne(d => d.Restaurant);
+            builder.HasMany(r => r.DaysOfWork)
+                   .WithOne(d => d.Restaurant)
+                   .HasForeignKey(d => d.RestaurantId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(p => p.Contacts)
-                   .WithOne(d => d.Restaurant);
+            builder.HasMany(r => r.Contacts)
+                   .WithOne(c => c.Restaurant)
+                   .HasForeignKey(c => c.RestaurantId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                 .Property(a => a.FullAddress)
                 .HasColumnName("AddressFullAddress");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                 .Property(a => a.PostalCode)
                 .HasColumnName("AddressPostalCode");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                .Property(a => a.Number)
                .HasColumnName("AddressNumber");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                .Property(a => a.State)
                .HasColumnName("AddressState");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                .Property(a => a.Street)
                .HasColumnName("AddressStreet");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
               .Property(a => a.Neighborhood)
               .HasColumnName("AddressNeighborhood");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                .Property(a => a.Country)
                .HasColumnName("AddressCountry");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
                .Property(a => a.Zone)
                .HasColumnName("AddressZone");
 
-            builder.OwnsOne(p => p.Address)
+            builder.OwnsOne(r => r.Address)
               .Property(a => a.City)
               .HasColumnName("AddressCity");
 

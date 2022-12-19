@@ -19,13 +19,6 @@
         {
             await _service.DeleteRestaurant(request);
 
-            if (!await _uow.SaveChangesAsync())
-            {
-                _logger.LogWarning("Unable to delete restaurant", request);
-
-                throw new InfrastructureException("Unable to delete restaurant", request.CorrelationId);
-            }
-
             _logger.LogInformation("Restaurant deleted", request);
 
             return Unit.Value;

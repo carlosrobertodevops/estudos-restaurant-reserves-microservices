@@ -11,13 +11,13 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
     public class RestaurantRepository : IRestaurantRepository
     {
         private readonly IDatabaseContext _context;
-        private readonly SqlConnection _queryDatabaseConnection;
+        private readonly SqlConnection _databaseConnection;
 
         public RestaurantRepository(IDatabaseContext context,
                                     SqlConnection queryDatabaseConnection)
         {
             _context = context;
-            _queryDatabaseConnection = queryDatabaseConnection;
+            _databaseConnection = queryDatabaseConnection;
         }
 
         public async Task<RestaurantEntity> CreateAsync(RestaurantEntity restaurant)
@@ -25,30 +25,6 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             await _context.Restaurants.AddAsync(restaurant);
 
             return restaurant;
-        }
-
-        public Task DeleteAsync(RestaurantEntity restaurant)
-        {
-            _context.Restaurants.Remove(restaurant);
-
-            return Task.CompletedTask;
-        }
-
-        public async Task DeleteRestaurantDependencies(RestaurantEntity restaurant)
-        {
-            await _queryDatabaseConnection.OpenAsync();
-
-            var restaurantId = restaurant.Id;
-
-            var contacts = await _queryDatabaseConnection.QueryAsync<Contact>(QueriesExtensions.GetRestaurantsContacts, new { restaurantId });
-
-            _context.Contacts.RemoveRange(contacts);
-
-            var daysOfWork = await _queryDatabaseConnection.QueryAsync<DayOfWork>(QueriesExtensions.GetRestaurantsDaysOfWork, new { restaurantId });
-
-            _context.DaysOfWork.RemoveRange(daysOfWork);
-
-            await _queryDatabaseConnection.CloseAsync();
         }
 
         public async Task<bool> ExistsAsync(RestaurantEntity restaurant)
@@ -72,11 +48,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<RestaurantEntity>> GetPaginatedRestaurants(int page, int rows)
         {
-            await _queryDatabaseConnection.OpenAsync();
+            await _databaseConnection.OpenAsync();
 
             var restaurants = new List<RestaurantEntity>();
 
-            (await _queryDatabaseConnection.QueryAsync
+            (await _databaseConnection.QueryAsync
                                     (
                                         QueriesExtensions.GetRestaurantsPaginated,
                                         (Func<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>)((restaurant, address, contact, dayOfWork) =>
@@ -103,7 +79,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                                             rows
                                         })).AsList();
 
-            await _queryDatabaseConnection.CloseAsync();
+            await _databaseConnection.CloseAsync();
 
             return restaurants ?? Enumerable.Empty<RestaurantEntity>();
         }
@@ -114,11 +90,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                                                                                  int page,
                                                                                  int rows)
         {
-            await _queryDatabaseConnection.OpenAsync();
+            await _databaseConnection.OpenAsync();
 
             var restaurants = new List<RestaurantEntity>();
 
-            (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
+            (await _databaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
                                     (
                                          QueriesExtensions.GetRestaurantsByAddressPaginated,
                                          (restaurant, address, contact, dayOfWork) =>
@@ -148,18 +124,18 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                                              rows
                                          })).AsList();
 
-            await _queryDatabaseConnection.CloseAsync();
+            await _databaseConnection.CloseAsync();
 
             return restaurants ?? Enumerable.Empty<RestaurantEntity>();
         }
 
         public async Task<IEnumerable<RestaurantEntity>> GetRestaurantsByName(string name, int page, int rows)
         {
-            await _queryDatabaseConnection.OpenAsync();
+            await _databaseConnection.OpenAsync();
 
             var restaurants = new List<RestaurantEntity>();
 
-            (await _queryDatabaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
+            (await _databaseConnection.QueryAsync<RestaurantEntity, Address, Contact, DayOfWork, RestaurantEntity>
                                      (
                                          QueriesExtensions.GetRestaurantsByNamePaginated,
                                          (restaurant, address, contact, dayOfWork) =>
@@ -187,16 +163,94 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                                              rows
                                          })).AsList();
 
-            await _queryDatabaseConnection.CloseAsync();
+            await _databaseConnection.CloseAsync();
 
             return restaurants ?? Enumerable.Empty<RestaurantEntity>();
         }
 
-        public Task UpdateAsync(RestaurantEntity restaurant)
+        public async Task UpdateAsync(RestaurantEntity restaurant)
         {
-            _context.Restaurants.Update(restaurant);
+            await _databaseConnection.OpenAsync();
 
-            return Task.CompletedTask;
+            using var transaction = await _databaseConnection.BeginTransactionAsync();
+
+            try
+            {
+                await TryUpdateAsync(restaurant, transaction);
+
+                await OverrideRestaurantDependencies(restaurant, transaction);
+
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+
+                throw new InfrastructureException("Unable to update restaurant", ex);
+            }
+
+            await _databaseConnection.CloseAsync();
+        }
+
+        private async Task TryUpdateAsync(RestaurantEntity restaurant, System.Data.Common.DbTransaction transaction)
+        {
+            await _databaseConnection.ExecuteAsync(QueriesExtensions.UpdateRestaurant, new
+            {
+                restaurant.Id,
+                restaurant.Name,
+                restaurant.Document,
+                restaurant.Description,
+                restaurant.TotalTables,
+                restaurant.Enabled,
+                restaurant.Address.FullAddress,
+                restaurant.Address.PostalCode,
+                restaurant.Address.Number,
+                restaurant.Address.State,
+                restaurant.Address.Street,
+                restaurant.Address.Country,
+                restaurant.Address.Neighborhood,
+                restaurant.Address.Zone,
+                restaurant.Address.City
+            }, transaction: transaction);
+        }
+
+        private async Task OverrideRestaurantDependencies(RestaurantEntity restaurant, System.Data.Common.DbTransaction transaction)
+        {
+            await _databaseConnection.ExecuteAsync(QueriesExtensions.DeleteRestaurantDependencies, new { restaurant.Id }, transaction: transaction);
+
+            if (restaurant.Contacts.Any())
+            {
+                await _databaseConnection.ExecuteAsync(QueriesExtensions.CreateContacts(restaurant), transaction: transaction);
+            }
+
+            if (restaurant.DaysOfWork.Any())
+            {
+                await _databaseConnection.ExecuteAsync(QueriesExtensions.CreateDaysOfWork(restaurant), transaction: transaction);
+            }
+        }
+
+        public async Task DeleteAsync(RestaurantEntity restaurant)
+        {
+            await _databaseConnection.OpenAsync();
+
+            using var transaction = await _databaseConnection.BeginTransactionAsync();
+
+            try
+            {
+                await _databaseConnection.ExecuteAsync(QueriesExtensions.DeleteRestaurantDependencies, new { restaurant.Id }, transaction: transaction);
+
+                await _databaseConnection.ExecuteAsync(QueriesExtensions.DeleteRestaurant, new { restaurant.Id }, transaction: transaction);
+
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+
+                throw new InfrastructureException("Unable to delete restaurant", ex);
+            }
+
+            await _databaseConnection.CloseAsync();
         }
 
         private static void BuildRestaurant(RestaurantEntity restaurant, Address address, Contact contact, DayOfWork dayOfWork)
@@ -231,6 +285,20 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             if (contact is not null && !restaurantAdded.Contacts.Any(d => d.Id == contact.Id))
             {
                 restaurantAdded.Contacts.Add(contact);
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+                _databaseConnection.Dispose();
             }
         }
     }

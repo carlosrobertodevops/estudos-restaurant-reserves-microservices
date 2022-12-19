@@ -21,10 +21,6 @@
                    .HasConversion(d => Enum.GetName(d),
                                   d => (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d));
 
-            builder.HasOne(d => d.Restaurant)
-                   .WithMany(p => p.DaysOfWork)
-                   .HasForeignKey(d => d.RestaurantId);
-
             builder.ToTable("DaysOfWork");
         }
     }
