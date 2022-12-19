@@ -54,12 +54,12 @@
 
         private bool PhoneIsFilled()
         {
-            return PhoneNumber is not null && string.IsNullOrWhiteSpace(PhoneNumber);
+            return !string.IsNullOrWhiteSpace(PhoneNumber);
         }
 
         private bool EmailIsFilled()
         {
-            return Email is not null && string.IsNullOrWhiteSpace(Email);
+            return !string.IsNullOrWhiteSpace(Email);
         }
     }
 }

@@ -6,9 +6,9 @@ namespace Restaurant.API.Configurations
     {
         public static WebApplicationBuilder AddInfrastructureConfiguration(this WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+            builder.Services.AddScoped<IDatabaseContext, SqlServerContext>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
             builder.Services.AddTransient(o => new SqlConnection(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
             builder.Services.AddDbContext<SqlServerContext>(options =>
