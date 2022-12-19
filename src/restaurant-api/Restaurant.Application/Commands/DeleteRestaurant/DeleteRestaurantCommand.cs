@@ -5,10 +5,10 @@
         public Guid Id { get; private set; }
         public Guid CorrelationId { get; private set; }
 
-        public DeleteRestaurantCommand(Guid id)
+        public DeleteRestaurantCommand(Guid id, Guid correlatioId)
         {
             Id = id;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlatioId;
         }
     }
 }

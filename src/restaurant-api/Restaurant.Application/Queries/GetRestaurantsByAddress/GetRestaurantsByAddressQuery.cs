@@ -9,14 +9,14 @@
         public string Zone { get; private set; }
         public Guid CorrelationId {get; private set;}
 
-        public GetRestaurantsByAddressQuery(int page, int rows, string city, string neighborhood, string zone)
+        public GetRestaurantsByAddressQuery(int page, int rows, string city, string neighborhood, string zone, Guid correlationId)
         {
             Page = page;
             Rows = rows;
             City = city;
             Neighborhood = neighborhood;
             Zone = zone;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }

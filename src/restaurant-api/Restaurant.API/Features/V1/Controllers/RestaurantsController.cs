@@ -1,4 +1,6 @@
-﻿namespace Restaurant.API.Features.V1.Controllers
+﻿using Restaurant.API.Extensions;
+
+namespace Restaurant.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -25,7 +27,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Get(int page, int rows, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetRestaurantsQuery(page, rows), cancellationToken);
+            var response = await _mediator.Send(new GetRestaurantsQuery(page, rows, Request.GetCorrelationId()), cancellationToken);
 
             return Ok(response);
         }
@@ -41,7 +43,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetRestaurantByIdQuery(id), cancellationToken);
+            var response = await _mediator.Send(new GetRestaurantByIdQuery(id, Request.GetCorrelationId()), cancellationToken);
 
             return Ok(response);
         }
@@ -62,7 +64,7 @@
                                                    string name,
                                                    CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetRestaurantsByNameQuery(page, rows, name), cancellationToken);
+            var response = await _mediator.Send(new GetRestaurantsByNameQuery(page, rows, name, Request.GetCorrelationId()), cancellationToken);
 
             return Ok(response);
         }
@@ -91,7 +93,8 @@
                                                                                  rows,
                                                                                  city,
                                                                                  neighborhood, 
-                                                                                 zone), 
+                                                                                 zone,
+                                                                                 Request.GetCorrelationId()), 
                                                                                  cancellationToken);
             return Ok(response);
         }
@@ -107,7 +110,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Post(RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new CreateRestaurantCommand(restaurant), cancellationToken);
+            var response = await _mediator.Send(new CreateRestaurantCommand(restaurant, Request.GetCorrelationId()), cancellationToken);
 
             return CreatedAtAction(nameof(Post), response);
         }
@@ -124,7 +127,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Put(Guid id, RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new UpdateRestaurantCommand(id, restaurant), cancellationToken);
+            await _mediator.Send(new UpdateRestaurantCommand(id, restaurant, Request.GetCorrelationId()), cancellationToken);
 
             return NoContent();
         }
@@ -140,7 +143,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteRestaurantCommand(id), cancellationToken);
+            await _mediator.Send(new DeleteRestaurantCommand(id, Request.GetCorrelationId()), cancellationToken);
 
             return NoContent();
         }

@@ -1,9 +1,13 @@
-﻿namespace Restaurant.API.Middlewares
+﻿using Azure.Core;
+using Restaurant.API.Extensions;
+
+namespace Restaurant.API.Middlewares
 {
     public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ErrorHandlerMiddleware> _logger;
+        private Guid _correlationId;
 
         public ErrorHandlerMiddleware(RequestDelegate next,
                                       ILogger<ErrorHandlerMiddleware> logger)
@@ -16,31 +20,38 @@
         {
             try
             {
+                if (context.Request?.Headers?[RequestExtensions.CorrelationId] is null || !Guid.TryParse(context.Request?.Headers?[RequestExtensions.CorrelationId], out _correlationId))
+                {
+                    context.Request.Headers.Add(RequestExtensions.CorrelationId, Guid.NewGuid().ToString());
+
+                    _correlationId = context.Request.GetCorrelationId();
+                }
+
                 await _next(context);
             }
             catch (NotFoundException ex)
             {
-                _logger.LogWarning(ex, ex.Message, ex.CorrelationId);
+                _logger.LogWarning(ex, ex.Message, new {correlationId = _correlationId });
 
                 await HandleExceptionAsync(context, ex);
             }
             catch (BusinessException ex)
             {
-                _logger.LogWarning(ex, ex.Message, ex.CorrelationId);
+                _logger.LogWarning(ex, ex.Message, new { correlationId = _correlationId });
 
                 await HandleExceptionAsync(context, ex);
             }
             catch (InfrastructureException ex)
             {
-                _logger.LogError(ex, ex.Message, ex.CorrelationId);
+                _logger.LogError(ex, ex.Message, new { correlationId = _correlationId });
 
-                await HandleExceptionAsync(context, ex, ex.CorrelationId);
+                await HandleExceptionAsync(context, ex, _correlationId);
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("Something unexpected happened.", ex);
+                _logger.LogCritical("Something unexpected happened.", new { ex, correlationId = _correlationId });
 
-                await HandleExceptionAsync(context, ex, Guid.Empty);
+                await HandleExceptionAsync(context, ex, _correlationId);
             }
         }
 
