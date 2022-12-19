@@ -37,6 +37,9 @@ namespace Restaurant.Infrastructure.Persistence
 															   		     D.UpdatedAt
 																FROM (SELECT *
 																	  FROM Restaurants (NOLOCK) R
+																	  WHERE LOWER(R.AddressZone) = LOWER(@zone) OR
+																		    LOWER(R.AddressCity) = LOWER(@city) OR
+																		    LOWER(R.AddressNeighborhood) = LOWER(@neighborhood)
 																	  ORDER BY R.Name
 																	  OFFSET (@page -1 ) *@rows ROWS 
 																	  FETCH NEXT @rows ROWS ONLY) R
@@ -46,9 +49,6 @@ namespace Restaurant.Infrastructure.Persistence
 																INNER 
 																JOIN DaysOfWork (NOLOCK) D  
 																ON R.Id = D.RestaurantId
-																WHERE LOWER(R.AddressZone) = LOWER(@zone) OR
-																      LOWER(R.AddressCity) = LOWER(@city) OR
-																      LOWER(R.AddressNeighborhood) = LOWER(@neighborhood)
 																ORDER BY R.Name";
 
 		public static string GetRestaurantsByNamePaginated => @"SELECT R.Id, 
@@ -83,6 +83,7 @@ namespace Restaurant.Infrastructure.Persistence
 															   		  D.UpdatedAt
 															   FROM (SELECT *
 																	 FROM Restaurants (NOLOCK) R
+																	 WHERE LOWER(R.Name) LIKE '%' + LOWER(@name) + '%'
 																	 ORDER BY R.Name
 																	 OFFSET (@page -1 ) *@rows ROWS 
 																	 FETCH NEXT @rows ROWS ONLY) R
@@ -92,7 +93,6 @@ namespace Restaurant.Infrastructure.Persistence
 															   INNER 
 															   JOIN DaysOfWork (NOLOCK) D  
 															   ON R.Id = D.RestaurantId
-															   WHERE LOWER(R.Name) LIKE '%' + LOWER(@name) + '%'
 															   ORDER BY R.Name";
 
 		public static string GetRestaurantsPaginated => @"SELECT R.Id, 

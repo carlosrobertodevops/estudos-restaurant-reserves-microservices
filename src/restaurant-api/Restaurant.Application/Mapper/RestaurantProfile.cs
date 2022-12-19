@@ -8,6 +8,8 @@ namespace Restaurant.Application.Mapper
         public RestaurantProfile()
         {
             CreateMap<RestaurantViewModel, RestaurantEntity>()
+                .ForMember(re => re.Id, option => option.Ignore())
+                .ForMember(re => re.CreatedAt, option => option.Ignore())
                 .ConstructUsing(rvm =>new RestaurantEntity(rvm.Name,
                                                            rvm.Document,
                                                            rvm.Description,

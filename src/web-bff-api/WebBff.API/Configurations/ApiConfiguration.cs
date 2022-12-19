@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using WebBff.API.Extensions;
+using WebBff.API.Middlewares;
+using WebBff.API.Providers;
+using WebBff.API.UseCases.Restaurants.GetAll;
 
 namespace WebBff.API.Configurations
 {
@@ -29,6 +35,13 @@ namespace WebBff.API.Configurations
                 options.ReportApiVersions = true;
             });
 
+            builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+            builder.Services.AddSingleton(new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
             builder.Services.AddVersionedApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
@@ -39,6 +52,13 @@ namespace WebBff.API.Configurations
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            builder.Services.AddHttpClient(ClientExtensions.RestaurantClient, client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["Api:RestaurantBaseAddress"]);
+            });
+
+            builder.Services.AddMediatR(typeof(GetAllRestaurants));
 
             return builder;
         }
@@ -53,6 +73,10 @@ namespace WebBff.API.Configurations
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<LoggerMiddleware>();
 
             app.MapControllers();
 
