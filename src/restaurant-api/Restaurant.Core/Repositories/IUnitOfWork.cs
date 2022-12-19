@@ -4,7 +4,5 @@
     {
         IRestaurantRepository Restaurant { get; }
         Task<bool> SaveChangesAsync();
-        Task BeginTransactionAsync();
-        Task CommitAsync();
     }
 }

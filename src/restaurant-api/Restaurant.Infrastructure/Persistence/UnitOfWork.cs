@@ -3,7 +3,6 @@
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IDatabaseContext _context;
-        private IDbContextTransaction _transaction;
 
         public IRestaurantRepository Restaurant { get; }
 
@@ -12,25 +11,7 @@
         {
             _context = context;
             Restaurant = restaurant;
-        }
-
-        public async Task BeginTransactionAsync()
-        {
-            _transaction = await _context.BeginTransactionAsync();
-        }
-
-        public async Task CommitAsync()
-        {
-            try
-            {
-                await _transaction.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                await _transaction.RollbackAsync();
-                throw new InfrastructureException("Error on commiting changes to database", ex);
-            }
-        }
+        }  
 
         public async Task<bool> SaveChangesAsync()
         {
@@ -46,7 +27,10 @@
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
+            {
                 _context.Dispose();
+                Restaurant.Dispose();
+            }
         }
     }
 }
