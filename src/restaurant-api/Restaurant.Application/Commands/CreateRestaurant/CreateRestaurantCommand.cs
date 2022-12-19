@@ -5,10 +5,10 @@
         public RestaurantViewModel Restaurant { get; set; }
         public Guid CorrelationId { get; private set; }
 
-        public CreateRestaurantCommand(RestaurantViewModel restaurant)
+        public CreateRestaurantCommand(RestaurantViewModel restaurant, Guid correlationId)
         {
             Restaurant = restaurant;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }

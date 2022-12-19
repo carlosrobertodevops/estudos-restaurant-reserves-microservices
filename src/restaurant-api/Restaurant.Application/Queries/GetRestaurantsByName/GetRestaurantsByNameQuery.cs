@@ -7,12 +7,12 @@
         public string Name { get; private set; }
         public Guid CorrelationId { get; private set; }
 
-        public GetRestaurantsByNameQuery(int page, int rows, string name)
+        public GetRestaurantsByNameQuery(int page, int rows, string name, Guid correlationId)
         {
             Page = page;
             Rows = rows;
             Name = name;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }

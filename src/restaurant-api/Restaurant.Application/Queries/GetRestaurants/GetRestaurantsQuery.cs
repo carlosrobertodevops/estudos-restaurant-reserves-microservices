@@ -6,11 +6,11 @@
         public int Rows { get; private set; }
         public Guid CorrelationId { get; private set; }
 
-        public GetRestaurantsQuery(int page, int rows)
+        public GetRestaurantsQuery(int page, int rows, Guid correlationId)
         {
             Page = page;
             Rows = rows;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }
