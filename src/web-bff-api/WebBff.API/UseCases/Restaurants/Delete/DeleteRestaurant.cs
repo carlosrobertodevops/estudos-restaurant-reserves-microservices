@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebBff.API.UseCases.Restaurants.Delete
+﻿namespace WebBff.API.UseCases.Restaurants.Delete
 {
-    public class DeleteRestaurant
+    public class DeleteRestaurant : IUseCase
     {
+        public DeleteRestaurant(Guid id, Guid correlationId)
+        {
+            Id = id;
+            CorrelationId = correlationId;
+        }
 
+        public Guid Id { get; }
+        public Guid CorrelationId { get; }
     }
 }

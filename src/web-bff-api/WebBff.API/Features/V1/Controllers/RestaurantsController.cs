@@ -1,7 +1,11 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebBff.API.UseCases.Restaurants.Create;
+using WebBff.API.UseCases.Restaurants.Delete;
 using WebBff.API.UseCases.Restaurants.GetAll;
-using WebBff.API.ViewModels;
+using WebBff.API.UseCases.Restaurants.GetByAddress;
+using WebBff.API.UseCases.Restaurants.GetById;
+using WebBff.API.UseCases.Restaurants.GetByName;
+using WebBff.API.UseCases.Restaurants.Update;
 
 namespace WebBff.API.Features.V1.Controllers
 {
@@ -30,7 +34,7 @@ namespace WebBff.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Get(int page, int rows, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetAllRestaurants(page, rows), cancellationToken);
+            var response = await _mediator.Send(new GetAllRestaurants(page, rows, Request.GetCorrelationId()), cancellationToken);
 
             return Ok(response);
         }
@@ -46,8 +50,9 @@ namespace WebBff.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok());
+            var response = await _mediator.Send(new GetRestaurantById(id, Request.GetCorrelationId()), cancellationToken);
 
+            return Ok(response);
         }
 
         /// <summary>
@@ -66,7 +71,9 @@ namespace WebBff.API.Features.V1.Controllers
                                                    string name,
                                                    CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok());
+            var response = await _mediator.Send(new GetRestaurantsByName(page, rows, name, Request.GetCorrelationId()), cancellationToken);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -82,14 +89,16 @@ namespace WebBff.API.Features.V1.Controllers
         [HttpGet("address")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantViewModel[]))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
-        public async Task<IActionResult> GetByAddress(int page,
-                                                      int rows,
+        public async Task<IActionResult> GetByAddress(int? page,
+                                                      int? rows,
                                                       string city,
                                                       string neighborhood,
                                                       string zone,
                                                       CancellationToken cancellationToken)
         {
-            return await Task.Run(() => Ok());
+            var response = await _mediator.Send(new GetRestaurantsByAddress(page, rows, city, neighborhood, zone, Request.GetCorrelationId()), cancellationToken);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -103,7 +112,9 @@ namespace WebBff.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Post(RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => CreatedAtAction(nameof(Post), restaurant));
+            var response = await _mediator.Send(new CreateRestaurant(restaurant, Request.GetCorrelationId()), cancellationToken);
+
+            return CreatedAtAction(nameof(Post), response);
         }
 
         /// <summary>
@@ -118,7 +129,9 @@ namespace WebBff.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Put(Guid id, RestaurantViewModel restaurant, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => NoContent());
+            await _mediator.Send(new UpdateRestaurant(id, restaurant, Request.GetCorrelationId()), cancellationToken);
+
+            return NoContent();
         }
 
         /// <summary>
@@ -132,7 +145,9 @@ namespace WebBff.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            return await Task.Run(() => NoContent());
+            await _mediator.Send(new DeleteRestaurant(id, Request.GetCorrelationId()), cancellationToken);
+
+            return NoContent();
         }
     }
 }

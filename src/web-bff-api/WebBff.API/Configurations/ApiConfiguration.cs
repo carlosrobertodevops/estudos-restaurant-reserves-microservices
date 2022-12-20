@@ -1,13 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using WebBff.API.Extensions;
-using WebBff.API.Middlewares;
-using WebBff.API.Providers;
-using WebBff.API.UseCases.Restaurants.GetAll;
-
-namespace WebBff.API.Configurations
+﻿namespace WebBff.API.Configurations
 {
     public static class ApiConfiguration
     {
