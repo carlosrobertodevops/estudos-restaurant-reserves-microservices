@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebBff.API.UseCases.Restaurants.GetById
+﻿namespace WebBff.API.UseCases.Restaurants.GetById
 {
-    public class GetRestaurantById
+    public class GetRestaurantById : IUseCase<RestaurantViewModel>
     {
+        public Guid Id { get; set; }
+        public Guid CorrelationId { get; private set; }
 
+        public GetRestaurantById(Guid id, Guid correlationId)
+        {
+            Id = id;
+            CorrelationId = correlationId;
+        }
     }
 }

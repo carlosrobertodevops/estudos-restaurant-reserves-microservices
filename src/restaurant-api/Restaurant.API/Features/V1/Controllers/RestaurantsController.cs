@@ -122,7 +122,7 @@ namespace Restaurant.API.Features.V1.Controllers
         /// <param name="restaurant">restaurant body</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Put(Guid id, RestaurantViewModel restaurant, CancellationToken cancellationToken)
@@ -138,7 +138,7 @@ namespace Restaurant.API.Features.V1.Controllers
         /// <param name="id">restaurant id</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)

@@ -1,0 +1,350 @@
+[33mcommit ea6b232b610d65fa9fe173e6575c4c2163b6e409[m[33m ([m[1;36mHEAD -> [m[1;32mfeature-bff[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-restaurants-api[m[33m)[m
+Merge: be011b1 bc1a339
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 15:14:38 2022 -0300
+
+    Merge pull request #12 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit bc1a339edde48c2ba7b9edba8c3589a804ebf006[m[33m ([m[1;31morigin/develop[m[33m)[m
+Merge: f5d13a8 30f9620
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 15:14:24 2022 -0300
+
+    Merge pull request #11 from enzotlucas/feature-bff
+    
+    Feature bff
+
+[33mcommit 30f962005daef5d6619cf92acd7ac5767f6a08a8[m[33m ([m[1;31morigin/feature-bff[m[33m)[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Mon Dec 19 15:13:54 2022 -0300
+
+    fixing create restaurant, adding first restaurant request
+
+[33mcommit 7ebf4ebcd44a3b757879c02231db0fcec0084ee5[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Mon Dec 19 12:32:47 2022 -0300
+
+    creating bff
+
+[33mcommit be011b196f14f671bb75b7159088ac7ff36440f8[m
+Merge: a52094f f5d13a8
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 12:29:42 2022 -0300
+
+    Merge pull request #10 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit f5d13a8c33d6454af489b15ea7050b4923af1004[m
+Merge: a1513b8 ac4b58a
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 12:28:58 2022 -0300
+
+    Merge pull request #9 from enzotlucas/feature-restaurants-api
+    
+    fixing correlation id
+
+[33mcommit ac4b58adaf01a6496535b01c138bed743565c6ea[m[33m ([m[1;31morigin/feature-restaurants-api[m[33m)[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Mon Dec 19 12:13:18 2022 -0300
+
+    fixing correlation id
+
+[33mcommit a52094f776f8417d152ee0571a975d7f0d947321[m
+Merge: a8a6cab a1513b8
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 09:08:15 2022 -0300
+
+    Merge pull request #8 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit a1513b891ea993f6cba7dd04bcd4e6264da43a9b[m
+Merge: 8a1bc3d eeaa6a8
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Mon Dec 19 09:07:58 2022 -0300
+
+    Merge pull request #7 from enzotlucas/feature-restaurants-api
+    
+    fixing update and delete restaurant
+
+[33mcommit eeaa6a859ec274e81a37895f025a340cf27b787f[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Mon Dec 19 09:06:57 2022 -0300
+
+    fixing update and delete restaurant
+
+[33mcommit a8a6cab3050d393f107e096875d412a18aced246[m
+Merge: 8ed704b 8a1bc3d
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Tue Dec 13 11:24:48 2022 -0300
+
+    Merge pull request #6 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit 8a1bc3d2e33420007c3113ed216d15964858feaf[m
+Merge: 23a2188 cd6e2f9
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Tue Dec 13 11:24:23 2022 -0300
+
+    Merge pull request #5 from enzotlucas/feature-restaurants-api
+    
+    Feature restaurants api
+
+[33mcommit cd6e2f97c10bf9248c4b40cf594f9f8eb3c157aa[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Tue Dec 13 11:23:28 2022 -0300
+
+    adding more validations to contacts and days of work
+
+[33mcommit db3c29958a3f1353b84909eceb8c744d859f8bb5[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Tue Dec 13 09:32:03 2022 -0300
+
+    fixing dapper queries, all get working now. adding city field to restaurant address
+
+[33mcommit 115ce07875499c297b2df53066242e4a01e7748e[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Mon Dec 12 09:17:01 2022 -0300
+
+    adding auto mapper, fixing get by id issues, need to fix get paginated results error
+
+[33mcommit 2e0c3e5e9806e63f206ee7356dabfb358d3ce2cc[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Thu Dec 8 23:58:07 2022 -0300
+
+    changing delete and update restaurant rules, adding dapper
+
+[33mcommit ee1ed4c308fe26e60a210a88909a1e821ee64773[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Thu Dec 8 08:37:16 2022 -0300
+
+    updating logging at error handling middleware
+
+[33mcommit 8ed704b6522d305028527d4ed89c3d19f1256d3a[m[33m ([m[1;32mmain[m[33m)[m
+Merge: 70dcb9f 23a2188
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Wed Dec 7 23:28:52 2022 -0300
+
+    Merge pull request #4 from enzotlucas/develop
+    
+    Creating commands
+
+[33mcommit 23a21885812d9e9c8c26ef66ee15886d1db0fbcc[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: enzotlucas <enzotlucas31@gmail.com>
+Date:   Wed Dec 7 23:27:45 2022 -0300
+
+    adding commands, adding staging configuration, adding db context methods, adding correlation id to every request
+
+[33mcommit 9969a3202dd29d5b6dccdf088ca70ac16418acff[m
+Merge: 5bb1ccf a86c19f
+Author: = <enzotlucas31@gmail.com>
+Date:   Wed Dec 7 21:24:55 2022 -0300
+
+    Merge branch 'develop' of https://github.com/enzotlucas/restaurant-reserves-microservices into develop
+
+[33mcommit a86c19f9489af2080d72fdb8cfd6cf7d97c4daa8[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Thu Dec 1 18:27:47 2022 -0300
+
+    [restaurants]: changing dependency injection of mediator
+
+[33mcommit 854744cf4d3fb1fd1cac37b1768459e7a276d7df[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Mon Nov 28 08:57:35 2022 -0300
+
+    update restaurant README.md
+
+[33mcommit 5bb1ccff0873de0dfa2e13b05882bbe7202a3f77[m
+Merge: 8b8ad70 70dcb9f
+Author: = <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 20:01:23 2022 -0300
+
+    Merge branch 'main' of https://github.com/enzotlucas/restaurant-reserves-microservices into develop
+
+[33mcommit 70dcb9f3ff80db4c5cc4a771dde31f2316c6e547[m
+Merge: be89e49 f03254f
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Sun Nov 27 20:00:52 2022 -0300
+
+    Merge pull request #3 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit 8b8ad70866785d66c15250b95bbb4ea87ea8c308[m
+Merge: f03254f be89e49
+Author: = <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 19:59:11 2022 -0300
+
+    Merge branch 'main' of https://github.com/enzotlucas/restaurant-reserves-microservices into develop
+
+[33mcommit be89e492dccb45305c41fc29655ea6f82fc0eec3[m
+Author: = <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 19:58:28 2022 -0300
+
+    [security]: adding initial code to security api
+
+[33mcommit f03254ffe729f43113971fa1ebc6fc05426ea0ff[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 17:42:08 2022 -0300
+
+    [restaurants]: adding request unit tests
+
+[33mcommit c0132e6223938bad5abf44f9e82398e88d95ca04[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 16:44:18 2022 -0300
+
+    [restaurants]: fix get restaurants by address validation
+
+[33mcommit 297cbb1916f9d6b96bd3122e95d6a10a19686c55[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 16:27:40 2022 -0300
+
+    [restaurants]: adding all mediator request validators remaining
+
+[33mcommit 084fbf02166fe3cc8b5c52fb1f3798c1b5becf98[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 16:00:05 2022 -0300
+
+    [restaurants]: adding mediator request validators
+
+[33mcommit a72eb8fd88da52ea26e5834785ef7ae2d9c35361[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 15:03:07 2022 -0300
+
+    [restaurants]: adding get by name endpoint unit tests
+
+[33mcommit 19d77d35473d8f8dcb60a3e0a68e817ab757a6cd[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 14:53:20 2022 -0300
+
+    [restaurants]: adding get endpoint unit tests
+
+[33mcommit 3a9742217b225b804a465b3b53847533cb0f4f4c[m
+Merge: e700dd1 98a2e08
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Sun Nov 27 00:01:57 2022 -0300
+
+    Merge pull request #2 from enzotlucas/develop
+    
+    Develop
+
+[33mcommit 98a2e0850a5cc33c2913c7cb97bfde1d7b1623c8[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sun Nov 27 00:01:02 2022 -0300
+
+    [restaurants]: class usings refactor
+
+[33mcommit ec73eca9d4116a0773ec1ca15f815857ad7a86d6[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sat Nov 26 23:46:18 2022 -0300
+
+    [restaurants]: adding get by id unit tests
+
+[33mcommit e8606b18f1c80b389c22550997a5b87ded674580[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sat Nov 26 23:32:26 2022 -0300
+
+    [restaurants]: adding business rules to controller, end of api documentation, init unit testings
+
+[33mcommit 37b7ea6eded60937a053ba230b79491ab845c0a3[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Sat Nov 26 13:50:20 2022 -0300
+
+    adding swagger documentation to controller methods
+
+[33mcommit ef3a1d7f23dd0e8e30c6d25996d86ed5fe4cdde7[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Fri Nov 18 01:28:11 2022 -0300
+
+    adding more fields to restaurant entity, creating fluent validation
+
+[33mcommit d3805151a536e6cb527fb1139e988eb5222c65bb[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Thu Nov 17 18:29:38 2022 -0300
+
+    adding endpoints
+
+[33mcommit 8c20099cedc941bca749f9ba0a6664d27722598a[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Wed Nov 16 10:46:32 2022 -0300
+
+    adding docker
+
+[33mcommit e700dd14d1b6fd3855abfe670cba3a7b5041b7ee[m
+Author: = <enzotlucas31@gmail.com>
+Date:   Wed Nov 16 08:15:44 2022 -0300
+
+    adding db structure
+
+[33mcommit 43c38f5e300dd788d938d2fa5facc993ff5d9267[m
+Author: = <enzotlucas31@gmail.com>
+Date:   Mon Nov 14 21:54:06 2022 -0300
+
+    adding costumers api
+
+[33mcommit 2a5b7398761a98e38d9e787b878216ff91910ce2[m
+Author: = <enzotlucas31@gmail.com>
+Date:   Mon Nov 14 21:43:37 2022 -0300
+
+    creating restaurant api
+
+[33mcommit 8f60c097fcdadd448bbf2df60a0d3f9d7df6cb1b[m
+Merge: 19e18e6 fa8f472
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Fri Jul 15 01:06:04 2022 -0300
+
+    Merge pull request #1 from enzotlucas/develop
+    
+    (Restaurant API) Adding repositories files, adding implicit usings
+
+[33mcommit fa8f4728bd4cbc4a2f9ff47875b297ad4850b15a[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Fri Jul 15 01:04:09 2022 -0300
+
+    (Restaurant API) Adding repositories files, adding implicit usings
+
+[33mcommit 19e18e6966cb1dfeb01826c5c4b2206795a2b389[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Thu Jul 14 16:40:07 2022 -0300
+
+    Adding Costumer microsservice
+
+[33mcommit a376c92d0ed7520c15cf023f36c86187fcf0ef1b[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Thu Jul 14 16:23:48 2022 -0300
+
+    Adding implicit usings
+
+[33mcommit 1c36119bfc77bd1ae079a9565f31c0b80fec4c6c[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Thu Jul 14 16:09:58 2022 -0300
+
+    Adding entities and some domain objects
+
+[33mcommit 1379ed4cb108040c1de79ea200fe5dc991d387ed[m
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Wed Jul 13 22:46:37 2022 -0300
+
+    Update README
+
+[33mcommit ccd439d4eb2bbd620efff27ffb7f8408013c374e[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Mon Jul 11 20:31:00 2022 -0300
+
+    Moving projects to a organization folder
+
+[33mcommit 693d210c31562cf711d8e2b59ed2800a7cfb3a9d[m
+Author: Enzo Thomazi Lucas <enzotlucas31@gmail.com>
+Date:   Mon Jul 11 13:53:02 2022 -0300
+
+    Initial commit
+
+[33mcommit 8e1d9bdf05430d48936100bf551e4719d5c1c253[m
+Author: Enzo Thomazi Lucas <81045171+enzotlucas@users.noreply.github.com>
+Date:   Fri Jul 1 08:52:01 2022 -0300
+
+    Initial commit
