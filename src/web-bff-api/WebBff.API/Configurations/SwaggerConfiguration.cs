@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
-
-namespace WebBff.API.Configurations
+﻿namespace WebBff.API.Configurations
 {
     public static class SwaggerConfiguration
     {

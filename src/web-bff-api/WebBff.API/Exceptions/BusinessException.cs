@@ -1,7 +1,4 @@
-﻿using System.Net;
-using WebBff.API.ViewModels;
-
-namespace WebBff.API.Exceptions
+﻿namespace WebBff.API.Exceptions
 {
     public class BusinessException : Exception
     {
