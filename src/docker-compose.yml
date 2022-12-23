@@ -3,20 +3,53 @@ version: '3.3'
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      - backend
     hostname: 'sqlserver'
     container_name: sqlserver-restaurantreserves
     environment:
       ACCEPT_EULA: 'Y'
       SA_PASSWORD: "AvS#a1s45s"
+      MSSQL_PID: Express
     volumes:
       - c:\dados\volumes\mssql:/var/opt/mssql3
     ports:
       - '11433:1433'    
     expose:
       - 1433
-      
+
+  keycloaksqlscripts:
+    image: mcr.microsoft.com/mssql-tools
+    networks:
+      - backend
+    depends_on:
+        - sqlserver
+    command: /bin/bash -c 'until /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P "AvS#a1s45s" -Q "create database Keycloak"; do sleep 5; done'
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.2
+    networks:
+      - backend
+    command:
+      - start-dev
+    depends_on:
+        - sqlserver
+        - keycloaksqlscripts
+    ports:
+        - "8080:8080"
+    environment:
+        - KEYCLOAK_ADMIN=admin
+        - KEYCLOAK_ADMIN_PASSWORD=admin
+        - DB_VENDOR=mssql
+        - DB_USER=sa
+        - DB_PASSWORD=AvS#a1s45s
+        - DB_ADDR=sqlserver
+        - DB_DATABASE=Keycloak
+
   restaurant.api:
     image: ${DOCKER_REGISTRY-}restaurantapi
+    networks:
+      - backend
     build:
       context: .
       dockerfile: restaurant-api/Restaurant.API/Dockerfile
@@ -34,6 +67,8 @@ services:
 
   webbff.api:
     image: ${DOCKER_REGISTRY-}webbffapi
+    networks:
+      - backend
     build:  
       context: .
       dockerfile: web-bff-api/WebBff.API/Dockerfile
@@ -48,3 +83,6 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+networks:
+  backend:
