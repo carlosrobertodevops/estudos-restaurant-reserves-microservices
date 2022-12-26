@@ -138,7 +138,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Core.Entities.Restaurant", b =>
                 {
-                    b.OwnsOne("Restaurant.Core.Entities.Restaurant.Address#Restaurant.Core.ValueObjects.Address", "Address", b1 =>
+                    b.OwnsOne("Restaurant.Core.ValueObjects.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("RestaurantId")
                                 .HasColumnType("uniqueidentifier");
@@ -181,13 +181,36 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("RestaurantId");
 
-                            b1.ToTable("Restaurants", (string)null);
+                            b1.ToTable("Restaurants");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RestaurantId");
+                        });
+
+                    b.OwnsOne("Restaurant.Core.ValueObjects.User", "User", b1 =>
+                        {
+                            b1.Property<Guid>("RestaurantId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("FirstName")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("UserFirstName");
+
+                            b1.Property<string>("LastName")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("UserLastName");
+
+                            b1.HasKey("RestaurantId");
+
+                            b1.ToTable("Restaurants");
 
                             b1.WithOwner()
                                 .HasForeignKey("RestaurantId");
                         });
 
                     b.Navigation("Address");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Restaurant.Core.Entities.Restaurant", b =>

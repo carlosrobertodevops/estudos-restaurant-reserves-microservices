@@ -1,4 +1,7 @@
-﻿using System.Data.SqlClient;
+﻿using EasyNetQ;
+using Restaurant.Core.Events;
+using Restaurant.Infrastructure.MessageBus;
+using System.Data.SqlClient;
 
 namespace Restaurant.API.Configurations
 {
@@ -15,6 +18,8 @@ namespace Restaurant.API.Configurations
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
             });
+
+            builder.AddMessageBusConfiguration();
 
             return builder;
         }

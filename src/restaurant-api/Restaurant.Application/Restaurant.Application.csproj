@@ -8,7 +8,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.0" />
+		<PackageReference Include="EasyNetQ" Version="7.3.7" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
@@ -19,12 +21,15 @@
 
 	<ItemGroup>
 		<Using Include="AutoMapper" />
+		<Using Include="EasyNetQ" />
 		<Using Include="FluentValidation" />
+		<Using Include="FluentValidation.Results" />
 		<Using Include="MediatR" />
 		<Using Include="Newtonsoft.Json" />
 		<Using Include="Microsoft.Extensions.Logging" />
 
 		<Using Include="Restaurant.Application.ViewModels" />
+		<Using Include="Restaurant.Application.Extensions" />
 		<Using Include="Restaurant.Application.Commands.CreateRestaurant" />
 		<Using Include="Restaurant.Application.Commands.DeleteRestaurant" />
 		<Using Include="Restaurant.Application.Commands.UpdateRestaurant" />
@@ -34,8 +39,10 @@
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />
 		<Using Include="Restaurant.Application.Services" />
 
+		<Using Include="EventBusMessages" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Entities" />
+		<Using Include="Restaurant.Core.Events" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Restaurant.Core.UseCases" />
 		<Using Include="Restaurant.Core.ValueObjects" />

@@ -8,14 +8,14 @@
         public Restaurant Restaurant { get; private set; }
         public Guid RestaurantId { get; private set; }
 
-        public Contact(string phoneNumber, string email, Restaurant restaurant)
+        public Contact(string phoneNumber, string email, Restaurant restaurant, Guid correlationId)
         {
             PhoneNumber = phoneNumber;
             Email = email;
             Restaurant = restaurant;
             RestaurantId = restaurant.Id;
 
-            Validate();
+            Validate(correlationId);
         }
 
         protected Contact()
@@ -23,11 +23,11 @@
 
         }
 
-        private void Validate()
+        private void Validate(Guid correlationId)
         {
             if (!PhoneIsFilled() && !EmailIsFilled())
             {
-                throw new BusinessException(GenerateValidationErrors(), "Invalid contact");
+                throw new BusinessException(GenerateValidationErrors(), "Invalid contact", correlationId);
             }
 
             //TODO:
