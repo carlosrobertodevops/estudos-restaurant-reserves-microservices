@@ -17,11 +17,11 @@
             CorrelationId = correlationId;
         }
 
-        public BusinessException(IDictionary<string, string[]> validationErrors, string message)
+        public BusinessException(IDictionary<string, string[]> validationErrors, string message, Guid correlationId)
             : base(message)
         {
             ValidationErrors = validationErrors;
-            CorrelationId = Guid.NewGuid();
+            CorrelationId = correlationId;
         }
     }
 }

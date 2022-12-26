@@ -11,7 +11,7 @@ namespace WebBff.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/restaurants")]
+    [Route("api/v{version:apiVersion}/web-bff/restaurants")]
     [Produces("application/json")]
     public class RestaurantsController : ControllerBase
     {

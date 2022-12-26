@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="EasyNetQ" Version="7.3.7" />
 	  <PackageReference Include="FluentValidation" Version="11.3.0" />
 	  <PackageReference Include="MediatR" Version="11.1.0" />
 	</ItemGroup>
@@ -14,12 +15,15 @@
 	<ItemGroup>
 		<Using Include="FluentValidation" />
 		<Using Include="FluentValidation.Validators" />
+		<Using Include="FluentValidation.Results" />
 		<Using Include="MediatR" />
 
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Restaurant.Core.Validators" />
 		<Using Include="Restaurant.Core.Entities" />
+		<Using Include="Restaurant.Core.Events" />
 		<Using Include="Restaurant.Core.ValueObjects" />
+		<Using Include="EventBusMessages" />
 	</ItemGroup>
 </Project>

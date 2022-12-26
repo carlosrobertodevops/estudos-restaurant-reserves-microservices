@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Entities
 {
-    public sealed class DayOfWork : BaseEntity
+    public class DayOfWork : BaseEntity
     {
         public DayOfWeek DayOfWeek { get; private set; }
         public int OpensAt { get; private set; }
@@ -9,7 +9,7 @@
         public Guid RestaurantId { get; private set; }
         public Restaurant Restaurant { get; private set; }
 
-        public DayOfWork(DayOfWeek dayOfWeek, int opensAt, int closesAt, Restaurant restaurant)
+        public DayOfWork(DayOfWeek dayOfWeek, int opensAt, int closesAt, Restaurant restaurant, Guid correlationId)
         {
             DayOfWeek = dayOfWeek;
             OpensAt = opensAt;
@@ -17,7 +17,7 @@
             RestaurantId = restaurant.Id;
             Restaurant = restaurant;
 
-            Validate();
+            Validate(correlationId);
         }
 
         protected DayOfWork()
@@ -25,11 +25,11 @@
 
         }
 
-        private void Validate()
+        private void Validate(Guid correlationId)
         {
             if (!this.IsValid())
             {
-                throw new BusinessException(GenerateValidationErrors(), "Invalid day of work");
+                throw new BusinessException(GenerateValidationErrors(), "Invalid day of work", correlationId);
             }
         }
 

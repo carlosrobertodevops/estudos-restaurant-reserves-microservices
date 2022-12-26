@@ -7,30 +7,40 @@ namespace Restaurant.Application.Mapper
     {
         public RestaurantProfile()
         {
-            CreateMap<RestaurantViewModel, RestaurantEntity>()
+            CreateMap<CreateRestaurantCommand, RestaurantEntity>()
                 .ForMember(re => re.Id, option => option.Ignore())
                 .ForMember(re => re.CreatedAt, option => option.Ignore())
-                .ConstructUsing(rvm =>new RestaurantEntity(rvm.Name,
-                                                           rvm.Document,
-                                                           rvm.Description,
-                                                           new Address(rvm.Address.FullAddress,
-                                                                       rvm.Address.PostalCode,
-                                                                       rvm.Address.Number ?? 0,
-                                                                       rvm.Address.State,
-                                                                       rvm.Address.Street,
-                                                                       rvm.Address.Country,
-                                                                       rvm.Address.Neighborhood,
-                                                                       rvm.Address.Zone,
-                                                                       rvm.Address.City),
-                                                           rvm.TotalTables,
-                                                           new RestaurantValidator())
-                ).AfterMap((rvm, re) => re.Update(daysOfWork: rvm.DaysOfWork.Select(d => new DayOfWork(d.DayOfWeek, d.OpensAt, d.ClosesAt, re)).ToList(),
-                                                   contacts: rvm.Contacts.Select(c => new Contact(c.PhoneNumber, c.Email, re)).ToList()));
+                .ConstructUsing(crc => new RestaurantEntity(crc.Restaurant.Name,
+                                                           crc.Restaurant.Document,
+                                                           crc.Restaurant.Description,
+                                                           new User(crc.Restaurant.User.FirstName, crc.Restaurant.User.LastName),
+                                                           new Address(crc.Restaurant.Address.FullAddress,
+                                                                       crc.Restaurant.Address.PostalCode,
+                                                                       crc.Restaurant.Address.Number ?? 0,
+                                                                       crc.Restaurant.Address.State,
+                                                                       crc.Restaurant.Address.Street,
+                                                                       crc.Restaurant.Address.Country,
+                                                                       crc.Restaurant.Address.Neighborhood,
+                                                                       crc.Restaurant.Address.Zone,
+                                                                       crc.Restaurant.Address.City),
+                                                           crc.Restaurant.TotalTables,
+                                                           new RestaurantValidator(),
+                                                           crc.CorrelationId)
+                ).AfterMap((crc, re) => re.Update(daysOfWork: crc.Restaurant.DaysOfWork.Select(d => new DayOfWork(d.DayOfWeek, d.OpensAt, d.ClosesAt, re, crc.CorrelationId)).ToList(),
+                                                   contacts: crc.Restaurant.Contacts.Select(c => new Contact(c.PhoneNumber, c.Email, re, crc.CorrelationId)).ToList()));
 
             CreateMap<RestaurantEntity, RestaurantViewModel>().ForMember(rvm => rvm.Id, m => m.MapFrom(re => re.Id))
                                                               .ForMember(rvm => rvm.Document, m => m.MapFrom(re => re.Document))
                                                               .ForMember(rvm => rvm.Description, m => m.MapFrom(re => re.Description))
                                                               .ForMember(rvm => rvm.TotalTables, m => m.MapFrom(re => re.TotalTables))
+                                                              .ForMember(rvm => rvm.User, m => m.MapFrom(re => new UserViewModel
+                                                              {
+                                                                  FirstName = re.User.FirstName,
+                                                                  LastName = re.User.LastName,
+                                                                  Username = string.Empty,
+                                                                  Password = string.Empty,
+                                                                  AccessToken = null
+                                                              }))
                                                               .ForMember(rvm => rvm.Address, m => m.MapFrom(re => new AddressViewModel
                                                               {
                                                                   FullAddress = re.Address.FullAddress,
