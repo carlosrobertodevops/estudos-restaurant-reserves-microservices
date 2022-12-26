@@ -12,6 +12,8 @@ namespace Security.API.Configurations
                    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
                    .AddEnvironmentVariables();
 
+            builder.Services.AddSingleton(typeof(IConfiguration), builder.Configuration);
+
             builder.Services.AddControllers()
                             .AddJsonOptions(x =>
                             {
@@ -27,8 +29,6 @@ namespace Security.API.Configurations
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
             });
-
-            builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             builder.Services.AddSingleton(new JsonSerializerOptions
             {
@@ -46,8 +46,6 @@ namespace Security.API.Configurations
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-
-            builder.Services.AddMediatR(typeof(Login));
 
             return builder;
         }

@@ -14,6 +14,15 @@ namespace Restaurant.Core.Validator
             RuleFor(r => r.Document).NotEmpty()
                                     .NotNull()
                                     .SetValidator(new DocumentValidator<RestaurantEntity, string>());
+
+            RuleFor(r => r.User).NotEmpty()
+                                .NotNull();
+
+            RuleFor(r => r.User.FirstName).NotEmpty()
+                                          .NotNull();
+
+            RuleFor(r => r.User.LastName).NotEmpty()
+                                         .NotNull();
         }
     }
 }

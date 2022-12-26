@@ -9,6 +9,8 @@
                 client.BaseAddress = new Uri(builder.Configuration["Keycloak:BaseAddress"]);
             });
 
+            builder.Services.AddTransient<IIdentityManager, KeycloakManager>();
+
             return builder;
         }
     }

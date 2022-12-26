@@ -8,27 +8,31 @@
         public Address Address { get; private set; }
         public int TotalTables { get; private set; }
         public bool Enabled { get; private set; }
+        public User User { get; private set; }
         public ICollection<DayOfWork> DaysOfWork { get; private set; }
         public ICollection<Contact> Contacts { get; private set; }
 
         public Restaurant(string name, 
                           string document,
                           string description, 
+                          User user,
                           Address address, 
                           int? totalTables, 
-                          IValidator<Restaurant> validator)
+                          IValidator<Restaurant> validator,
+                          Guid correlationId)
         {
             Name = name;
             Document = document is not null ? document.ParseCorrectFormat() : string.Empty;
             Description = description ?? string.Empty;
+            User = user ?? new User();
             Address = address ?? new Address();
             TotalTables = totalTables ?? 0;
             Enabled = true;
 
-            Validate(validator);
+            Validate(validator, correlationId);
         }
 
-        private void Validate(IValidator<Restaurant> validator)
+        private void Validate(IValidator<Restaurant> validator, Guid correlationId)
         {
             var validationResult = validator.Validate(this);
 
@@ -37,7 +41,7 @@
                 return;
             }
 
-            throw new BusinessException(validationResult.ToDictionary(), "Invalid restaurant");
+            throw new BusinessException(validationResult.ToDictionary(), "Invalid restaurant", correlationId);
         }
 
         public Restaurant()

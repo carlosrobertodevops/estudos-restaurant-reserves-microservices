@@ -62,6 +62,14 @@ namespace Restaurant.Infrastructure.Persistence.Mappings
               .Property(a => a.City)
               .HasColumnName("AddressCity");
 
+            builder.OwnsOne(r => r.User)
+              .Property(u => u.FirstName)
+              .HasColumnName("UserFirstName");
+
+            builder.OwnsOne(r => r.User)
+             .Property(u => u.LastName)
+             .HasColumnName("UserLastName");
+
             builder.ToTable("Restaurants");
         }
     }

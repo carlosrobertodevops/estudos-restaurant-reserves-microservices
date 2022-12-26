@@ -26,7 +26,7 @@ namespace Security.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponseViewModel))]
         public async Task<IActionResult> Login(UserViewModel user, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new Login(user, Request.GetCorrelationId()), cancellationToken);
+            var response = await _mediator.Send(new LoginRequest(user, Request.GetCorrelationId()), cancellationToken);
 
             return Ok(response);
         }

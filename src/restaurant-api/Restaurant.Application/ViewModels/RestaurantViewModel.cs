@@ -8,6 +8,7 @@
         public string Description { get; set; }
         public int? TotalTables { get; set; }
         public bool? Enabled { get; set; }
+        public UserViewModel User { get; set; }
         public AddressViewModel Address { get; set; }
         public DateTime? CreatedAt { get; set; }
         public IEnumerable<DayOfWorkViewModel> DaysOfWork { get; set; }

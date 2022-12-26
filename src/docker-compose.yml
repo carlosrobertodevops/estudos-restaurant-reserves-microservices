@@ -46,11 +46,24 @@ services:
         - DB_PASSWORD=AvS#a1s45s
         - DB_ADDR=sqlserver
         - DB_DATABASE=Keycloak
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq-restaurantreserves'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_go_net
 
   restaurant.api:
     image: ${DOCKER_REGISTRY-}restaurantapi
     networks:
       - backend
+      - rabbitmq_go_net
     build:
       context: .
       dockerfile: restaurant-api/Restaurant.API/Dockerfile
@@ -58,6 +71,7 @@ services:
     depends_on:
       - sqlserver
       - keycloak
+      - rabbitmq
     environment:
       - ASPNETCORE_ENVIRONMENT=Staging
       - ASPNETCORE_URLS=http://+:80
@@ -89,3 +103,5 @@ services:
 
 networks:
   backend:
+  rabbitmq_go_net:
+    driver: bridge

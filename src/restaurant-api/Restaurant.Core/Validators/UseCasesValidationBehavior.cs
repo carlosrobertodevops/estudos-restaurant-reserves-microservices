@@ -1,7 +1,9 @@
-﻿namespace Restaurant.Application.RequestValidators
+﻿using Restaurant.Core.UseCases;
+
+namespace Restaurant.Application.RequestValidators
 {
     public class UseCasesValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : IUseCase<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -21,7 +23,7 @@
 
             if(validationErrors.Any())
             {
-                throw new BusinessException(validationErrors, "Invalid request");
+                throw new BusinessException(validationErrors, "Invalid request", request.CorrelationId);
             }
 
             return next();

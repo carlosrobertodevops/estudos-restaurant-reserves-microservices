@@ -73,7 +73,7 @@
             var sut = _fixture.RestaurantsController.GenerateValid(restaurantViewModel);
 
             //Act
-            var response = await sut.GetById(restaurantViewModel.Id, CancellationToken.None) as ObjectResult;
+            var response = await sut.GetById(restaurantViewModel.Id.Value, CancellationToken.None) as ObjectResult;
 
             //Assert
             response.Should().NotBeNull();

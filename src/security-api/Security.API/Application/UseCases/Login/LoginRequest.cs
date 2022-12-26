@@ -1,11 +1,11 @@
 ﻿namespace Security.API.UseCases.Login
 {
-    public class Login : IUseCase<AccessTokenViewModel>
+    public class LoginRequest : IUseCase<AccessTokenViewModel>
     {
         public UserViewModel User { get; set; }
         public Guid CorrelationId { get; private set; }
 
-        public Login(UserViewModel user, Guid correlationId)
+        public LoginRequest(UserViewModel user, Guid correlationId)
         {
             User = user;
             CorrelationId = correlationId;

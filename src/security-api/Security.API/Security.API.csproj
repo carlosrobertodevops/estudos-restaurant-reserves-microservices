@@ -12,11 +12,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="EasyNetQ" Version="7.3.7" />
+		<PackageReference Include="FluentValidation" Version="11.4.0" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+		<PackageReference Include="Polly" Version="7.2.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	</ItemGroup>
 
@@ -43,7 +46,9 @@
 		<Using Include="Security.API.ViewModels" />
 		<Using Include="Security.API.Providers" />
 		<Using Include="Security.API.Extensions" />
+		<Using Include="EventBusMessages" />
 		<Using Include="Security.API.UseCases" />
+		<Using Include="Security.API.IdentityManager" />
 		<Using Include="Security.API.Exceptions" />
 		<Using Include="Security.API.Middlewares" />
 	</ItemGroup>
