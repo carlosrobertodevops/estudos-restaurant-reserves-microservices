@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.ViewModels
 {
-    public class RestaurantViewModel
+    public sealed class RestaurantViewModel
     {
         public Guid? Id { get; set; }
         public string Name { get; set; }

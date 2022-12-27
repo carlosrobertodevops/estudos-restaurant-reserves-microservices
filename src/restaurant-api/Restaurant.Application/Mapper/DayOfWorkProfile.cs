@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Mapper
 {
-    public class DayOfWorkProfile : Profile
+    public sealed class DayOfWorkProfile : Profile
     {
         public DayOfWorkProfile()
         {

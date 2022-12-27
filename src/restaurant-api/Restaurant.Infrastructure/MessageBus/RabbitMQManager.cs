@@ -1,20 +1,13 @@
-﻿using EasyNetQ;
-using EasyNetQ.DI;
-using EventBusMessages;
-using Microsoft.Extensions.Configuration;
-using Polly;
-using RabbitMQ.Client.Exceptions;
-using Restaurant.Core.Events;
-using Restaurant.Core.UseCases.DeleteRestaurant;
-using Restaurant.Infrastructure.MessageBus.Configurations;
-
-namespace Restaurant.Infrastructure.MessageBus
+﻿namespace Restaurant.Infrastructure.MessageBus
 {
     public class RabbitMQManager : IMessageBusManager
     {
         private readonly string _connectionString;
         private readonly string _createRestaurant;
-        private readonly string _deleteRestaurant;
+        private readonly string _deleteUser;
+        private readonly string _restaurantDeleted;
+        private readonly string _updateUser;
+        private readonly string _restaurantUpdated;
 
         private IBus _messageBus;
         private IAdvancedBus _advancedBus;
@@ -23,7 +16,10 @@ namespace Restaurant.Infrastructure.MessageBus
         {
             _connectionString = _configuration.GetConnectionString("MessageBus");
             _createRestaurant = _configuration["MessageBus:CreateUser"];
-            _deleteRestaurant = _configuration["MessageBus:DeleteUser"];
+            _deleteUser = _configuration["MessageBus:DeleteUser"];
+            _restaurantDeleted = _configuration["MessageBus:RestaurantDeleted"];
+            _updateUser = _configuration["MessageBus:UpdateUser"];
+            _restaurantUpdated = _configuration["MessageBus:RestaurantUpdated"];
 
             CreateBus();
         }
@@ -45,11 +41,33 @@ namespace Restaurant.Infrastructure.MessageBus
             throw new BusinessException(restaurantCredentialsCreated.ValidationResult.ToDictionary(), "Unable to create restaurant credentials", createRestaurant.CorrelationId);
         }
 
-        public async Task DeleteRestaurantCredentials(DeleteUserEvent deleteRestaurant, CancellationToken cancellationToken)
+        public async Task RestaurantDeleted(Guid id, Guid correlationId, CancellationToken cancellationToken)
+        {
+            await DeleteRestaurantCredentials(id, correlationId, cancellationToken);
+
+            await _messageBus.PubSub.PublishAsync(new RestaurantDeletedEvent(id, correlationId), configure => configure.WithTopic(_restaurantDeleted), cancellationToken);
+        }
+
+        public async Task DeleteRestaurantCredentials(Guid id, Guid correlationId, CancellationToken cancellationToken)
         {
             TryConnect();
 
-            await _messageBus.PubSub.PublishAsync(deleteRestaurant, configure => configure.WithTopic(_deleteRestaurant), cancellationToken);
+            await _messageBus.PubSub.PublishAsync(new DeleteUserEvent(id, correlationId), configure => configure.WithTopic(_deleteUser), cancellationToken);
+        }
+
+        public async Task RestaurantUpdated(Core.Entities.Restaurant restaurant, Guid correlationId, CancellationToken cancellationToken)
+        {
+            TryConnect();
+
+            await _messageBus.PubSub.PublishAsync(new RestaurantUpdatedEvent(restaurant.Id, 
+                                                                             restaurant.Name, 
+                                                                             restaurant.Enabled, 
+                                                                             correlationId), configure => configure.WithTopic(_restaurantUpdated), cancellationToken);
+
+            await _messageBus.PubSub.PublishAsync(new UserUpdatedEvent(restaurant.User.FirstName, 
+                                                                       restaurant.User.LastName, 
+                                                                       restaurant.Id, 
+                                                                       correlationId), configure => configure.WithTopic(_updateUser), cancellationToken);
         }
 
         private void CreateBus()

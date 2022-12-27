@@ -2,7 +2,7 @@
 
 namespace EventBusMessages
 {
-    public class CreateUserEventResponse : ResponseMessage
+    public sealed class CreateUserEventResponse : ResponseMessage
     {
         public string AccessToken { get; set; }
         public int ExpiresIn { get; set; }

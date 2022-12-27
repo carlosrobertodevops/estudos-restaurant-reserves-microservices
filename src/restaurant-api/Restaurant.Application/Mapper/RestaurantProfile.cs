@@ -3,7 +3,7 @@ using RestaurantEntity = Restaurant.Core.Entities.Restaurant;
 
 namespace Restaurant.Application.Mapper
 {
-    public class RestaurantProfile : Profile
+    public sealed class RestaurantProfile : Profile
     {
         public RestaurantProfile()
         {

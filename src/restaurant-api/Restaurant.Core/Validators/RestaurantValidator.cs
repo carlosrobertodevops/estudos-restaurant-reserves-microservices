@@ -2,7 +2,7 @@
 
 namespace Restaurant.Core.Validator
 {
-    public class RestaurantValidator : AbstractValidator<RestaurantEntity>
+    public sealed class RestaurantValidator : AbstractValidator<RestaurantEntity>
     {
         public RestaurantValidator()
         {

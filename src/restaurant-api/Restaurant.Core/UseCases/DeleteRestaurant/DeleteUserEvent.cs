@@ -1,12 +1,15 @@
 ﻿namespace Restaurant.Core.UseCases.DeleteRestaurant
 {
-    public class DeleteUserEvent : Event
+    public sealed class DeleteUserEvent : Event
     {
-        public string Username { get; private set; }
-
-        public DeleteUserEvent(string username, Guid correlationId) : base(correlationId)
+        public DeleteUserEvent(Guid id, Guid correlationId) : base(correlationId)
         {
-            Username = username;
+            AggregateId = id;
+        }
+
+        public DeleteUserEvent() : base(Guid.NewGuid())
+        {
+
         }
     }
 }
