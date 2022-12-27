@@ -30,15 +30,12 @@ namespace Restaurant.Infrastructure.MessageBus
 
         public bool IsConnected => _messageBus?.Advanced?.IsConnected ?? false;
 
-        public async Task<CreateRestaurantEventResponse> CreateRestaurantCredentials(CreateRestaurantEvent createRestaurant, CancellationToken cancellationToken)
+        public async Task<CreateUserEventResponse> CreateRestaurantCredentials(CreateUserEvent createRestaurant, CancellationToken cancellationToken)
         {
             TryConnect();
 
-            var restaurantCredentialsCreated = await _messageBus.Rpc.RequestAsync<CreateRestaurantEvent, CreateRestaurantEventResponse>
-                (createRestaurant, configure =>
-                {
-                    configure.WithQueueName(_createRestaurant);
-                }, cancellationToken);
+            var restaurantCredentialsCreated = await _messageBus.Rpc.RequestAsync<CreateUserEvent, CreateUserEventResponse>
+                (createRestaurant, configure => configure.WithQueueName(_createRestaurant), cancellationToken);
 
             if (restaurantCredentialsCreated.ValidationResult.IsValid)
             {
@@ -48,7 +45,7 @@ namespace Restaurant.Infrastructure.MessageBus
             throw new BusinessException(restaurantCredentialsCreated.ValidationResult.ToDictionary(), "Unable to create restaurant credentials", createRestaurant.CorrelationId);
         }
 
-        public async Task DeleteRestaurantCredentials(DeleteRestaurantEvent deleteRestaurant, CancellationToken cancellationToken)
+        public async Task DeleteRestaurantCredentials(DeleteUserEvent deleteRestaurant, CancellationToken cancellationToken)
         {
             TryConnect();
 
@@ -67,7 +64,10 @@ namespace Restaurant.Infrastructure.MessageBus
 
         private void TryConnect()
         {
-            if (IsConnected) return;
+            if (IsConnected) 
+            {
+                return;
+            }
 
             var policy = Policy.Handle<EasyNetQException>()
                 .Or<BrokerUnreachableException>()

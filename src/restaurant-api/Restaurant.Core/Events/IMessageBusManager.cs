@@ -4,7 +4,7 @@ namespace Restaurant.Core.Events
 {
     public interface IMessageBusManager : IDisposable
     {
-        Task<CreateRestaurantEventResponse> CreateRestaurantCredentials(CreateRestaurantEvent createRestaurant, CancellationToken cancellationToken);
-        Task DeleteRestaurantCredentials(DeleteRestaurantEvent deleteRestaurant, CancellationToken cancellationToken);
+        Task<CreateUserEventResponse> CreateRestaurantCredentials(CreateUserEvent createRestaurant, CancellationToken cancellationToken);
+        Task DeleteRestaurantCredentials(DeleteUserEvent deleteRestaurant, CancellationToken cancellationToken);
     }
 }

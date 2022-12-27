@@ -4,7 +4,7 @@ namespace Security.API.Core.Extensions
 {
     public static class EventExtensions
     {
-        public static UserViewModel AsUserViewModel(this CreateRestaurantEvent createRestaurantEvent)
+        public static UserViewModel AsUserViewModel(this CreateUserEvent createRestaurantEvent)
         {
             return new UserViewModel
             {
