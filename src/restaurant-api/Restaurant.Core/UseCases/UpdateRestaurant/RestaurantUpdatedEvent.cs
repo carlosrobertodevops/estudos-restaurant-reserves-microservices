@@ -1,6 +1,4 @@
-﻿using Restaurant.Core.Events;
-
-namespace Restaurant.Core.UseCases.UpdateRestaurant
+﻿namespace EventBusMessages
 {
     public class RestaurantUpdatedEvent : Event
     {

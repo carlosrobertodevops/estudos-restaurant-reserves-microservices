@@ -6,7 +6,7 @@ namespace Restaurant.API.Features.V1.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/restaurants")]
     [Produces("application/json")]
-    public class RestaurantsController : ControllerBase
+    public sealed class RestaurantsController : ControllerBase
     {
         private readonly IMediator _mediator;
 

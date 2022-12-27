@@ -4,13 +4,13 @@ using Security.API.UseCases.CreateUser;
 
 namespace EventBusMessages
 {
-    public class CreateRestaurantEventHandler : BackgroundService
+    public class CreateUserEventHandler : BackgroundService
     {
         private readonly IMessageBusManager _messageBus;
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
 
-        public CreateRestaurantEventHandler(IMessageBusManager messageBus,
+        public CreateUserEventHandler(IMessageBusManager messageBus,
                                             IServiceProvider serviceProvider,
                                             IConfiguration configuration)
         {
@@ -33,7 +33,7 @@ namespace EventBusMessages
 
         private void SetResponder(CancellationToken cancellationToken)
         {
-            _messageBus.RespondAsync<CreateRestaurantEvent, CreateRestaurantEventResponse>(async (request, requestCancellationToken) => await RespondAsync(request, requestCancellationToken),
+            _messageBus.RespondAsync<CreateUserEvent, CreateUserEventResponse>(async (request, requestCancellationToken) => await RespondAsync(request, requestCancellationToken),
                                                                                            configuration =>
                                                                                            {
                                                                                                configuration.WithQueueName(_configuration["MessageBus:CreateUser"]);
@@ -44,7 +44,7 @@ namespace EventBusMessages
         }
 
 
-        private async Task<CreateRestaurantEventResponse> RespondAsync(CreateRestaurantEvent message, CancellationToken cancellationToken)
+        private async Task<CreateUserEventResponse> RespondAsync(CreateUserEvent message, CancellationToken cancellationToken)
         {
             using var scope = _serviceProvider.CreateScope();
 

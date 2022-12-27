@@ -3,7 +3,7 @@ using Security.API.Core.Events;
 
 namespace EventBusMessages
 {
-    public class CreateRestaurantEventResponse : ResponseMessage
+    public class CreateUserEventResponse : ResponseMessage
     {
         public string AccessToken { get; set; }
         public int ExpiresIn { get; set; }
@@ -14,9 +14,9 @@ namespace EventBusMessages
         public string SessionState { get; set; }
         public string Scope { get; set; }
 
-        public CreateRestaurantEventResponse(AccessTokenViewModel accessToken,
-                                             ValidationResult validationResult,
-                                             Guid correlationId) : base(validationResult, correlationId)
+        public CreateUserEventResponse(AccessTokenViewModel accessToken,
+                                       ValidationResult validationResult,
+                                       Guid correlationId) : base(validationResult, correlationId)
         {
             AccessToken = accessToken.AccessToken;
             ExpiresIn = accessToken.ExpiresIn;
@@ -29,13 +29,13 @@ namespace EventBusMessages
         }
 
 
-        public CreateRestaurantEventResponse(ValidationResult validationResult,
-                                             Guid correlationId) : base(validationResult, correlationId)
+        public CreateUserEventResponse(ValidationResult validationResult,
+                                       Guid correlationId) : base(validationResult, correlationId)
         {
 
         }
 
-        public CreateRestaurantEventResponse() : base(new ValidationResult(), Guid.NewGuid())
+        public CreateUserEventResponse() : base(new ValidationResult(), Guid.NewGuid())
         {
 
         }

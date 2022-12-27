@@ -1,5 +1,5 @@
 version: '3.3'
-
+name: restaurant-reserves
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -57,13 +57,32 @@ services:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_go_net
+        - backend
+
+  security.api:
+    image: ${DOCKER_REGISTRY-}securityapi
+    networks:
+      - backend
+    build:
+      context: .
+      dockerfile: security-api/Security.API/Dockerfile
+    container_name: securityapi-restaurantreserves
+    depends_on:
+      - keycloak
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5016:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   restaurant.api:
     image: ${DOCKER_REGISTRY-}restaurantapi
     networks:
       - backend
-      - rabbitmq_go_net
     build:
       context: .
       dockerfile: restaurant-api/Restaurant.API/Dockerfile
@@ -72,6 +91,7 @@ services:
       - sqlserver
       - keycloak
       - rabbitmq
+      - security.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Staging
       - ASPNETCORE_URLS=http://+:80
@@ -90,6 +110,7 @@ services:
       dockerfile: web-bff-api/WebBff.API/Dockerfile
     container_name: webbffapi-restaurantreserves
     depends_on:
+      - security.api
       - restaurant.api
       - keycloak
     environment:
@@ -103,5 +124,4 @@ services:
 
 networks:
   backend:
-  rabbitmq_go_net:
     driver: bridge
