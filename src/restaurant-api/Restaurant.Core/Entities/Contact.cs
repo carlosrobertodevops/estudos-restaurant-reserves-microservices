@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Entities
 {
-    public class Contact : BaseEntity
+    public sealed class Contact : BaseEntity
     {
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }

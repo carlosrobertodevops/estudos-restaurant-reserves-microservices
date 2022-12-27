@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Infrastructure.Persistence.Mappings
 {
-    public class ContactMapping : IEntityTypeConfiguration<Contact>
+    public sealed class ContactMapping : IEntityTypeConfiguration<Contact>
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {

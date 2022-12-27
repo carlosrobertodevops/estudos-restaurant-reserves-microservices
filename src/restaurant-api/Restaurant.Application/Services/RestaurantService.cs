@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Services
 {
-    public class RestaurantService : IRestaurantService
+    public sealed class RestaurantService : IRestaurantService
     {
         private readonly IUnitOfWork _uow;
         private readonly ILogger<RestaurantService> _logger;
@@ -22,7 +22,7 @@
             await _uow.Restaurant.DeleteAsync(restaurant);
         }
 
-        public async Task UpdateRestaurant(UpdateRestaurantCommand request)
+        public async Task<Core.Entities.Restaurant> UpdateRestaurant(UpdateRestaurantCommand request)
         {
             var restaurant = await GetRestaurant(request.Id, request.CorrelationId);
 
@@ -36,6 +36,8 @@
                               request.Restaurant.Contacts is not null ? _mapper.Map<ICollection<Contact>>(request.Restaurant.Contacts) : null);
 
             await _uow.Restaurant.UpdateAsync(restaurant);
+
+            return restaurant;
         }
 
         private async Task<Core.Entities.Restaurant> GetRestaurant(Guid id, Guid correlationId)

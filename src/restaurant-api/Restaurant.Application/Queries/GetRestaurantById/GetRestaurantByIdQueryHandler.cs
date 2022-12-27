@@ -2,7 +2,7 @@
 
 namespace Restaurant.Application.Queries.GetRestaurantById
 {
-    public class GetRestaurantByIdQueryHandler : IGetRestaurantByIdQueryHandler<GetRestaurantByIdQuery, RestaurantViewModel>
+    public sealed class GetRestaurantByIdQueryHandler : IGetRestaurantByIdQueryHandler<GetRestaurantByIdQuery, RestaurantViewModel>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

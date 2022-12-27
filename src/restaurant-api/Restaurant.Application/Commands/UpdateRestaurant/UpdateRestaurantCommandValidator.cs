@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Commands.UpdateRestaurant
 {
-    public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
+    public sealed class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
     {
         public UpdateRestaurantCommandValidator()
         {

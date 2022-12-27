@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.ViewModels
 {
-    public class DayOfWorkViewModel
+    public sealed class DayOfWorkViewModel
     {
         public DayOfWeek DayOfWeek { get; set; }
         public int OpensAt { get; set; }

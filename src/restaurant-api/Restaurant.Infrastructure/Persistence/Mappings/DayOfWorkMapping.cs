@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Infrastructure.Persistence.Mappings
 {
-    public class DayOfWorkMapping : IEntityTypeConfiguration<DayOfWork>
+    public sealed class DayOfWorkMapping : IEntityTypeConfiguration<DayOfWork>
     {
         public void Configure(EntityTypeBuilder<DayOfWork> builder)
         {

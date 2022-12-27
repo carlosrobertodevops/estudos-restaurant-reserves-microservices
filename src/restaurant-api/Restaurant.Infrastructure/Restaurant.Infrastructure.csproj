@@ -24,10 +24,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Using Include="Polly" />
+		<Using Include="EasyNetQ" />
+		<Using Include="EasyNetQ.DI" />
+		<Using Include="Microsoft.Extensions.Configuration" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
 		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
+		<Using Include="RabbitMQ.Client.Exceptions" />
 
+		<Using Include="Restaurant.Core.Events" />
+		<Using Include="Restaurant.Core.UseCases.DeleteRestaurant" />
+		<Using Include="Restaurant.Infrastructure.MessageBus.Configurations" />
 		<Using Include="Restaurant.Core.Entities" />
 		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Providers" />

@@ -2,7 +2,7 @@
 
 namespace Restaurant.Application.ViewModels
 {
-    public class AccessTokenViewModel
+    public sealed class AccessTokenViewModel
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }

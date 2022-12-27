@@ -1,23 +1,25 @@
 ﻿namespace Restaurant.Application.Commands.UpdateRestaurant
 {
-    public class UpdateRestaurantCommandHandler : IUpdateRestaurantCommandHandler<UpdateRestaurantCommand>
+    public sealed class UpdateRestaurantCommandHandler : IUpdateRestaurantCommandHandler<UpdateRestaurantCommand>
     {
         private readonly IRestaurantService _service;
-        private readonly IUnitOfWork _uow;
         private readonly ILogger<UpdateRestaurantCommandHandler> _logger;
+        private readonly IMessageBusManager _messageBus;
 
         public UpdateRestaurantCommandHandler(IRestaurantService service,
-                                              IUnitOfWork uow,
-                                              ILogger<UpdateRestaurantCommandHandler> logger)
+                                              ILogger<UpdateRestaurantCommandHandler> logger,
+                                              IMessageBusManager messageBus)
         {
             _service = service;
-            _uow = uow;
             _logger = logger;
+            _messageBus = messageBus;
         }
 
         public async Task<Unit> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
-            await _service.UpdateRestaurant(request);
+            var restaurant = await _service.UpdateRestaurant(request);
+
+            await _messageBus.RestaurantUpdated(restaurant, request.CorrelationId, cancellationToken);
 
             _logger.LogInformation("Restaurant updated", request);
 

@@ -2,7 +2,7 @@
 
 namespace Restaurant.Infrastructure.Persistence.Context
 {
-    public class SqlServerContext : DbContext, IDatabaseContext
+    public sealed class SqlServerContext : DbContext, IDatabaseContext
     {
         private readonly IDateTimeProvider _dateTime;
 

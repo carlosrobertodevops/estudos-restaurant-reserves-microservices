@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Mapper
 {
-    public class ContactProfile : Profile
+    public sealed class ContactProfile : Profile
     {
         public ContactProfile()
         {

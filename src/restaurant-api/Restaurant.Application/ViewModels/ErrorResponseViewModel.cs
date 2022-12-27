@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.ViewModels
 {
-    public class ErrorResponseViewModel
+    public sealed class ErrorResponseViewModel
     {
         [JsonProperty("message")]
         public string Message { get; set; }

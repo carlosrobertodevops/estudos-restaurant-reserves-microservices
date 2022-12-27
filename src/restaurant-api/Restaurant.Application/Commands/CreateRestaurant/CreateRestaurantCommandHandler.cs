@@ -40,7 +40,7 @@ namespace Restaurant.Application.Commands.CreateRestaurant
             {
                 _logger.LogError("Unable to create restaurant", request);
 
-                await _messageBus.DeleteRestaurantCredentials(new DeleteUserEvent(request.Restaurant.User.Username, request.CorrelationId), cancellationToken);
+                await _messageBus.DeleteRestaurantCredentials(restaurant.Id, request.CorrelationId, cancellationToken);
 
                 throw new InfrastructureException("Unable to create restaurant.", request.CorrelationId);
             }

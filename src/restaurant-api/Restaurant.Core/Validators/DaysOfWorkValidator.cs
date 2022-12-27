@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Validators
 {
-    public class DaysOfWorkValidator<T, TProperty> : PropertyValidator<T, TProperty> where TProperty : ICollection<DayOfWork>
+    public sealed class DaysOfWorkValidator<T, TProperty> : PropertyValidator<T, TProperty> where TProperty : ICollection<DayOfWork>
     {
         public override string Name => "DaysOfWorkValidator";
 
