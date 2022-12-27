@@ -2,14 +2,14 @@
 
 namespace EventBusMessages
 {
-    public class CreateRestaurantEvent : Event
+    public class CreateUserEvent : Event
     {
         public string Username { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public CreateRestaurantEvent(string username,
+        public CreateUserEvent(string username,
                                      string password,
                                      string firstName,
                                      string lastName,
@@ -21,7 +21,7 @@ namespace EventBusMessages
             LastName = lastName;
         }
 
-        public CreateRestaurantEvent() : base(Guid.NewGuid())
+        public CreateUserEvent() : base(Guid.NewGuid())
         {
 
         }

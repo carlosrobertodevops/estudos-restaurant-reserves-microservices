@@ -2,7 +2,7 @@
 
 namespace EventBusMessages
 {
-    public class CreateRestaurantEventResponse : ResponseMessage
+    public class CreateUserEventResponse : ResponseMessage
     {
         public string AccessToken { get; set; }
         public int ExpiresIn { get; set; }
@@ -13,13 +13,13 @@ namespace EventBusMessages
         public string SessionState { get; set; }
         public string Scope { get; set; }
 
-        public CreateRestaurantEventResponse(ValidationResult validationResult,
+        public CreateUserEventResponse(ValidationResult validationResult,
                                              Guid correlationId) : base(validationResult, correlationId)
         {
 
         }
 
-        public CreateRestaurantEventResponse() : base(new ValidationResult(), Guid.NewGuid())
+        public CreateUserEventResponse() : base(new ValidationResult(), Guid.NewGuid())
         {
 
         }

@@ -8,7 +8,7 @@ namespace Security.API.Configurations
     {
         public static WebApplicationBuilder AddMessageBus(this WebApplicationBuilder builder)
         {
-            builder.Services.AddHostedService<CreateRestaurantEventHandler>();
+            builder.Services.AddHostedService<CreateUserEventHandler>();
 
             builder.Services.AddSingleton<IMessageBusManager, RabbitMQManager>();
 

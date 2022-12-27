@@ -2,7 +2,7 @@
 
 namespace Restaurant.API.Middlewares
 {
-    public class LoggerMiddleware
+    public sealed class LoggerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<LoggerMiddleware> _logger;
