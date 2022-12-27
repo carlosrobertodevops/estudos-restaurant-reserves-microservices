@@ -3,6 +3,6 @@
     public interface IRestaurantService
     {
         Task DeleteRestaurant(DeleteRestaurantCommand request);
-        Task UpdateRestaurant(UpdateRestaurantCommand request);
+        Task<Core.Entities.Restaurant> UpdateRestaurant(UpdateRestaurantCommand request);
     }
 }

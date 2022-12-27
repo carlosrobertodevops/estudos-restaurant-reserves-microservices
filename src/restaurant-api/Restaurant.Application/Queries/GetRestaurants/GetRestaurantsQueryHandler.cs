@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Queries.GetRestaurants
 {
-    public class GetRestaurantsQueryHandler : IGetRestaurantsQueryHandler<GetRestaurantsQuery, IEnumerable<RestaurantViewModel>>
+    public sealed class GetRestaurantsQueryHandler : IGetRestaurantsQueryHandler<GetRestaurantsQuery, IEnumerable<RestaurantViewModel>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

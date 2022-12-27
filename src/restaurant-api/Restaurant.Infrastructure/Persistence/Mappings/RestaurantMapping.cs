@@ -2,7 +2,7 @@
 
 namespace Restaurant.Infrastructure.Persistence.Mappings
 {
-    public class RestaurantMapping : IEntityTypeConfiguration<EntityRestaurant>
+    public sealed class RestaurantMapping : IEntityTypeConfiguration<EntityRestaurant>
     {
         public void Configure(EntityTypeBuilder<EntityRestaurant> builder)
         {

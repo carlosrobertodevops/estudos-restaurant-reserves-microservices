@@ -3,7 +3,7 @@ using Restaurant.API.Extensions;
 
 namespace Restaurant.API.Middlewares
 {
-    public class ErrorHandlerMiddleware
+    public sealed class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ErrorHandlerMiddleware> _logger;

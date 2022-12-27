@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Commands.DeleteRestaurant
 {
-    public class DeleteRestaurantCommand : IDeleteRestaurantCommand
+    public sealed class DeleteRestaurantCommand : IDeleteRestaurantCommand
     {
         public Guid Id { get; private set; }
         public Guid CorrelationId { get; private set; }

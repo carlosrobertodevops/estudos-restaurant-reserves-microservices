@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Commands.DeleteRestaurant
 {
-    public class DeleteRestaurantCommandValidator : AbstractValidator<DeleteRestaurantCommand>
+    public sealed class DeleteRestaurantCommandValidator : AbstractValidator<DeleteRestaurantCommand>
     {
         public DeleteRestaurantCommandValidator()
         {

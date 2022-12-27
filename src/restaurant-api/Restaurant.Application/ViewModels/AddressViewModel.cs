@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.ViewModels
 {
-    public class AddressViewModel
+    public sealed class AddressViewModel
     {
         public string FullAddress { get; set; }
         public string PostalCode { get; set; }

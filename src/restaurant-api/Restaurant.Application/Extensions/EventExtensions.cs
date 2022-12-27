@@ -2,16 +2,16 @@
 {
     public static class EventExtensions
     {
-        public static CreateRestaurantEvent AsCreateRestaurantEvent(this CreateRestaurantCommand request)
+        public static CreateUserEvent AsCreateUserEvent(this CreateRestaurantCommand request)
         {
-            return new CreateRestaurantEvent(request.Restaurant.User.Username,
-                                             request.Restaurant.User.Password,
-                                             request.Restaurant.User.FirstName,
-                                             request.Restaurant.User.LastName,
-                                             request.CorrelationId);
+            return new CreateUserEvent(request.Restaurant.User.Username,
+                                       request.Restaurant.User.Password,
+                                       request.Restaurant.User.FirstName,
+                                       request.Restaurant.User.LastName,
+                                       request.CorrelationId);
         }
 
-        public static AccessTokenViewModel AsAccessToken(this CreateRestaurantEventResponse response)
+        public static AccessTokenViewModel AsAccessToken(this CreateUserEventResponse response)
         {
             return new AccessTokenViewModel
             {

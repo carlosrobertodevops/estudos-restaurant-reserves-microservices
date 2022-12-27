@@ -2,7 +2,7 @@
 
 namespace Security.API.UseCases.CreateUser
 {
-    public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, CreateRestaurantEventResponse>
+    public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, CreateUserEventResponse>
     {
         private readonly IIdentityManager _identityManager;
         private readonly IValidator<UserViewModel> _validator;
@@ -17,7 +17,7 @@ namespace Security.API.UseCases.CreateUser
             _logger = logger;
         }
 
-        public async Task<CreateRestaurantEventResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
+        public async Task<CreateUserEventResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
         {
             var requestValidation = await _validator.ValidateAsync(request.User, cancellationToken);
 
@@ -25,7 +25,7 @@ namespace Security.API.UseCases.CreateUser
             {
                 _logger.LogWarning("Invalid user", new { request, requestValidation, correlationId = request.CorrelationId });
 
-                return new CreateRestaurantEventResponse(requestValidation, request.CorrelationId);
+                return new CreateUserEventResponse(requestValidation, request.CorrelationId);
             }
 
             var accessToken = await _identityManager.CreateAccountAsync(request.User.Username,
@@ -37,7 +37,7 @@ namespace Security.API.UseCases.CreateUser
 
             _logger.LogInformation("User created", new { request, accessToken, correlationId = request.CorrelationId });
 
-            return new CreateRestaurantEventResponse(accessToken, requestValidation, request.CorrelationId);
+            return new CreateUserEventResponse(accessToken, requestValidation, request.CorrelationId);
         }
     }
 }

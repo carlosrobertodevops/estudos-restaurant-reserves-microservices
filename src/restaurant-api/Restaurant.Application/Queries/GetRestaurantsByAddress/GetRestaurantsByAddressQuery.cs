@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Queries.GetRestaurantsByAddress
 {
-    public class GetRestaurantsByAddressQuery : IGetRestaurantsByAddressQuery<IEnumerable<RestaurantViewModel>>
+    public sealed class GetRestaurantsByAddressQuery : IGetRestaurantsByAddressQuery<IEnumerable<RestaurantViewModel>>
     {
         public int Page { get; private set; }
         public int Rows { get; private set; }

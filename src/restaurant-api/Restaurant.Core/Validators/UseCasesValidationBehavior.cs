@@ -2,7 +2,7 @@
 
 namespace Restaurant.Application.RequestValidators
 {
-    public class UseCasesValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public sealed class UseCasesValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IUseCase<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;

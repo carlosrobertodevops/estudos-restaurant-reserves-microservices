@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Validators
 {
-    public class DocumentValidator<T, TProperty> : PropertyValidator<T, TProperty>
+    public sealed class DocumentValidator<T, TProperty> : PropertyValidator<T, TProperty>
     {
         public override string Name => "DocumentValidator";
 

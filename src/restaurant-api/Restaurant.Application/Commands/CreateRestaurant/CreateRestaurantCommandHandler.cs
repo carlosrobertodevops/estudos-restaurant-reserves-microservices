@@ -3,7 +3,7 @@ using RestaurantEntity = Restaurant.Core.Entities.Restaurant;
 
 namespace Restaurant.Application.Commands.CreateRestaurant
 {
-    public class CreateRestaurantCommandHandler : ICreateRestaurantCommandHandler<CreateRestaurantCommand, RestaurantViewModel>
+    public sealed class CreateRestaurantCommandHandler : ICreateRestaurantCommandHandler<CreateRestaurantCommand, RestaurantViewModel>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
@@ -32,7 +32,7 @@ namespace Restaurant.Application.Commands.CreateRestaurant
                 throw new BusinessException("Restaurant already exists.", request.CorrelationId);
             }
 
-            var accessToken = await _messageBus.CreateRestaurantCredentials(request.AsCreateRestaurantEvent(), cancellationToken);
+            var accessToken = await _messageBus.CreateRestaurantCredentials(request.AsCreateUserEvent(), cancellationToken);
 
             await _uow.Restaurant.CreateAsync(restaurant);
 
@@ -40,7 +40,7 @@ namespace Restaurant.Application.Commands.CreateRestaurant
             {
                 _logger.LogError("Unable to create restaurant", request);
 
-                await _messageBus.DeleteRestaurantCredentials(new DeleteRestaurantEvent(request.Restaurant.User.Username, request.CorrelationId), cancellationToken);
+                await _messageBus.DeleteRestaurantCredentials(restaurant.Id, request.CorrelationId, cancellationToken);
 
                 throw new InfrastructureException("Unable to create restaurant.", request.CorrelationId);
             }

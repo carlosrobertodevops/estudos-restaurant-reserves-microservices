@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Application.Queries.GetRestaurantById
 {
-    public class GetRestaurantByIdQueryValidator : AbstractValidator<GetRestaurantByIdQuery>
+    public sealed class GetRestaurantByIdQueryValidator : AbstractValidator<GetRestaurantByIdQuery>
     {
         public GetRestaurantByIdQueryValidator()
         {

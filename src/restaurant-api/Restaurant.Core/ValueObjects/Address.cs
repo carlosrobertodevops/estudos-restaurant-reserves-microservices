@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.ValueObjects
 {
-    public class Address
+    public sealed class Address
     {
         public string FullAddress { get; private set; }
         public string PostalCode { get; private set; }

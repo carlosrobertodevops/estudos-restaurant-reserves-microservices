@@ -48,7 +48,10 @@ namespace Security.API.Infrastructure.MessageBus
 
         private void TryConnect()
         {
-            if (IsConnected) return;
+            if (IsConnected) 
+            {
+                return;
+            }
 
             var policy = Policy.Handle<EasyNetQException>()
                 .Or<BrokerUnreachableException>()
