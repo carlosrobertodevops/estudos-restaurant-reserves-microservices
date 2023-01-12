@@ -1,4 +1,7 @@
-﻿using Restaurant.Application.Queries.GetRestaurants;
+﻿using Restaurant.Application.Commands.DeleteRestaurant;
+using Restaurant.Application.Commands.UpdateRestaurant;
+using Restaurant.Application.Queries.GetRestaurants;
+using Restaurant.Application.Queries.GetRestaurantsByAddress;
 using Restaurant.Application.Queries.GetRestaurantsByName;
 
 namespace Restaurant.UnitTests.Fixtures.API.Controllers
@@ -15,6 +18,10 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
 
             mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).Returns(restaurants);
 
+            mediator.Send(Arg.Any<GetRestaurantsByAddressQuery>()).Returns(restaurants);
+
+            mediator.Send(Arg.Any<CreateRestaurantCommand>()).Returns(restaurant);
+
             return new RestaurantsController(mediator);
         }
 
@@ -28,7 +35,13 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
 
             mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
 
+            mediator.Send(Arg.Any<GetRestaurantsByAddressQuery>()).Returns(Enumerable.Empty<RestaurantViewModel>());
+
             mediator.Send(Arg.Any<CreateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid restaurant"));
+
+            mediator.Send(Arg.Any<DeleteRestaurantCommand>()).ThrowsAsync(new NotFoundException());
+
+            mediator.Send(Arg.Any<UpdateRestaurantCommand>()).ThrowsAsync(new NotFoundException());
 
             if (invalidRequest)
             {
@@ -38,7 +51,11 @@ namespace Restaurant.UnitTests.Fixtures.API.Controllers
 
                 mediator.Send(Arg.Any<GetRestaurantsByNameQuery>()).ThrowsAsync(new BusinessException("Invalid request"));
 
+                mediator.Send(Arg.Any<GetRestaurantsByAddressQuery>()).ThrowsAsync(new BusinessException("Invalid request"));
+
                 mediator.Send(Arg.Any<CreateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid request"));
+
+                mediator.Send(Arg.Any<UpdateRestaurantCommand>()).ThrowsAsync(new BusinessException("Invalid request"));
             }
 
             return new RestaurantsController(mediator);

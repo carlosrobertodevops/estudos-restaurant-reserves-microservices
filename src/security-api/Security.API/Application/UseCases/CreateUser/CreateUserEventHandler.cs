@@ -1,8 +1,6 @@
-﻿using Security.API.Core.Extensions;
-using Security.API.Infrastructure.MessageBus;
-using Security.API.UseCases.CreateUser;
+﻿using Security.API.Core.ExternalServices;
 
-namespace EventBusMessages
+namespace Security.API.UseCases.CreateUser
 {
     public class CreateUserEventHandler : BackgroundService
     {

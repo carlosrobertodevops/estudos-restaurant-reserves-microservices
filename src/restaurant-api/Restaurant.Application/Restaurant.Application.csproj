@@ -37,7 +37,6 @@
 		<Using Include="Restaurant.Application.Queries.GetRestaurants" />
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />
-		<Using Include="Restaurant.Application.Services" />
 
 		<Using Include="EventBusMessages" />
 		<Using Include="Restaurant.Core.Exceptions" />

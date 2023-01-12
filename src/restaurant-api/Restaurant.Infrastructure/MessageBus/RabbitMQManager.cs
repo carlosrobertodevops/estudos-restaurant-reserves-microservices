@@ -70,19 +70,9 @@
                                                                        correlationId), configure => configure.WithTopic(_updateUser), cancellationToken);
         }
 
-        private void CreateBus()
-        {
-            _messageBus = RabbitHutch.CreateBus(
-                connectionString: _connectionString,
-                registerServices: s =>
-                {
-                    s.Register<ITypeNameSerializer, EventBusTypeNameSerializer>();
-                });
-        }
-
         private void TryConnect()
         {
-            if (IsConnected) 
+            if (IsConnected)
             {
                 return;
             }
@@ -98,6 +88,16 @@
                 _advancedBus = _messageBus.Advanced;
                 _advancedBus.Disconnected += OnDisconnect;
             });
+        }
+
+        private void CreateBus()
+        {
+            _messageBus = RabbitHutch.CreateBus(
+                connectionString: _connectionString,
+                registerServices: s =>
+                {
+                    s.Register<ITypeNameSerializer, EventBusTypeNameSerializer>();
+                });
         }
 
         private void OnDisconnect(object s, EventArgs e)

@@ -2,21 +2,26 @@
 {
     public sealed class CreateUserEvent : Event
     {
-        public string Username { get; private set; }
-        public string Password { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserType { get; set; }
 
-        public CreateUserEvent(string username,
+        public CreateUserEvent(Guid aggregateId,
+                               string username,
                                string password,
                                string firstName,
                                string lastName,
+                               string userType,
                                Guid correlationId) : base(correlationId)
         {
+            AggregateId = aggregateId;
             Username = username;
             Password = password;
             FirstName = firstName;
             LastName = lastName;
+            UserType = userType;
         }
 
         public CreateUserEvent() : base(Guid.NewGuid())

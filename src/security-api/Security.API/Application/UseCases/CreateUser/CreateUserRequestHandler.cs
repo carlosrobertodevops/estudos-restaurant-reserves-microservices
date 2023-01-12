@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Security.API.Core.ExternalServices;
 
 namespace Security.API.UseCases.CreateUser
 {
@@ -28,10 +29,16 @@ namespace Security.API.UseCases.CreateUser
                 return new CreateUserEventResponse(requestValidation, request.CorrelationId);
             }
 
-            var accessToken = await _identityManager.CreateAccountAsync(request.User.Username,
+            var authorization = await _identityManager.LoginAsync(string.Empty, string.Empty, request.CorrelationId, cancellationToken);
+
+            var accessToken = await _identityManager.CreateAccountAsync(new UserRepresentation
+                                                                       (request.User.Username,
                                                                         request.User.Password,
                                                                         request.User.FirstName,
                                                                         request.User.LastName,
+                                                                        request.User.AggregateId,
+                                                                        request.User.Usertype),
+                                                                        authorization.AccessToken,
                                                                         request.CorrelationId,
                                                                         cancellationToken);
 

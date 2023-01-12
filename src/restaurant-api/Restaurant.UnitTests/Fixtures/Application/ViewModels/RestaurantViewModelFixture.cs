@@ -2,6 +2,11 @@
 {
     public class RestaurantViewModelFixture
     {
+        public RestaurantViewModel GenerateInvalid()
+        {
+            return new();
+        }
+
         public RestaurantViewModel GenerateValid()
         {
             return GenerateValidCollection(1).First();

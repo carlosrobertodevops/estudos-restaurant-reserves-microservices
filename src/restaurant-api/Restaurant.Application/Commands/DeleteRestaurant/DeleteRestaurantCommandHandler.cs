@@ -2,17 +2,14 @@
 {
     public sealed class DeleteRestaurantCommandHandler : IDeleteRestaurantCommandHandler<DeleteRestaurantCommand>
     {
-        private readonly IRestaurantService _service;
         private readonly IUnitOfWork _uow;
         private readonly ILogger<DeleteRestaurantCommandHandler> _logger;
         private readonly IMessageBusManager _messageBus;
 
-        public DeleteRestaurantCommandHandler(IRestaurantService service,
-                                              IUnitOfWork uow, 
+        public DeleteRestaurantCommandHandler(IUnitOfWork uow, 
                                               ILogger<DeleteRestaurantCommandHandler> logger,
                                               IMessageBusManager messageBus)
         {
-            _service = service;
             _uow = uow;
             _logger = logger;
             _messageBus = messageBus;
@@ -20,7 +17,16 @@
 
         public async Task<Unit> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
         {
-            await _service.DeleteRestaurant(request);
+            var restaurant = await _uow.Restaurant.GetByIdAsync(request.Id);
+
+            if (!restaurant.IsValid())
+            {
+                _logger.LogWarning("Restaurant doesn't exists", request.Id);
+
+                throw new NotFoundException(request.CorrelationId);
+            }
+
+            await _uow.Restaurant.DeleteAsync(restaurant);
 
             await _messageBus.RestaurantDeleted(request.Id, request.CorrelationId, cancellationToken);
 
