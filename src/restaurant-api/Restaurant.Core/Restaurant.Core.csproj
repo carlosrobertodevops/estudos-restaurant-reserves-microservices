@@ -8,7 +8,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="EasyNetQ" Version="7.3.7" />
-	  <PackageReference Include="FluentValidation" Version="11.3.0" />
+	  <PackageReference Include="enzotlucas.DevKit" Version="6.0.0-rc" />
+	  <PackageReference Include="FluentValidation" Version="11.4.0" />
 	  <PackageReference Include="MediatR" Version="11.1.0" />
 	</ItemGroup>
 
@@ -16,9 +17,11 @@
 		<Using Include="FluentValidation" />
 		<Using Include="FluentValidation.Validators" />
 		<Using Include="FluentValidation.Results" />
+		<Using Include="enzotlucas.DevKit.Core.Entities" />
+		<Using Include="enzotlucas.DevKit.Core.UseCases" />
+		<Using Include="enzotlucas.DevKit.Core.Exceptions" />
 		<Using Include="MediatR" />
 
-		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Restaurant.Core.Validators" />
 		<Using Include="Restaurant.Core.Entities" />

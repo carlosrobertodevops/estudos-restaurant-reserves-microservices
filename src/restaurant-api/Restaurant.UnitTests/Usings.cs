@@ -7,6 +7,7 @@ global using FluentAssertions;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using NSubstitute.ExceptionExtensions;
+global using enzotlucas.DevKit.Core.Exceptions;
 
 //tests
 global using Restaurant.UnitTests.Fixtures.Application.ViewModels;
@@ -22,6 +23,5 @@ global using Restaurant.Application.Queries.GetRestaurantById;
 global using Restaurant.Application.Commands.CreateRestaurant;
 
 //core
-global using Restaurant.Core.Exceptions;
 
 //infrastructure
