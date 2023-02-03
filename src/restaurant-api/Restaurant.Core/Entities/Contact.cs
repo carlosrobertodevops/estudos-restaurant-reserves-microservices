@@ -18,14 +18,14 @@
             Validate(correlationId);
         }
 
-        protected Contact()
+        public Contact()
         {
-
+            Id = Guid.Empty;
         }
 
         private void Validate(Guid correlationId)
         {
-            if (!PhoneIsFilled() && !EmailIsFilled())
+            if (!PhoneIsFilled() && !EmailIsFilled() || Id == Guid.Empty)
             {
                 throw new BusinessException(GenerateValidationErrors(), "Invalid contact", correlationId);
             }

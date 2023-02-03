@@ -21,4 +21,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Login\" />
+    <Folder Include="Fixtures\" />
+  </ItemGroup>
+
 </Project>

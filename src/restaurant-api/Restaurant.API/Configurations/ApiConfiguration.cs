@@ -1,4 +1,6 @@
-﻿namespace Restaurant.API.Configurations
+﻿using enzotlucas.DevKit.DependencyInjection;
+
+namespace Restaurant.API.Configurations
 {
     public static class ApiConfiguration
     {
@@ -17,27 +19,7 @@
                                 x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                             });
 
-            builder.Services.AddEndpointsApiExplorer();
-
-            builder.Services.AddApiVersioning(options =>
-            {
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.ReportApiVersions = true;
-            });
-
-            builder.Services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-                options.SubstituteApiVersionInUrl = true;
-            });
-
-            builder.Services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
-
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddDevKit();
 
             return builder;
         }
@@ -55,9 +37,7 @@
 
             app.MapControllers();
 
-            app.UseMiddleware<ErrorHandlerMiddleware>();
-
-            app.UseMiddleware<LoggerMiddleware>();
+            app.UseDevKit();
 
             return app;
         }

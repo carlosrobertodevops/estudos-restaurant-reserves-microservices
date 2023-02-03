@@ -9,6 +9,7 @@
 	<ItemGroup>
 	  <PackageReference Include="Dapper" Version="2.0.123" />
 	  <PackageReference Include="EasyNetQ" Version="7.3.7" />
+	  <PackageReference Include="enzotlucas.DevKit" Version="6.0.0-rc" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
@@ -32,13 +33,13 @@
 		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
 		<Using Include="Microsoft.EntityFrameworkCore.Storage" />
 		<Using Include="RabbitMQ.Client.Exceptions" />
+		<Using Include="enzotlucas.DevKit.Core.Providers" />
+		<Using Include="enzotlucas.DevKit.Core.Exceptions" />
 
 		<Using Include="Restaurant.Core.Events" />
 		<Using Include="Restaurant.Core.UseCases.DeleteRestaurant" />
 		<Using Include="Restaurant.Infrastructure.MessageBus.Configurations" />
 		<Using Include="Restaurant.Core.Entities" />
-		<Using Include="Restaurant.Core.Exceptions" />
-		<Using Include="Restaurant.Core.Providers" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="EventBusMessages" />
 

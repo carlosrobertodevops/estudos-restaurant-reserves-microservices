@@ -1,4 +1,6 @@
-﻿namespace Security.API.IdentityManager
+﻿using System.Text;
+
+namespace Security.API.IdentityManager
 {
     public class KeycloakManager : IIdentityManager
     {
@@ -7,11 +9,12 @@
         private readonly ILogger<KeycloakManager> _logger;
         private readonly JsonSerializerOptions _serializeOptions;
 
+        private readonly string _createUserEndpoint;
         private readonly string _authEndpoint;
 
-        public KeycloakManager(IHttpClientFactory clientFactory, 
-                               IConfiguration configuration, 
-                               ILogger<KeycloakManager> logger, 
+        public KeycloakManager(IHttpClientFactory clientFactory,
+                               IConfiguration configuration,
+                               ILogger<KeycloakManager> logger,
                                JsonSerializerOptions serializeOptions)
         {
             _client = clientFactory.CreateClient(ClientExtensions.KeycloakClient);
@@ -19,36 +22,40 @@
             _logger = logger;
             _serializeOptions = serializeOptions;
 
-            _authEndpoint = _configuration["Keycloak:Endpoints:Login"];
+            _createUserEndpoint = _configuration["IdentityManager:Endpoints:CreateUser"];
+            _authEndpoint = _configuration["IdentityManager:Endpoints:Login"];
         }
 
-        public Task<AccessTokenViewModel> CreateAccountAsync(string username, string password, string firstName, string lastName, Guid correlationId, CancellationToken cancellationToken)
+        public async Task<AccessTokenViewModel> CreateAccountAsync(UserRepresentation user,
+                                                             string accessToken,
+                                                             Guid correlationId,
+                                                             CancellationToken cancellationToken)
         {
-            Console.WriteLine("Got here");
+            var request = new HttpRequestMessage(HttpMethod.Post, _createUserEndpoint)
+            {
+                Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(user, _serializeOptions),
+                                            Encoding.UTF8,
+                                            "application/json")
+            };
 
-            return Task.FromResult(new AccessTokenViewModel());
+            request.Headers.Add("Authorization", $"Bearer {accessToken}");
+
+            return await SendAsync<AccessTokenViewModel>(request, correlationId, cancellationToken);
         }
 
-        public async Task<AccessTokenViewModel> LoginAsync(string username, string password, Guid correlationId, CancellationToken cancellationToken)
+        public async Task<AccessTokenViewModel> LoginAsync(string username,
+                                                           string password,
+                                                           Guid correlationId,
+                                                           CancellationToken cancellationToken)
         {
             var body = LoginBody(username, password);
 
-            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, _authEndpoint)
+            return await SendAsync<AccessTokenViewModel>(new HttpRequestMessage(HttpMethod.Post, _authEndpoint)
             {
                 Content = new FormUrlEncodedContent(body)
             },
+            correlationId,
             cancellationToken);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<AccessTokenViewModel>(_serializeOptions, cancellationToken);
-            }
-
-            _logger.LogWarning("Error", new { response, correlationId = correlationId });
-
-            var error = await response.Content.ReadFromJsonAsync<KeycloakErrorViewModel>(_serializeOptions, cancellationToken);
-
-            throw new BusinessException(error.AsValidationErrors(), "Error with identity provider", response.StatusCode, correlationId);
         }
 
         private IDictionary<string, string> LoginBody(string username = null, string password = null)
@@ -71,6 +78,22 @@
             }
 
             return body;
+        }
+
+        private async Task<TResponse> SendAsync<TResponse>(HttpRequestMessage request, Guid correlationId, CancellationToken cancellationToken)
+        {
+            var response = await _client.SendAsync(request, cancellationToken);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<TResponse>(_serializeOptions, cancellationToken);
+            }
+
+            _logger.LogWarning("Error", new { response, correlationId });
+
+            var error = await response.Content.ReadFromJsonAsync<KeycloakErrorViewModel>(_serializeOptions, cancellationToken);
+
+            throw new BusinessException(error.AsValidationErrors(), "Error with identity provider", response.StatusCode, correlationId);
         }
     }
 }

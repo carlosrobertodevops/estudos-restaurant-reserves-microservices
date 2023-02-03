@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.0" />
 		<PackageReference Include="EasyNetQ" Version="7.3.7" />
+		<PackageReference Include="enzotlucas.DevKit" Version="6.0.0-rc" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
@@ -26,6 +27,8 @@
 		<Using Include="FluentValidation.Results" />
 		<Using Include="MediatR" />
 		<Using Include="Newtonsoft.Json" />
+		<Using Include="enzotlucas.DevKit.Core.Providers" />
+		<Using Include="enzotlucas.DevKit.Core.Exceptions" />
 		<Using Include="Microsoft.Extensions.Logging" />
 
 		<Using Include="Restaurant.Application.ViewModels" />
@@ -37,10 +40,8 @@
 		<Using Include="Restaurant.Application.Queries.GetRestaurants" />
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />
-		<Using Include="Restaurant.Application.Services" />
 
 		<Using Include="EventBusMessages" />
-		<Using Include="Restaurant.Core.Exceptions" />
 		<Using Include="Restaurant.Core.Entities" />
 		<Using Include="Restaurant.Core.Events" />
 		<Using Include="Restaurant.Core.Repositories" />

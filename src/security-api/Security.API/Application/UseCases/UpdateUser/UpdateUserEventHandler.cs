@@ -1,4 +1,5 @@
-﻿using Security.API.Infrastructure.MessageBus;
+﻿using Security.API.Application.UseCases.UpdateUser;
+using Security.API.Core.ExternalServices;
 
 namespace EventBusMessages
 {
@@ -19,27 +20,21 @@ namespace EventBusMessages
 
         protected override Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            SetResponder(cancellationToken);
+            _messageBus.SubscribeAsync<UpdateUserEvent>(_configuration["MessageBus:UpdateUser"],
+                                                        async (request, requestCancellationToken) => await DeleteUser(request, requestCancellationToken),
+                                                        configuration => configuration.WithQueueName(_configuration["MessageBus:UpdateUser"]),
+                                                        cancellationToken);
 
             return Task.CompletedTask;
         }
 
-        private void OnConnect(object s, EventArgs e)
+        private async Task DeleteUser(UpdateUserEvent message, CancellationToken cancellationToken)
         {
-            SetResponder(CancellationToken.None);
-        }
+            using var scope = _serviceProvider.CreateScope();
 
-        private void SetResponder(CancellationToken cancellationToken)
-        {
-            
-            //_messageBus.RespondAsync<UpdateUserEvent, UpdateUserEventResponse>(async (request, requestCancellationToken) => await RespondAsync(request, requestCancellationToken),
-            //                                                                               configuration =>
-            //                                                                               {
-            //                                                                                   configuration.WithQueueName(_configuration["MessageBus:UpdateUser"]);
-            //                                                                               },
-            //                                                                               cancellationToken);
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            _messageBus.AdvancedBus.Connected += OnConnect;
+            await mediator.Send(new UpdateUserRequest(message.AggregateId, message.FirstName, message.LastName, message.CorrelationId), cancellationToken);
         }
     }
 }

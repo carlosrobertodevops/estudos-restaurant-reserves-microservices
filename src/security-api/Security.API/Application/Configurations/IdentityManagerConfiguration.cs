@@ -1,4 +1,6 @@
-﻿namespace Security.API.Configurations
+﻿using Security.API.Core.ExternalServices;
+
+namespace Security.API.Configurations
 {
     public static class IdentityManagerConfiguration
     {

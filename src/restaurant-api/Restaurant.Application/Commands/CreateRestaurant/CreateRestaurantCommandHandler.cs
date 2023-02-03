@@ -32,7 +32,7 @@ namespace Restaurant.Application.Commands.CreateRestaurant
                 throw new BusinessException("Restaurant already exists.", request.CorrelationId);
             }
 
-            var accessToken = await _messageBus.CreateRestaurantCredentials(request.AsCreateUserEvent(), cancellationToken);
+            var accessToken = await _messageBus.CreateRestaurantCredentials(request.AsCreateUserEvent(restaurant.Id), cancellationToken);
 
             await _uow.Restaurant.CreateAsync(restaurant);
 

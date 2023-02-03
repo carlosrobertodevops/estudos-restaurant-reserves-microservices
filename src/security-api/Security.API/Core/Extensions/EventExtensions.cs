@@ -8,10 +8,12 @@ namespace Security.API.Core.Extensions
         {
             return new UserViewModel
             {
+                AggregateId = createRestaurantEvent.AggregateId,
                 FirstName = createRestaurantEvent.FirstName,
                 LastName = createRestaurantEvent.LastName,
                 Username = createRestaurantEvent.Username,
                 Password = createRestaurantEvent.Password,
+                Usertype = createRestaurantEvent.UserType
             };
         }
     }
