@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="enzotlucas.DevKit" Version="6.0.1-rc" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
@@ -54,23 +55,21 @@
 		<Using Include="System.Text.Json.Serialization" />
 		<Using Include="System.Reflection" />
 		<Using Include="System.Security.Claims" />
+		<Using Include="enzotlucas.DevKit.ViewModels" />
+		<Using Include="enzotlucas.DevKit.Core.Exceptions" />
 
 		<Using Include="Restaurant.API.Configurations" />
-		<Using Include="Restaurant.API.Middlewares" />
 
 		<Using Include="Restaurant.Application.Commands.CreateRestaurant" />
 		<Using Include="Restaurant.Application.Commands.DeleteRestaurant" />
 		<Using Include="Restaurant.Application.Commands.UpdateRestaurant" />
 		<Using Include="Restaurant.Application.Mapper" />
-		<Using Include="Restaurant.Application.RequestValidators" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurants" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByAddress" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurantById" />		
 		<Using Include="Restaurant.Application.Queries.GetRestaurantsByName" />		
 		<Using Include="Restaurant.Application.ViewModels" />
 
-		<Using Include="Restaurant.Core.Exceptions" />
-		<Using Include="Restaurant.Core.Providers" />
 		<Using Include="Restaurant.Core.Repositories" />
 		<Using Include="Restaurant.Core.Validator" />
 

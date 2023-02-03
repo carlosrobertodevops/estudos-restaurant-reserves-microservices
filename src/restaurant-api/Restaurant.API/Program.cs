@@ -3,12 +3,10 @@ var builder = WebApplication.CreateBuilder(args)
                             .AddApiConfiguration()
                             .AddCoreConfiguration()
                             .AddInfrastructureConfiguration()
-                            .AddApplicationConfiguration()
-                            .AddSwaggerConfiguration();
+                            .AddApplicationConfiguration();
 
 var app = builder.Build()
                  .UseApiConfiguration()
-                 .UseInfrastructureConfiguration()
-                 .UseSwaggerConfiguration();
+                 .UseInfrastructureConfiguration();
 
 app.Run();

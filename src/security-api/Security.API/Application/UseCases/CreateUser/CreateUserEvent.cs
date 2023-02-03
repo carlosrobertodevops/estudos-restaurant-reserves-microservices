@@ -8,12 +8,12 @@ namespace EventBusMessages
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public string UserType { get; set; }
         public CreateUserEvent(string username,
-                                     string password,
-                                     string firstName,
-                                     string lastName,
-                                     Guid correlationId) : base(correlationId)
+                               string password,
+                               string firstName,
+                               string lastName,
+                               Guid correlationId) : base(correlationId)
         {
             Username = username;
             Password = password;

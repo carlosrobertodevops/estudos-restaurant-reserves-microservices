@@ -1,4 +1,6 @@
-﻿namespace Security.API.UseCases.Login
+﻿using Security.API.Core.ExternalServices;
+
+namespace Security.API.UseCases.Login
 {
     public class LoginRequestHandler : IRequestHandler<LoginRequest, AccessTokenViewModel>
     {

@@ -3,6 +3,7 @@ using EasyNetQ.DI;
 using Polly;
 using RabbitMQ.Client.Exceptions;
 using Security.API.Core.Events;
+using Security.API.Core.ExternalServices;
 using Security.Infrastructure.MessageBus.Configurations;
 
 namespace Security.API.Infrastructure.MessageBus
@@ -28,12 +29,23 @@ namespace Security.API.Infrastructure.MessageBus
         public async Task<IDisposable> RespondAsync<TRequest, TResponse>(Func<TRequest, CancellationToken, Task<TResponse>> responder, 
                                                                          Action<IResponderConfiguration> configuration,
                                                                          CancellationToken cancellationToken) 
-            where TRequest : Event 
-            where TResponse : ResponseMessage
+                                                                         where TRequest : Event 
+                                                                         where TResponse : ResponseMessage
         {
             TryConnect();
 
             return await _messageBus.Rpc.RespondAsync(responder, configuration, cancellationToken);
+        }
+
+        public async Task SubscribeAsync<T>(string subscriptionId, 
+                                          Func<T, CancellationToken, Task> onMessage, 
+                                          Action<ISubscriptionConfiguration> configuration,
+                                          CancellationToken cancellationToken)
+                                          where T : Event
+        {
+            TryConnect();
+
+            await _messageBus.PubSub.SubscribeAsync(subscriptionId, onMessage, configuration, cancellationToken);
         }
 
         private void CreateBus()

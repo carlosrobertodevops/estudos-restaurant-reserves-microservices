@@ -46,10 +46,14 @@
 		<Using Include="Security.API.ViewModels" />
 		<Using Include="Security.API.Providers" />
 		<Using Include="Security.API.Extensions" />
+		<Using Include="Security.API.Core.ExternalServices" />
 		<Using Include="EventBusMessages" />
 		<Using Include="Security.API.UseCases" />
 		<Using Include="Security.API.IdentityManager" />
+		<Using Include="Security.API.Core.ValueObjects" />
 		<Using Include="Security.API.Exceptions" />
+		<Using Include="Security.API.Core.Extensions" />
 		<Using Include="Security.API.Middlewares" />
+		<Using Include="Security.API.Infrastructure.MessageBus" />
 	</ItemGroup>
 </Project>

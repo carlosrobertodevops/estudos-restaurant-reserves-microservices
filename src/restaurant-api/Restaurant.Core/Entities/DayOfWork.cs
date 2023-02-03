@@ -20,14 +20,14 @@
             Validate(correlationId);
         }
 
-        protected DayOfWork()
+        public DayOfWork()
         {
-
+            Id = Guid.Empty;
         }
 
         private void Validate(Guid correlationId)
         {
-            if (!this.IsValid())
+            if (!this.IsValid() || Id == Guid.Empty)
             {
                 throw new BusinessException(GenerateValidationErrors(), "Invalid day of work", correlationId);
             }

@@ -8,9 +8,7 @@
 
             builder.Services.AddValidatorsFromAssemblyContaining<RestaurantValidator>();
 
-            builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
             return builder;
-        }
+        }   
     }
 }

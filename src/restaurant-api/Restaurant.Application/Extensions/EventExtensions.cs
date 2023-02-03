@@ -2,12 +2,14 @@
 {
     public static class EventExtensions
     {
-        public static CreateUserEvent AsCreateUserEvent(this CreateRestaurantCommand request)
+        public static CreateUserEvent AsCreateUserEvent(this CreateRestaurantCommand request, Guid aggregateId)
         {
-            return new CreateUserEvent(request.Restaurant.User.Username,
+            return new CreateUserEvent(aggregateId,
+                                       request.Restaurant.User.Username,
                                        request.Restaurant.User.Password,
                                        request.Restaurant.User.FirstName,
                                        request.Restaurant.User.LastName,
+                                       IdentityManagerExtensions.RestaurantUserType,
                                        request.CorrelationId);
         }
 

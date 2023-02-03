@@ -1,6 +1,4 @@
-﻿using EasyNetQ;
-using EventBusMessages;
-using Security.API.Infrastructure.MessageBus;
+﻿using Security.API.UseCases.CreateUser;
 
 namespace Security.API.Configurations
 {
